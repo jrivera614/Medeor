@@ -180,48 +180,55 @@ const TOPICS = [
 ];
 
 // ─── CPG DATA ────────────────────────────────────────────────────────────────
-
 const CPGS = [
   { category: "TCCC Guidelines", color: "#ef4444", items: [
     { title: "TCCC Guidelines (Current)", url: "https://deployedmedicine.com/market/31/content/40", date: "Jan 2024" },
-    { title: "Prolonged Casualty Care Guidelines", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Jul 2025" },
-    { title: "TCCC Guidelines Change Summary", url: "https://deployedmedicine.com/market/31/content/40", date: "Ongoing" }
+    { title: "Prolonged Casualty Care Guidelines", url: "https://jts.health.mil/assets/docs/cpgs/Prolonged_Casualty_Care_01_Jul_2021_ID87.pdf", date: "Jul 2021" },
+    { title: "Prehospital Blood Transfusion", url: "https://jts.health.mil/assets/docs/cpgs/Prehospital_Blood_Transfusion_30_Oct_2020_ID82.pdf", date: "Oct 2020" }
   ]},
   { category: "Hemorrhage & Resuscitation", color: "#dc2626", items: [
-    { title: "Damage Control Resuscitation", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "2019" },
-    { title: "Whole Blood Transfusion", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "2021" },
-    { title: "REBOA for Hemorrhagic Shock", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Dec 2025" },
-    { title: "Emergent Resuscitative Thoracotomy", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Jul 2018" }
+    { title: "Damage Control Resuscitation", url: "https://jts.health.mil/assets/docs/cpgs/Damage_Control_Resuscitation_12_Jul_2019_ID18.pdf", date: "Jul 2019" },
+    { title: "DCR in Prolonged Field Care", url: "https://jts.health.mil/assets/docs/cpgs/Damage_Control_Resuscitation_PFC_01_Oct_2018_ID73.pdf", date: "Oct 2018" },
+    { title: "Whole Blood Transfusion", url: "https://jts.health.mil/assets/docs/cpgs/Whole_Blood_Transfusion_15_May_2018_ID21.pdf", date: "May 2018" },
+    { title: "REBOA for Hemorrhagic Shock", url: "https://jts.health.mil/assets/docs/cpgs/REBOA_for_Hemorrhagic_Shock_03_Dec_2025_ID66.pdf", date: "Dec 2025" },
+    { title: "Emergent Resuscitative Thoracotomy", url: "https://jts.health.mil/assets/docs/cpgs/Emergent_Resuscitative_Thoracotomy_18_Jul_2018_ID30.pdf", date: "Jul 2018" },
+    { title: "Vascular Injury", url: "https://jts.health.mil/assets/docs/cpgs/Vascular_Injury_07_Mar_2018_ID20.pdf", date: "Mar 2018" }
   ]},
   { category: "Airway & Respiration", color: "#3b82f6", items: [
-    { title: "Airway Management in Trauma", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Jan 2026" },
-    { title: "Ventilator Management (UPAC)", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Feb 2025" }
+    { title: "Airway Management in Trauma", url: "https://jts.health.mil/assets/docs/cpgs/Airway_Management_in_Trauma_28_Jan_2026_ID84.pdf", date: "Jan 2026" },
+    { title: "Ventilator Management (UPAC)", url: "https://jts.health.mil/assets/docs/cpgs/UPAC_Vaporizer_and_Mechanical_Ventilation_CPG_Feb_2025_ID90.pdf", date: "Feb 2025" },
+    { title: "Ventilator-Associated Pneumonia", url: "https://jts.health.mil/assets/docs/cpgs/Ventilator_Associated_Pneumonia_07_May_2020_ID80.pdf", date: "May 2020" }
   ]},
   { category: "Head, Spine & Neuro", color: "#8b5cf6", items: [
-    { title: "TBI Management & Neurosurgery", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "2024" },
-    { title: "Acute Concussion Management", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Jan 2021" },
-    { title: "Cervical & Thoracolumbar Spine", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Jun 2020" },
-    { title: "Stroke & Cerebrovascular", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Jul 2024" }
+    { title: "TBI Management & Neurosurgery", url: "https://jts.health.mil/assets/docs/cpgs/TBI_Management_and_Neurosurgery_02_Mar_2024_ID14.pdf", date: "Mar 2024" },
+    { title: "Acute Concussion Management", url: "https://jts.health.mil/assets/docs/cpgs/Acute_Concussion_Management_and_Return_to_Activity_Jan_2021_ID81.pdf", date: "Jan 2021" },
+    { title: "Cervical & Thoracolumbar Spine", url: "https://jts.health.mil/assets/docs/cpgs/Spine_Injury_Evaluation_Transport_Surgery_19_Jun_2020_ID42.pdf", date: "Jun 2020" },
+    { title: "Stroke & Cerebrovascular", url: "https://jts.health.mil/assets/docs/cpgs/Stroke_and_Cerebrovascular_Emergencies_03_Jul_2024_ID92.pdf", date: "Jul 2024" }
   ]},
   { category: "Surgical & Wound Care", color: "#f59e0b", items: [
-    { title: "Blunt Abdominal Trauma", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "May 2020" },
-    { title: "Compartment Syndrome & Fasciotomy", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Jul 2016" },
-    { title: "Wound Care & Splinting in PCC", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Jul 2025" }
+    { title: "Blunt Abdominal Trauma", url: "https://jts.health.mil/assets/docs/cpgs/Blunt_Abdominal_Trauma_13_May_2020_ID32.pdf", date: "May 2020" },
+    { title: "Compartment Syndrome & Fasciotomy", url: "https://jts.health.mil/assets/docs/cpgs/Compartment_Syndrome_and_Fasciotomy_25_Jul_2016_ID22.pdf", date: "Jul 2016" },
+    { title: "Wound Care & Splinting in PCC", url: "https://jts.health.mil/assets/docs/cpgs/Nursing_Wound_Care_Splint_Mgmt_in_PCC_08_Jul_2025_ID96.pdf", date: "Jul 2025" }
   ]},
   { category: "Infections & Burns", color: "#10b981", items: [
-    { title: "Infection Prevention", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Jan 2021" },
-    { title: "Invasive Fungal Infection", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Jul 2023" },
-    { title: "Sepsis Management in PFC", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Oct 2020" }
+    { title: "Burn Care", url: "https://jts.health.mil/assets/docs/cpgs/Burn_Care_CPG_10_June_2025_ID12.pdf", date: "Jun 2025" },
+    { title: "Infection Prevention", url: "https://jts.health.mil/assets/docs/cpgs/Infection_Prevention_in_Combat_Related_Injuries_27_Jan_2021_ID24.pdf", date: "Jan 2021" },
+    { title: "Invasive Fungal Infection", url: "https://jts.health.mil/assets/docs/cpgs/Invasive_Fungal_Infection_in_War_Wounds_17_Jul_2023_ID37.pdf", date: "Jul 2023" },
+    { title: "Sepsis Management in PFC", url: "https://jts.health.mil/assets/docs/cpgs/Sepsis_Management_in_PFC_28_Oct_2020_ID76.pdf", date: "Oct 2020" }
   ]},
   { category: "Environmental & Specialty", color: "#f97316", items: [
-    { title: "Exertional Heat Illness", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Jun 2024" },
-    { title: "Altitude Emergencies", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Mar 2024" },
-    { title: "CBRN Injury Part I", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "May 2018" },
-    { title: "Aural Blast Injury", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Aug 2025" },
-    { title: "Ocular Trauma", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "May 2022" },
-    { title: "Acute Mental Health", url: "https://jts.health.mil/index.cfm/CPGs/cpgs", date: "Jan 2024" }
+    { title: "Exertional Heat Illness", url: "https://jts.health.mil/assets/docs/cpgs/Exertional_Heat_Illness_Jun_2024_ID88.pdf", date: "Jun 2024" },
+    { title: "Altitude Emergencies", url: "https://jts.health.mil/assets/docs/cpgs/Altitude_Emergencies_Prehospital_05_Mar_2024_ID86.pdf", date: "Mar 2024" },
+    { title: "CBRN Injury Part I", url: "https://jts.health.mil/assets/docs/cpgs/CBRN_Injury_Part_I_01_May_2018_ID47.pdf", date: "May 2018" },
+    { title: "Aural Blast Injury", url: "https://jts.health.mil/assets/docs/cpgs/Aural_Blast_Injury_14_Aug_2025_ID94.pdf", date: "Aug 2025" },
+    { title: "Ocular Trauma", url: "https://jts.health.mil/assets/docs/cpgs/Ocular_Trauma_05_May_2022_ID52.pdf", date: "May 2022" },
+    { title: "Acute Mental Health", url: "https://jts.health.mil/assets/docs/cpgs/Acute_Mental_Health_Conditions_16_Jan_2024_ID85.pdf", date: "Jan 2024" },
+    { title: "Exertional Rhabdomyolysis", url: "https://jts.health.mil/assets/docs/cpgs/Exertional_Rhabdomyolysis_2020_ID83.pdf", date: "2020" },
+    { title: "Spider & Scorpion Envenomation", url: "https://jts.health.mil/assets/docs/cpgs/Spider_and_Scorpion_Envenomation_09_Feb_2021_ID65.pdf", date: "Feb 2021" }
   ]}
 ];
+
+
 
 // ─── SKILLS VIDEOS ───────────────────────────────────────────────────────────
 
