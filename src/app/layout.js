@@ -2,21 +2,22 @@ import './globals.css';
 
 export const metadata = {
   title: 'Medeor',
-  description: 'Interactive TCCC/CLS/PFC training, CPG reference, skills videos, and Ranger Medic Handbook field guide.',
+  description: 'Interactive TCCC/CLS/PFC training and field reference.',
   manifest: '/manifest.json',
-  themeColor: '#0a0a0f',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-    viewportFit: 'cover',
-  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
     title: 'Medeor',
   },
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+  themeColor: '#0a0a0f',
 };
 
 export default function RootLayout({ children }) {
