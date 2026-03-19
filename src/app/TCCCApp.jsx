@@ -1071,7 +1071,7 @@ export default function TCCCApp() {
               <div style={{fontSize:10,fontWeight:700,color:"#8b5cf6",textTransform:"uppercase",letterSpacing:".07em",marginBottom:10}}>Quick Reference</div>
               {t.keyPoints.map((kp,ki)=>(
                 <div key={ki} style={{display:"flex",gap:8,marginBottom:6,alignItems:"flex-start"}}>
-                  <div style={{fontSize:11,color:"#8b5cf6",fontWeight:700,marginTop:1,flexShrink:0}}>></div>
+                 <div style={{fontSize:11,color:"#8b5cf6",fontWeight:700,marginTop:1,flexShrink:0}}>{'>'}</div>
                   <div style={{fontSize:13,color:"#ccc",lineHeight:1.5,fontWeight:500}}>{kp}</div>
                 </div>
               ))}
