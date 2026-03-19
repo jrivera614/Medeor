@@ -724,32 +724,76 @@ export default function TCCCApp() {
   const [expanded, setExpanded] = useState(null);
   const [search, setSearch] = useState("");
   const [rmhTopic, setRmhTopic] = useState(null);
-  const [toolView, setToolView] = useState(null); // "calc"|"check"|"gear"|checklist index
+  const [toolView, setToolView] = useState(null);
   const [calcType, setCalcType] = useState(null);
   const [calcInputs, setCalcInputs] = useState({});
   const [checkStates, setCheckStates] = useState({});
   const [showContact, setShowContact] = useState(false);
   const [contactForm, setContactForm] = useState({ name: "", email: "", type: "feedback", msg: "" });
   const [contactSent, setContactSent] = useState(false);
-  const [cookieConsent, setCookieConsent] = useState(null); // null=not decided, true=accepted, false=declined
+  const [cookieConsent, setCookieConsent] = useState(null);
+  const [progress, setProgress] = useState({});
+  const [emailCapture, setEmailCapture] = useState({ show: false, email: "", sent: false });
+  const [missedCards, setMissedCards] = useState([]);
+  const [spacedMode, setSpacedMode] = useState(false);
   const ref = useRef(null);
 
   const tr = useCallback(fn => { setFade(false); setTimeout(() => { fn(); setFade(true); }, 160); }, []);
   const nav = useCallback((v, fn) => { tr(() => { fn && fn(); setView(v); }); }, [tr]);
   const topic = selTopic ? TOPICS.find(t => t.id === selTopic) : null;
 
+  // Save progress to localStorage
+  const saveProgress = useCallback((key, data) => {
+    try {
+      const p = JSON.parse(localStorage.getItem("medeor_progress") || "{}");
+      p[key] = { ...data, ts: Date.now() };
+      localStorage.setItem("medeor_progress", JSON.stringify(p));
+      setProgress(p);
+    } catch(e) {}
+  }, []);
+
   useEffect(() => { ref.current && (ref.current.scrollTop = 0); }, [view, quiz.i, flash.i, step.i, tab, scen.di, toolView, calcType]);
 
+  // Load progress, cookie consent, register SW, and handle hash routing on mount
   useEffect(() => {
     try {
       const stored = localStorage.getItem("medeor_cookie_consent");
       if (stored === "accepted") { setCookieConsent(true); }
       else if (stored === "declined") { setCookieConsent(false); }
     } catch(e) {}
+    try {
+      const p = JSON.parse(localStorage.getItem("medeor_progress") || "{}");
+      setProgress(p);
+    } catch(e) {}
+    try {
+      const dismissed = localStorage.getItem("medeor_email_dismissed");
+      if (!dismissed) { setTimeout(() => setEmailCapture(p => ({ ...p, show: true })), 60000); }
+    } catch(e) {}
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sw.js").catch(() => {});
     }
+    // Hash routing: read initial hash
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      const t = TOPICS.find(t => t.id === hash);
+      if (t) { setSelTopic(t.id); setView("topic"); setTab("train"); }
+      else if (hash === "cpgs") setTab("cpg");
+      else if (hash === "videos") setTab("videos");
+      else if (hash === "rmh") setTab("rmh");
+      else if (hash === "tools") setTab("tools");
+    }
   }, []);
+
+  // Update hash when navigating
+  useEffect(() => {
+    if (tab === "train" && selTopic && view === "topic") {
+      window.history.replaceState(null, "", `#${selTopic}`);
+    } else if (tab === "train" && view === "home") {
+      window.history.replaceState(null, "", window.location.pathname);
+    } else if (tab !== "train") {
+      window.history.replaceState(null, "", `#${tab === "cpg" ? "cpgs" : tab}`);
+    }
+  }, [tab, selTopic, view]);
 
   const handleCookieConsent = (accepted) => {
     setCookieConsent(accepted);
@@ -788,9 +832,31 @@ export default function TCCCApp() {
     </div>
   ) : null;
 
+  const EmailPopup = () => (emailCapture.show && cookieConsent !== null) ? (
+    <div style={{position:"fixed",bottom:90,left:"50%",transform:"translateX(-50%)",width:"calc(100% - 32px)",maxWidth:448,background:"#1a1a24",border:"1px solid #8b5cf625",borderRadius:14,padding:"14px 16px",zIndex:45,boxShadow:"0 8px 32px rgba(0,0,0,.6)"}}>
+      {emailCapture.sent ? (
+        <div style={{textAlign:"center",padding:"8px 0"}}><div style={{fontSize:14,fontWeight:600,color:"#10b981"}}>You're in.</div><div style={{fontSize:12,color:"#888",marginTop:4}}>We'll notify you when new content drops.</div></div>
+      ) : (<>
+        <div style={{fontSize:13,fontWeight:600,color:"#ccc",marginBottom:4}}>Get CPG updates and new modules</div>
+        <div style={{fontSize:11,color:"#888",marginBottom:10}}>No spam. Just new training content and guideline updates.</div>
+        <div style={{display:"flex",gap:6}}>
+          <input type="email" placeholder="your@email.com" value={emailCapture.email} onChange={e=>setEmailCapture(p=>({...p,email:e.target.value}))} style={{...S.input,flex:1,padding:"9px 12px",fontSize:12}}/>
+          <button onClick={async()=>{
+            if(!emailCapture.email.includes("@"))return;
+            try{await fetch("https://formspree.io/f/xkoqyklw",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:emailCapture.email,type:"subscribe"})});}catch(e){}
+            setEmailCapture({show:true,email:"",sent:true});
+            setTimeout(()=>setEmailCapture(p=>({...p,show:false})),2000);
+          }} style={{padding:"9px 14px",background:"#8b5cf6",border:"none",borderRadius:9,color:"#fff",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:"inherit",whiteSpace:"nowrap"}}>Subscribe</button>
+        </div>
+        <button onClick={()=>{setEmailCapture(p=>({...p,show:false}));try{localStorage.setItem("medeor_email_dismissed","1")}catch(e){}}} style={{background:"none",border:"none",color:"#555",fontSize:10,cursor:"pointer",fontFamily:"inherit",padding:"8px 0 0",width:"100%",textAlign:"center"}}>No thanks</button>
+      </>)}
+    </div>
+  ) : null;
+
   const Bar = () => (
     <>
     <CookieBanner/>
+    <EmailPopup/>
     <Analytics/>
     <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,zIndex:20}}>
       <div style={{display:"flex",justifyContent:"center",padding:"6px 0",background:"rgba(10,10,15,.95)",borderTop:"1px solid #ffffff08"}}>
@@ -1071,7 +1137,7 @@ export default function TCCCApp() {
               <div style={{fontSize:10,fontWeight:700,color:"#8b5cf6",textTransform:"uppercase",letterSpacing:".07em",marginBottom:10}}>Quick Reference</div>
               {t.keyPoints.map((kp,ki)=>(
                 <div key={ki} style={{display:"flex",gap:8,marginBottom:6,alignItems:"flex-start"}}>
-                 <div style={{fontSize:11,color:"#8b5cf6",fontWeight:700,marginTop:1,flexShrink:0}}>{'>'}</div>
+                  <div style={{fontSize:11,color:"#8b5cf6",fontWeight:700,marginTop:1,flexShrink:0}}>{'>'}</div>
                   <div style={{fontSize:13,color:"#ccc",lineHeight:1.5,fontWeight:500}}>{kp}</div>
                 </div>
               ))}
@@ -1110,13 +1176,21 @@ export default function TCCCApp() {
     return (<div style={S.app}><div style={S.hdr}><div><div style={{fontSize:16,fontWeight:700}}>TCCC / CLS / PFC Training</div><div style={{fontSize:10,color:"#666",marginTop:1,textTransform:"uppercase",letterSpacing:".04em"}}>Interactive Modules</div></div></div>
       <div ref={ref} style={S.body}>
         <div style={{padding:"16px 0 8px"}}><p style={{fontSize:12,color:"#666",lineHeight:1.6,margin:0}}>MARCH, E-PAWS-B, RAVINES, hemorrhage control, airway management, walking blood bank, and tactical scenarios.</p></div>
-        {TOPICS.map(t=>(<div key={t.id} style={S.card} onMouseEnter={e=>{e.currentTarget.style.background="#ffffff0f";e.currentTarget.style.borderColor=`${t.color}30`}} onMouseLeave={e=>{e.currentTarget.style.background="#ffffff08";e.currentTarget.style.borderColor="#ffffff0f"}} onClick={()=>nav("topic",()=>setSelTopic(t.id))}>
+        {TOPICS.map(t=>{
+          const sp = progress[`steps_${t.id}`]; const qp = progress[`quiz_${t.id}`]; const fp = progress[`flash_${t.id}`];
+          const done = sp || qp || fp; const badges = [];
+          if (sp) badges.push("Steps");
+          if (qp) badges.push(`Quiz ${qp.score}%`);
+          if (fp) badges.push("Cards");
+          return (<div key={t.id} style={S.card} onMouseEnter={e=>{e.currentTarget.style.background="#ffffff0f";e.currentTarget.style.borderColor=`${t.color}30`}} onMouseLeave={e=>{e.currentTarget.style.background="#ffffff08";e.currentTarget.style.borderColor="#ffffff0f"}} onClick={()=>nav("topic",()=>setSelTopic(t.id))}>
           <div style={{display:"flex",alignItems:"center",gap:11}}>
-            <div style={{fontSize:22,width:40,height:40,display:"flex",alignItems:"center",justifyContent:"center",borderRadius:11,background:`${t.color}14`}}>{t.icon}</div>
-            <div style={{flex:1}}><div style={{fontSize:14,fontWeight:600}}>{t.title}</div><div style={{fontSize:11,color:"#666",marginTop:2}}>{t.subtitle}</div></div>
+            <div style={{fontSize:22,width:40,height:40,display:"flex",alignItems:"center",justifyContent:"center",borderRadius:11,background:`${t.color}14`,position:"relative"}}>{t.icon}{done&&<div style={{position:"absolute",top:-2,right:-2,width:12,height:12,borderRadius:6,background:"#10b981",display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{color:"#fff",fontSize:8,fontWeight:700}}>✓</span></div>}</div>
+            <div style={{flex:1}}><div style={{fontSize:14,fontWeight:600}}>{t.title}</div><div style={{fontSize:11,color:"#666",marginTop:2}}>{t.subtitle}</div>
+              {badges.length > 0 && <div style={{display:"flex",gap:4,marginTop:4}}>{badges.map((b,bi)=>(<span key={bi} style={{fontSize:9,color:"#10b981",background:"#10b98114",padding:"1px 6px",borderRadius:4,fontWeight:600}}>{b}</span>))}</div>}
+            </div>
             <span style={{color:"#444",fontSize:14}}>›</span>
           </div>
-        </div>))}
+        </div>)})}
       </div><Bar/></div>);
   }
 
@@ -1151,17 +1225,21 @@ export default function TCCCApp() {
       </div>
       <div style={{display:"flex",gap:8,paddingTop:10}}>
         <button style={{...S.btn("#555",false),opacity:step.i===0?.3:1}} disabled={step.i===0} onClick={()=>tr(()=>setStep({i:step.i-1}))}>Prev</button>
-        <button style={S.btn(topic.color,true)} onClick={()=>step.i<topic.steps.length-1?tr(()=>setStep({i:step.i+1})):nav("topic")}>{step.i<topic.steps.length-1?"Next":"Done"}</button>
+        <button style={S.btn(topic.color,true)} onClick={()=>step.i<topic.steps.length-1?tr(()=>setStep({i:step.i+1})):(() => {saveProgress(`steps_${topic.id}`, {done:true});nav("topic")})()}>{step.i<topic.steps.length-1?"Next":"Done"}</button>
       </div></div><Bar/></div>);
   }
 
   // QUIZ
   if (view === "quiz" && topic) {
     if (quiz.done) { const c=quiz.ans.filter((a,i)=>a===topic.quiz[i].correct).length; const p=Math.round(c/topic.quiz.length*100);
+      const prev = progress[`quiz_${topic.id}`]; const isBest = !prev || p > prev.score;
+      if (isBest) saveProgress(`quiz_${topic.id}`, { score: p, correct: c, total: topic.quiz.length });
       return (<div style={S.app}><div style={S.hdr}><button style={S.back} onClick={()=>nav("topic")}>←</button><div style={{fontSize:14,fontWeight:600}}>Results</div></div>
         <div ref={ref} style={S.body}><div style={{textAlign:"center",padding:"36px 0 20px"}}>
           <div style={{fontSize:50,fontWeight:800,background:p>=80?"linear-gradient(135deg,#10b981,#6ee7b7)":p>=60?"linear-gradient(135deg,#f59e0b,#fcd34d)":"linear-gradient(135deg,#ef4444,#fca5a5)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>{p}%</div>
           <div style={{fontSize:13,color:"#888",marginTop:4}}>{c}/{topic.quiz.length} correct</div>
+          {isBest && prev && <div style={{fontSize:11,color:"#10b981",marginTop:6}}>New best score!</div>}
+          {prev && !isBest && <div style={{fontSize:11,color:"#666",marginTop:6}}>Best: {prev.score}%</div>}
           <div style={{fontSize:12,color:"#555",marginTop:12,lineHeight:1.6}}>{p>=80?"Strong performance.":p>=60?"Good foundation. Review missed areas.":"Needs more study. Hit the step-by-step guide."}</div>
         </div>
         <div style={{display:"flex",gap:8}}><button style={S.btn("#555",false)} onClick={()=>nav("quiz",()=>setQuiz({i:0,ans:[],done:false,sel:null}))}>Retry</button><button style={S.btn(topic.color,true)} onClick={()=>nav("topic")}>Back</button></div>
@@ -1176,10 +1254,12 @@ export default function TCCCApp() {
       </div><Bar/></div>);
   }
 
-  // FLASHCARDS
+  // FLASHCARDS with spaced repetition
   if (view === "flashcards" && topic) {
-    const c=topic.flashcards[flash.i];
-    return (<div style={S.app}><div style={S.hdr}><button style={S.back} onClick={()=>nav("topic")}>←</button><div style={{flex:1}}><div style={{fontSize:12,fontWeight:600}}>Card {flash.i+1}/{topic.flashcards.length}</div><Prog c={flash.i+1} t={topic.flashcards.length}/></div></div>
+    const deck = spacedMode && missedCards.length > 0 ? missedCards.map(i => topic.flashcards[i]) : topic.flashcards;
+    const c = deck[flash.i];
+    const isLast = flash.i >= deck.length - 1;
+    return (<div style={S.app}><div style={S.hdr}><button style={S.back} onClick={()=>{setSpacedMode(false);setMissedCards([]);nav("topic");}}>←</button><div style={{flex:1}}><div style={{fontSize:12,fontWeight:600}}>{spacedMode?"Review Mode: ":""}Card {flash.i+1}/{deck.length}</div><Prog c={flash.i+1} t={deck.length}/></div></div>
       <div ref={ref} style={S.body}><div style={{padding:"24px 0"}}>
         <div onClick={()=>setFlash(p=>({...p,flip:!p.flip}))} style={{background:flash.flip?`${topic.color}0a`:"#ffffff08",border:`1.5px solid ${flash.flip?`${topic.color}30`:"#ffffff14"}`,borderRadius:16,padding:24,minHeight:160,display:"flex",flexDirection:"column",justifyContent:"center",cursor:"pointer"}}>
           <div style={{fontSize:9,fontWeight:700,color:flash.flip?topic.color:"#555",textTransform:"uppercase",letterSpacing:".08em",marginBottom:12}}>{flash.flip?"Answer":"Question"}</div>
@@ -1187,7 +1267,22 @@ export default function TCCCApp() {
           {!flash.flip&&<div style={{fontSize:10,color:"#444",marginTop:16,textAlign:"center"}}>Tap to reveal</div>}
         </div>
       </div>
-      <div style={{display:"flex",gap:8}}><button style={{...S.btn("#555",false),opacity:flash.i===0?.3:1}} disabled={flash.i===0} onClick={()=>tr(()=>setFlash({i:flash.i-1,flip:false}))}>Prev</button><button style={S.btn(topic.color,true)} onClick={()=>flash.i<topic.flashcards.length-1?tr(()=>setFlash({i:flash.i+1,flip:false})):nav("topic")}>{flash.i<topic.flashcards.length-1?"Next":"Done"}</button></div>
+      {flash.flip ? (
+        <div style={{display:"flex",gap:8}}>
+          <button style={S.btn("#ef4444",false)} onClick={()=>{
+            const origIdx = spacedMode ? missedCards[flash.i] : flash.i;
+            if (!missedCards.includes(origIdx)) setMissedCards(p=>[...p,origIdx]);
+            isLast ? (missedCards.length > 0 ? tr(()=>{setSpacedMode(true);setFlash({i:0,flip:false})}) : (() => {saveProgress(`flash_${topic.id}`,{done:true});nav("topic")})()) : tr(()=>setFlash({i:flash.i+1,flip:false}));
+          }}>Review Again</button>
+          <button style={S.btn("#10b981",true)} onClick={()=>{
+            if (spacedMode) { const nm = missedCards.filter((_,idx)=>idx!==flash.i); setMissedCards(nm); }
+            if (isLast) { if (spacedMode && missedCards.filter((_,idx)=>idx!==flash.i).length > 0) { tr(()=>{setFlash({i:0,flip:false})}) } else { saveProgress(`flash_${topic.id}`,{done:true}); nav("topic"); } }
+            else tr(()=>setFlash({i:flash.i+1,flip:false}));
+          }}>Got It</button>
+        </div>
+      ) : (
+        <div style={{display:"flex",gap:8}}><button style={{...S.btn("#555",false),opacity:flash.i===0?.3:1}} disabled={flash.i===0} onClick={()=>tr(()=>setFlash({i:flash.i-1,flip:false}))}>Prev</button><button style={S.btn(topic.color,true)} onClick={()=>setFlash(p=>({...p,flip:true}))}>Flip</button></div>
+      )}
       </div><Bar/></div>);
   }
 
