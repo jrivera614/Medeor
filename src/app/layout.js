@@ -36,28 +36,10 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
         <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2117457463850623" crossOrigin="anonymous"></script>
       </head>
       <body>
         {children}
         <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="ga4-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('consent', 'default', {
-              'analytics_storage': 'denied'
-            });
-            gtag('config', '${GA_ID}', {
-              page_path: window.location.pathname,
-            });
-          `}
-        </Script>
-      </body>
-    </html>
-  );
-}
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2117457463850623"
+          crossOrigin="anonymous"
