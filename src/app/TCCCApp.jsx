@@ -26,21 +26,21 @@ const TOPICS = [
       { title: "H — Head Injury Management", detail: "AVPU for rapid assessment. GCS (E1-4, V1-5, M1-6 = 3-15) when time permits. Pupils (PERRL). TBI signs: AMS, amnesia, confusion, unequal pupils, posturing, vomiting, CSF leak. Prevent secondary injury: SBP >90, SpO2 >90%, do NOT hyperventilate (EtCO2 35-45 unless herniation). Head up 30 degrees. Seizure prophylaxis: Keppra 1500mg IV. HERNIATION (blown pupil, posturing, GCS drop 2+): 3% HTS 250ml IV, hyperventilate to EtCO2 30-35, head up 30, immediate MEDEVAC.", instruction: "TBI: (1) AVPU/GCS. (2) Pupils. (3) SBP >90. (4) SpO2 >90%. (5) NO hyperventilation unless herniation. (6) Head 30 degrees. (7) Keppra 1500mg IV. (8) Neuro q15 min. HERNIATION: 3% HTS 250ml push, hyperventilate 30-35, head up, MEDEVAC NOW." }
     ],
     quiz: [
-      { q: "The #1 cause of preventable combat death is:", options: ["Airway obstruction", "Hemorrhage", "Tension pneumothorax", "TBI"], correct: 1 },
-      { q: "Tourniquet placement:", options: ["Directly on wound", "2-3 inches above wound", "At nearest joint", "As far proximal as possible"], correct: 1 },
-      { q: "The lethal triad is:", options: ["Hemorrhage, fracture, burn", "Hypothermia, acidosis, coagulopathy", "ABC", "Pain, shock, death"], correct: 1 },
-      { q: "Failed tourniquet action:", options: ["Remove and reapply", "Second TQ proximal, side-by-side", "Switch to packing", "Loosen and retighten"], correct: 1 },
-      { q: "TXA must be given within:", options: ["1 hour", "2 hours", "3 hours", "6 hours"], correct: 2 },
-      { q: "Primary needle decompression site:", options: ["5th ICS AAL", "2nd ICS MCL", "4th ICS MAL", "3rd ICS MCL"], correct: 1 },
-      { q: "NPA contraindication:", options: ["Unconscious patients", "Basilar skull fracture", "Nosebleeds", "Breathing patients"], correct: 1 },
-      { q: "Radial pulse present suggests SBP:", options: ["60+", "70+", "80+", "100+"], correct: 2 },
-      { q: "Preferred hemorrhagic shock fluid:", options: ["Normal saline", "LR", "Low-titer O whole blood", "Hextend"], correct: 2 },
-      { q: "Most important hypothermia prevention step:", options: ["Cover head", "Warm IV fluids", "Insulate from ground", "Heat packs"], correct: 2 },
-      { q: "Permissive hypotension target SBP:", options: ["60-70", "80-90", "100-110", "120-140"], correct: 1 },
-      { q: "Tension pneumo signs include all EXCEPT:", options: ["JVD", "Absent breath sounds one side", "Bilateral equal breath sounds", "Tracheal deviation"], correct: 2 },
-      { q: "Calcium chloride 1g IV given per:", options: ["2 units blood", "4 units blood", "6 units blood", "Every patient"], correct: 1 },
-      { q: "Herniation treatment dose of 3% HTS:", options: ["100ml", "250ml", "500ml", "1000ml"], correct: 1 },
-      { q: "Minimum needle length for chest decompression:", options: ["1.5 inch", "2.0 inch", "3.25 inch", "4.0 inch"], correct: 2 }
+      { q: "The #1 cause of preventable combat death is:", options: ["Airway obstruction", "Hemorrhage", "Tension pneumothorax", "TBI"], correct: 1, why: "Over 90% of potentially survivable combat deaths are from hemorrhage. Controlling bleeding is the top priority in TCCC." },
+      { q: "Tourniquet placement:", options: ["Directly on wound", "2-3 inches above wound", "At nearest joint", "As far proximal as possible"], correct: 1, why: "Place 2-3 inches above the wound during TFC (deliberate application). During CUF, go high and tight over the uniform for speed." },
+      { q: "The lethal triad is:", options: ["Hemorrhage, fracture, burn", "Hypothermia, acidosis, coagulopathy", "ABC", "Pain, shock, death"], correct: 1, why: "Hypothermia, acidosis, and coagulopathy form a self-reinforcing cycle. Each worsens the others. Prevention of hypothermia is critical to breaking this cycle." },
+      { q: "Failed tourniquet action:", options: ["Remove and reapply", "Second TQ proximal, side-by-side", "Switch to packing", "Loosen and retighten"], correct: 1, why: "Never remove a failed tourniquet. Apply a second one proximal to and touching the first. The combined pressure may achieve occlusion where one alone failed." },
+      { q: "TXA must be given within:", options: ["1 hour", "2 hours", "3 hours", "6 hours"], correct: 2, why: "TXA (tranexamic acid) inhibits fibrinolysis to stabilize clots. After 3 hours, it may paradoxically increase mortality. Timing is critical." },
+      { q: "Primary needle decompression site:", options: ["5th ICS AAL", "2nd ICS MCL", "4th ICS MAL", "3rd ICS MCL"], correct: 1, why: "2nd intercostal space, midclavicular line is the primary site. Insert above the 3rd rib to avoid the neurovascular bundle running along the inferior border of each rib." },
+      { q: "NPA contraindication:", options: ["Unconscious patients", "Basilar skull fracture", "Nosebleeds", "Breathing patients"], correct: 1, why: "Basilar skull fracture risks the NPA entering the cranial vault. Signs: raccoon eyes, Battle's sign, CSF rhinorrhea/otorrhea." },
+      { q: "Radial pulse present suggests SBP:", options: ["60+", "70+", "80+", "100+"], correct: 2, why: "Field pulse checks estimate blood pressure. Radial present = SBP ~80+, femoral = ~70+, carotid = ~60+. Loss of radial pulse indicates significant hemorrhagic shock." },
+      { q: "Preferred hemorrhagic shock fluid:", options: ["Normal saline", "LR", "Low-titer O whole blood", "Hextend"], correct: 2, why: "Whole blood provides RBCs, plasma, platelets, and clotting factors in physiologic ratios. Crystalloids dilute clotting factors and worsen coagulopathy." },
+      { q: "Most important hypothermia prevention step:", options: ["Cover head", "Warm IV fluids", "Insulate from ground", "Heat packs"], correct: 2, why: "Ground conduction is the fastest route of heat loss. Insulating from the ground (litter, sleeping pad, poncho) is the single most effective prevention step." },
+      { q: "Permissive hypotension target SBP:", options: ["60-70", "80-90", "100-110", "120-140"], correct: 1, why: "SBP 80-90 reduces hydrostatic pressure on forming clots while maintaining minimal organ perfusion. Exception: TBI patients need SBP >90 for cerebral perfusion." },
+      { q: "Tension pneumo signs include all EXCEPT:", options: ["JVD", "Absent breath sounds one side", "Bilateral equal breath sounds", "Tracheal deviation"], correct: 2, why: "Bilateral EQUAL breath sounds means both lungs are ventilating. Tension pneumo causes ABSENT breath sounds on the affected side. JVD, tracheal deviation, and absent sounds are all tension pneumo signs." },
+      { q: "Calcium chloride 1g IV given per:", options: ["2 units blood", "4 units blood", "6 units blood", "Every patient"], correct: 1, why: "Citrate in stored blood products binds calcium. After 4 units, ionized calcium drops enough to impair cardiac function and coagulation. Replace with 1g calcium chloride." },
+      { q: "Herniation treatment dose of 3% HTS:", options: ["100ml", "250ml", "500ml", "1000ml"], correct: 1, why: "3% hypertonic saline 250ml IV draws fluid from brain tissue via osmosis, reducing intracranial pressure. Only give for active herniation signs (blown pupil, posturing, GCS drop 2+)." },
+      { q: "Minimum needle length for chest decompression:", options: ["1.5 inch", "2.0 inch", "3.25 inch", "4.0 inch"], correct: 2, why: "Standard 1.5-inch needles frequently fail to reach the pleural space due to chest wall thickness (muscle, fat, body armor compression). 3.25-inch ensures adequate depth." }
     ],
     flashcards: [
       { front: "TQ time limit in TCCC?", back: "No arbitrary limit. Document time. Do NOT loosen in field. After 6 hours, consult telemedicine before conversion (reperfusion risk: hyperkalemia, acidosis, cardiac arrest)." },
@@ -74,18 +74,18 @@ const TOPICS = [
       { title: "B — Burns: Management", detail: "Cover with DRY sterile dressings (wet dressings on large burns promote hypothermia). Exception: small burns <5% TBSA can use cool wet dressings for pain. Fluid resuscitation for burns >20% TBSA: modified Parkland formula = 4ml x weight(kg) x %TBSA. Give HALF in first 8 hours FROM TIME OF BURN (not presentation). Remaining half over next 16 hours. Use LR or Plasma-Lyte (not NS). Monitor urine output: target 0.5-1.0 ml/kg/hr. Manage pain aggressively (burns are extremely painful). Antibiotics for contaminated burns.", instruction: "BURNS: Dry dressings (large burns). Fluid if >20% TBSA: 4ml x kg x %TBSA. Half in first 8hr FROM BURN. Half in next 16hr. LR or Plasma-Lyte. Urine target 0.5-1.0 ml/kg/hr. Pain management (ketamine preferred for large burns). Elevate burned extremities." }
     ],
     quiz: [
-      { q: "E-PAWS-B stands for:", options: ["Everything, Pain, Antibiotics, Wounds, Splinting, Burns", "Evacuation, Pulse, Airway, Water, Security, Breathing", "Examine, Pulse, Assessment, Wound, Shock, Blood", "Equipment, Prep, Airway, Water, Splint, Bandage"], correct: 0 },
-      { q: "First-line antibiotic for open combat wounds:", options: ["Amoxicillin", "Moxifloxacin 400mg PO", "Doxycycline", "Ciprofloxacin"], correct: 1 },
-      { q: "OTFC dosage:", options: ["400mcg", "600mcg", "800mcg", "1200mcg"], correct: 2 },
-      { q: "Why no primary closure in the field?", options: ["Lack of sutures", "High infection risk", "Not enough time", "Only surgeons can close"], correct: 1 },
-      { q: "Burns >20% TBSA require:", options: ["Wet dressings", "Oral fluids only", "IV fluid resuscitation", "Immediate grafting"], correct: 2 },
-      { q: "Parkland formula:", options: ["2ml x kg x %TBSA", "4ml x kg x %TBSA", "6ml x kg x %TBSA", "10ml x kg x %TBSA"], correct: 1 },
-      { q: "Preferred analgesic for hemodynamically unstable:", options: ["Morphine", "Fentanyl", "Ketamine", "Ibuprofen"], correct: 2 },
-      { q: "Ketamine analgesic dose IV:", options: ["5-10mg", "20-30mg", "50-100mg", "1-2mg/kg"], correct: 1 },
-      { q: "When to add Metronidazole:", options: ["All wounds", "Abdominal/pelvic penetrating", "Burns only", "Extremity wounds"], correct: 1 },
-      { q: "Traction splint is indicated for:", options: ["Any femur fracture", "Mid-shaft femur only", "Tibial fractures", "All lower extremity"], correct: 1 },
-      { q: "Pelvic binder placement:", options: ["Iliac crests", "Greater trochanters", "Umbilicus level", "Above hip joints"], correct: 1 },
-      { q: "Parkland fluid timing:", options: ["All in first 8 hrs", "Half first 8 hrs, half next 16", "Equal over 24 hrs", "All in first 4 hrs"], correct: 1 }
+      { q: "E-PAWS-B stands for:", options: ["Everything, Pain, Antibiotics, Wounds, Splinting, Burns", "Evacuation, Pulse, Airway, Water, Security, Breathing", "Examine, Pulse, Assessment, Wound, Shock, Blood", "Equipment, Prep, Airway, Water, Splint, Bandage"], correct: 0, why: "Examine (secondary survey), Pain, Antibiotics, Wounds, Splinting, Burns. This is the systematic approach after all MARCH life threats have been addressed." },
+      { q: "First-line antibiotic for open combat wounds:", options: ["Amoxicillin", "Moxifloxacin 400mg PO", "Doxycycline", "Ciprofloxacin"], correct: 1, why: "Moxifloxacin 400mg PO daily is first-line because it covers common wound pathogens, is oral (easy to give), and has good tissue penetration. Ertapenem is the IV/IM alternative." },
+      { q: "OTFC dosage:", options: ["400mcg", "600mcg", "800mcg", "1200mcg"], correct: 2, why: "Oral transmucosal fentanyl citrate comes in 800mcg lozenges. Place between cheek and gum, do not chew. Monitor respiratory rate closely for depression." },
+      { q: "Why no primary closure in the field?", options: ["Lack of sutures", "High infection risk", "Not enough time", "Only surgeons can close"], correct: 1, why: "Combat wounds are contaminated by nature. Closing a contaminated wound traps bacteria inside, dramatically increasing infection risk. Leave open, irrigate, and dress." },
+      { q: "Burns >20% TBSA require:", options: ["Wet dressings", "Oral fluids only", "IV fluid resuscitation", "Immediate grafting"], correct: 2, why: "Burns >20% TBSA cause massive fluid shifts and require IV resuscitation using the Parkland formula (4ml x kg x %TBSA) to prevent hypovolemic shock." },
+      { q: "Parkland formula:", options: ["2ml x kg x %TBSA", "4ml x kg x %TBSA", "6ml x kg x %TBSA", "10ml x kg x %TBSA"], correct: 1, why: "4ml x weight(kg) x %TBSA. Half in first 8 hours from time of burn (not presentation), remaining half over next 16 hours. Use LR or Plasma-Lyte." },
+      { q: "Preferred analgesic for hemodynamically unstable:", options: ["Morphine", "Fentanyl", "Ketamine", "Ibuprofen"], correct: 2, why: "Ketamine does not cause respiratory depression or hypotension at analgesic doses, making it safe in unstable patients. Opioids like fentanyl risk both." },
+      { q: "Ketamine analgesic dose IV:", options: ["5-10mg", "20-30mg", "50-100mg", "1-2mg/kg"], correct: 1, why: "Analgesic dose is 20-30mg IV slow push, repeat q20min PRN. This is much lower than procedural dose (1-2mg/kg). IM/IN dose is 50-100mg." },
+      { q: "When to add Metronidazole:", options: ["All wounds", "Abdominal/pelvic penetrating", "Burns only", "Extremity wounds"], correct: 1, why: "Penetrating abdominal/pelvic wounds risk anaerobic bacterial contamination from bowel contents. Metronidazole 500mg IV q8hr provides anaerobic coverage that moxifloxacin/ertapenem lack." },
+      { q: "Traction splint is indicated for:", options: ["Any femur fracture", "Mid-shaft femur only", "Tibial fractures", "All lower extremity"], correct: 1, why: "Traction splints are only for mid-shaft femur fractures. Contraindicated in hip/pelvic fractures, knee injuries, or ankle fractures on the same side as they can worsen those injuries." },
+      { q: "Pelvic binder placement:", options: ["Iliac crests", "Greater trochanters", "Umbilicus level", "Above hip joints"], correct: 1, why: "The pelvic binder goes at the level of the greater trochanters, not the iliac crests. This is where it can effectively reduce and stabilize the pelvic ring." },
+      { q: "Parkland fluid timing:", options: ["All in first 8 hrs", "Half first 8 hrs, half next 16", "Equal over 24 hrs", "All in first 4 hrs"], correct: 1, why: "Half the calculated volume in the first 8 hours from time of burn, remaining half over the next 16 hours. This front-loads fluid when capillary leak is greatest." }
     ],
     flashcards: [
       { front: "CWMP contents?", back: "Acetaminophen 650mg + Meloxicam 15mg PO. For mild-moderate pain. Give early." },
@@ -115,18 +115,18 @@ const TOPICS = [
       { title: "S — Surgical Procedures in PFC", detail: "PFC-level procedures (within training/scope): Cricothyrotomy, finger/tube thoracostomy, escharotomy (circumferential burns), fasciotomy (compartment syndrome), lateral canthotomy (orbital compartment syndrome), wound debridement, delayed primary closure (after 3-5 days if clean), vascular shunting. CONSULT TELEMEDICINE before any surgical procedure when possible. Document indications, technique, and outcomes. Only perform procedures you've been trained on.", instruction: "SURGICAL: Only within scope/training. Consult telemedicine first. Document everything. Common PFC procedures: cric, thoracostomy, escharotomy, fasciotomy, canthotomy, debridement. If untrained, maintain current interventions and focus on nursing care until evacuation." }
     ],
     quiz: [
-      { q: "RAVINES stands for:", options: ["Resuscitate/Reduce, Airway, Ventilate, Initiate, Nursing, Environment, Surgical", "Respond, Assess, Ventilate, IV, Neuro, Evacuate, Splint", "Rescue, Airway, Vitals, Intubate, Needle, Evacuate, Secure", "Reassess, Antibiotics, Ventilate, IV, Nursing, Equipment, Shock"], correct: 0 },
-      { q: "Telemedicine in PFC should be initiated:", options: ["Only if patient deteriorates", "As early as possible", "After 6 hours", "Only for surgical procedures"], correct: 1 },
-      { q: "Lung-protective tidal volume:", options: ["4-5 ml/kg", "6-8 ml/kg", "10-12 ml/kg", "15-20 ml/kg"], correct: 1 },
-      { q: "PFC patients should be turned every:", options: ["1 hour", "2 hours", "4 hours", "8 hours"], correct: 1 },
-      { q: "TQ conversion in PFC only when:", options: ["Always after 2 hrs", "Situation permits + hemostatics available + not in shock", "Patient requests", "Never in PFC"], correct: 1 },
-      { q: "PEEP is used to:", options: ["Increase tidal volume", "Improve oxygenation", "Decrease respiratory rate", "Prevent aspiration"], correct: 1 },
-      { q: "ETT cuff air should be replaced with water for:", options: ["Infection prevention", "Better seal", "Altitude/pressure changes during transport", "Patient comfort"], correct: 2 },
-      { q: "MOVE mnemonic stands for:", options: ["Monitor, Oxygenate, Ventilate, Evacuate", "Mode, Oxygenation, Ventilation, Evaluation", "Manage, Observe, Verify, Execute", "Measure, Optimize, Validate, Escalate"], correct: 1 },
-      { q: "Walking blood bank uses:", options: ["Any available donor", "Pre-screened donors collecting into CPDA bags", "Only type-specific donors", "Synthetic blood products"], correct: 1 },
-      { q: "Reperfusion injury after prolonged TQ can cause:", options: ["Infection", "Hyperkalemia and cardiac arrest", "Nerve damage only", "Improved circulation"], correct: 1 },
-      { q: "PFC vital signs should be trended every:", options: ["15 min", "30 min", "1 hour", "2 hours"], correct: 1 },
-      { q: "HITMAN 'I' stands for:", options: ["Intubation", "Infection control", "IV access", "Imaging"], correct: 1 }
+      { q: "RAVINES stands for:", options: ["Resuscitate/Reduce, Airway, Ventilate, Initiate, Nursing, Environment, Surgical", "Respond, Assess, Ventilate, IV, Neuro, Evacuate, Splint", "Rescue, Airway, Vitals, Intubate, Needle, Evacuate, Secure", "Reassess, Antibiotics, Ventilate, IV, Nursing, Equipment, Shock"], correct: 0, why: "Resuscitate/Reduce tourniquets, Airway care, Ventilate, Initiate telemedicine, Nursing (HITMAN), Environmental, Surgical procedures. The PFC priority framework." },
+      { q: "Telemedicine in PFC should be initiated:", options: ["Only if patient deteriorates", "As early as possible", "After 6 hours", "Only for surgical procedures"], correct: 1, why: "Initiate telemedicine as early and often as possible. They guide medication adjustments, procedures, and can help with decisions you're unsure about. Don't wait for problems." },
+      { q: "Lung-protective tidal volume:", options: ["4-5 ml/kg", "6-8 ml/kg", "10-12 ml/kg", "15-20 ml/kg"], correct: 1, why: "6-8 ml/kg ideal body weight prevents ventilator-induced lung injury. Higher volumes (10-12) cause barotrauma and worsen outcomes in already-injured lungs." },
+      { q: "PFC patients should be turned every:", options: ["1 hour", "2 hours", "4 hours", "8 hours"], correct: 1, why: "Repositioning every 2 hours prevents pressure injuries and helps with pulmonary drainage. Also perform passive ROM for DVT prophylaxis at each turn." },
+      { q: "TQ conversion in PFC only when:", options: ["Always after 2 hrs", "Situation permits + hemostatics available + not in shock", "Patient requests", "Never in PFC"], correct: 1, why: "All three criteria must be met: tactical situation allows monitoring, hemostatics are available, and patient is not in shock. Missing any one means the TQ stays." },
+      { q: "PEEP is used to:", options: ["Increase tidal volume", "Improve oxygenation", "Decrease respiratory rate", "Prevent aspiration"], correct: 1, why: "Positive end-expiratory pressure keeps alveoli open at the end of expiration, improving gas exchange and oxygenation. Start at 5-10 cmH2O." },
+      { q: "ETT cuff air should be replaced with water for:", options: ["Infection prevention", "Better seal", "Altitude/pressure changes during transport", "Patient comfort"], correct: 2, why: "Air in cuffs expands at altitude and contracts at depth. Water volume stays constant regardless of pressure changes, maintaining a consistent seal during transport." },
+      { q: "MOVE mnemonic stands for:", options: ["Monitor, Oxygenate, Ventilate, Evacuate", "Mode, Oxygenation, Ventilation, Evaluation", "Manage, Observe, Verify, Execute", "Measure, Optimize, Validate, Escalate"], correct: 1, why: "Mode (BVM, vent type), Oxygenation (SpO2, FiO2), Ventilation (EtCO2, rate, tidal volume), Evaluation (reassess, trends, changes needed). Systematic ventilation assessment." },
+      { q: "Walking blood bank uses:", options: ["Any available donor", "Pre-screened donors collecting into CPDA bags", "Only type-specific donors", "Synthetic blood products"], correct: 1, why: "Pre-screened donors collected into CPDA bags ensure the safest possible field transfusion. Random unscreened donors dramatically increase disease transmission risk." },
+      { q: "Reperfusion injury after prolonged TQ can cause:", options: ["Infection", "Hyperkalemia and cardiac arrest", "Nerve damage only", "Improved circulation"], correct: 1, why: "Ischemic tissue accumulates potassium, lactate, and myoglobin. Releasing the TQ floods the systemic circulation with these, potentially causing fatal cardiac arrest from hyperkalemia." },
+      { q: "PFC vital signs should be trended every:", options: ["15 min", "30 min", "1 hour", "2 hours"], correct: 1, why: "Every 30 minutes allows you to catch trends before they become crises. A single vital set means nothing; the trend tells you if the patient is improving or deteriorating." },
+      { q: "HITMAN 'I' stands for:", options: ["Intubation", "Infection control", "IV access", "Imaging"], correct: 1, why: "Infection control: clean and irrigate wounds q12hr, change dressings, rotate IV/IO sites q24hr, maintain sterile technique on all adjuncts." }
     ],
     flashcards: [
       { front: "HITMAN mnemonic?", back: "Head-to-toe exam, Infection (wounds q12hr, sites q24hr), Tubes (check/secure/clean), Medications (on schedule, documented), Administration (DD 1380, supplies, evac), Nursing (vitals q30, I&O, head up, turn q2hr, DVT prophylaxis, oral care)." },
@@ -156,16 +156,16 @@ const TOPICS = [
       { title: "Blood Products & Resuscitation", detail: "Hemorrhagic shock resuscitation preference: (1) Low-titer O whole blood, (2) Components 1:1:1, (3) Plasma + RBC 1:1, (4) Plasma alone, (5) Crystalloid (last resort, LR or Plasma-Lyte, NEVER NS). Permissive hypotension SBP 80-90 (>90 if TBI). TXA 1g IV within 3 hrs. Calcium 1g per 4 units blood. Cold-stored blood in approved containers up to 48 hrs.", instruction: "RESUSCITATION ORDER: Whole blood > 1:1:1 > Plasma+RBC > Plasma > Crystalloid. Permissive hypotension 80-90 SBP. TXA 1g <3hrs. Calcium 1g per 4 units. Smallest volume to maintain radial pulse and mentation." }
     ],
     quiz: [
-      { q: "Bright red pulsatile bleeding is:", options: ["Venous", "Arterial", "Capillary", "Internal"], correct: 1 },
-      { q: "Minimum direct pressure time after packing:", options: ["1 min", "2 min", "3 min", "5 min"], correct: 2 },
-      { q: "Failed tourniquet action:", options: ["Remove and reapply", "Second TQ proximal", "Switch to packing", "Loosen and retighten"], correct: 1 },
-      { q: "Junctional hemorrhage locations:", options: ["Arms and legs", "Groin, axilla, neck", "Chest and abdomen", "Head and face"], correct: 1 },
-      { q: "When repositioning TQ from hasty to deliberate:", options: ["Remove old, then apply new", "Apply new BEFORE removing old", "Just tighten the existing one", "Leave hasty TQ alone"], correct: 1 },
-      { q: "Hemostatic gauze should NOT be packed into:", options: ["Groin wounds", "Neck wounds", "Chest wounds", "Axillary wounds"], correct: 2 },
-      { q: "Bleeding soaks through pressure dressing:", options: ["Remove and replace", "Add more material on top", "Apply tourniquet", "Pack wound again"], correct: 1 },
-      { q: "TQ conversion is contraindicated in:", options: ["Stable patients", "Patients in shock", "Patients awake", "Wounds <6 hrs"], correct: 1 },
-      { q: "NEVER use this for trauma resuscitation:", options: ["LR", "Plasma-Lyte", "Normal saline", "Whole blood"], correct: 2 },
-      { q: "CRoC device is used for:", options: ["Extremity hemorrhage", "Inguinal/junctional hemorrhage", "Chest wounds", "Neck wounds"], correct: 1 }
+      { q: "Bright red pulsatile bleeding is:", options: ["Venous", "Arterial", "Capillary", "Internal"], correct: 1, why: "Arterial blood is oxygenated (bright red) and under high pressure from the heart's pumping (pulsatile/spurting). Venous blood is dark red with steady flow." },
+      { q: "Minimum direct pressure time after packing:", options: ["1 min", "2 min", "3 min", "5 min"], correct: 2, why: "3 minutes minimum allows hemostatic agents to activate and clots to form. Releasing early disrupts the clot. Time it, don't guess." },
+      { q: "Failed tourniquet action:", options: ["Remove and reapply", "Second TQ proximal", "Switch to packing", "Loosen and retighten"], correct: 1, why: "Never remove a failed tourniquet. Apply a second one proximal to and touching the first. Two tourniquets together create more compression." },
+      { q: "Junctional hemorrhage locations:", options: ["Arms and legs", "Groin, axilla, neck", "Chest and abdomen", "Head and face"], correct: 1, why: "Groin (inguinal), axilla, and neck cannot be tourniqueted with a limb tourniquet. These require hemostatic gauze packing and/or junctional devices." },
+      { q: "When repositioning TQ from hasty to deliberate:", options: ["Remove old, then apply new", "Apply new BEFORE removing old", "Just tighten the existing one", "Leave hasty TQ alone"], correct: 1, why: "Always apply the new deliberate TQ before removing the hasty one. This ensures continuous hemorrhage control. Never have a gap without a tourniquet." },
+      { q: "Hemostatic gauze should NOT be packed into:", options: ["Groin wounds", "Neck wounds", "Chest wounds", "Axillary wounds"], correct: 2, why: "Packing hemostatic gauze into the chest can interfere with lung re-expansion and is ineffective for the bleeding source. Chest wounds get sealed, not packed." },
+      { q: "Bleeding soaks through pressure dressing:", options: ["Remove and replace", "Add more material on top", "Apply tourniquet", "Pack wound again"], correct: 1, why: "Never remove the original dressing as it disrupts the clot underneath. Add more material on top to increase pressure. Removal restarts bleeding." },
+      { q: "TQ conversion is contraindicated in:", options: ["Stable patients", "Patients in shock", "Patients awake", "Wounds <6 hrs"], correct: 1, why: "Patients in shock need every red blood cell they have. Converting a TQ risks losing hemorrhage control when the patient can't afford any additional blood loss." },
+      { q: "NEVER use this for trauma resuscitation:", options: ["LR", "Plasma-Lyte", "Normal saline", "Whole blood"], correct: 2, why: "Normal saline causes hyperchloremic acidosis, worsening the lethal triad. LR and Plasma-Lyte have physiologic electrolyte compositions. NS and Hextend are both contraindicated." },
+      { q: "CRoC device is used for:", options: ["Extremity hemorrhage", "Inguinal/junctional hemorrhage", "Chest wounds", "Neck wounds"], correct: 1, why: "The Combat Ready Clamp applies direct pressure over the femoral artery at the inguinal crease for junctional hemorrhage that can't be controlled with limb tourniquets." }
     ],
     flashcards: [
       { front: "CoTCCC approved tourniquets?", back: "CAT Gen 7, SOF-T Wide, SAM-XT, TMT, TX2, TX3, Ratcheting Medical Tourniquet-Tactical (RMT-T)." },
@@ -193,16 +193,16 @@ const TOPICS = [
       { title: "Capnography & Monitoring", detail: "End-tidal CO2 (EtCO2) is the gold standard for airway confirmation and monitoring. Normal EtCO2: 35-45 mmHg. Waveform should show consistent square wave pattern. Rising EtCO2: hypoventilation, rebreathing, increased metabolism. Falling EtCO2: hyperventilation, decreased cardiac output, pulmonary embolism, tube displacement. Absent EtCO2: esophageal intubation, cardiac arrest, disconnection. Monitor continuously for any advanced airway.", instruction: "CAPNOGRAPHY: Normal 35-45 mmHg. Rising = hypoventilation. Falling = hyperventilation or cardiac issue. Absent = wrong placement or arrest. Square waveform = good. Monitor CONTINUOUSLY for all advanced airways." }
     ],
     quiz: [
-      { q: "Partial airway obstruction sounds like:", options: ["Silence", "Snoring/gurgling", "Screaming", "Normal speech"], correct: 1 },
-      { q: "NPA contraindicated in:", options: ["Unconscious patients", "Basilar skull fracture", "Nosebleeds", "Breathing patients"], correct: 1 },
-      { q: "Jaw-thrust is used when:", options: ["Always", "Patient conscious", "C-spine concern", "NPA unavailable"], correct: 2 },
-      { q: "Cricothyroid membrane is between:", options: ["Hyoid and thyroid", "Thyroid and cricoid", "Cricoid and 1st ring", "Mandible and hyoid"], correct: 1 },
-      { q: "Gold standard for airway confirmation:", options: ["Chest rise", "Breath sounds", "Capnography (EtCO2)", "Misting in tube"], correct: 2 },
-      { q: "RSI induction agent of choice:", options: ["Propofol", "Etomidate", "Ketamine", "Midazolam"], correct: 2 },
-      { q: "Succinylcholine dose:", options: ["0.5 mg/kg", "1.0 mg/kg", "1.5 mg/kg", "2.0 mg/kg"], correct: 2 },
-      { q: "Normal EtCO2 range:", options: ["20-30 mmHg", "35-45 mmHg", "50-60 mmHg", "60-80 mmHg"], correct: 1 },
-      { q: "NPA bevel direction:", options: ["Away from septum", "Toward septum", "Upward", "Downward"], correct: 1 },
-      { q: "Cric tube size for adults:", options: ["4.0 cuffed", "6.0 cuffed", "8.0 cuffed", "10.0 cuffed"], correct: 1 }
+      { q: "Partial airway obstruction sounds like:", options: ["Silence", "Snoring/gurgling", "Screaming", "Normal speech"], correct: 1, why: "Snoring indicates the tongue is partially occluding the airway. Gurgling indicates fluid (blood, vomit) in the airway. Both are partial obstructions needing intervention." },
+      { q: "NPA contraindicated in:", options: ["Unconscious patients", "Basilar skull fracture", "Nosebleeds", "Breathing patients"], correct: 1, why: "Basilar skull fracture creates a pathway from the nasal passage directly into the cranial vault. Inserting an NPA risks intracranial placement." },
+      { q: "Jaw-thrust is used when:", options: ["Always", "Patient conscious", "C-spine concern", "NPA unavailable"], correct: 2, why: "Jaw thrust moves the mandible forward without extending the neck, opening the airway while maintaining cervical spine alignment. Used when C-spine injury is suspected." },
+      { q: "Cricothyroid membrane is between:", options: ["Hyoid and thyroid", "Thyroid and cricoid", "Cricoid and 1st ring", "Mandible and hyoid"], correct: 1, why: "The cricothyroid membrane sits between the thyroid cartilage (Adam's apple) above and the cricoid cartilage below. This is the safest surgical access point to the airway." },
+      { q: "Gold standard for airway confirmation:", options: ["Chest rise", "Breath sounds", "Capnography (EtCO2)", "Misting in tube"], correct: 2, why: "Capnography (EtCO2) is the only reliable confirmation of tracheal tube placement. Chest rise and breath sounds can be misleading. No EtCO2 waveform = wrong placement." },
+      { q: "RSI induction agent of choice:", options: ["Propofol", "Etomidate", "Ketamine", "Midazolam"], correct: 2, why: "Ketamine maintains blood pressure and respiratory drive better than other induction agents. Critical in trauma patients who are often already hypotensive." },
+      { q: "Succinylcholine dose:", options: ["0.5 mg/kg", "1.0 mg/kg", "1.5 mg/kg", "2.0 mg/kg"], correct: 2, why: "1.5 mg/kg IV gives rapid onset (30-60 seconds) paralysis with short duration (5-10 minutes). The fast onset and offset make it ideal for RSI when you might need to abort." },
+      { q: "Normal EtCO2 range:", options: ["20-30 mmHg", "35-45 mmHg", "50-60 mmHg", "60-80 mmHg"], correct: 1, why: "35-45 mmHg is normal. Below 35 = hyperventilation (or low cardiac output). Above 45 = hypoventilation. Absent waveform = esophageal intubation or cardiac arrest." },
+      { q: "NPA bevel direction:", options: ["Away from septum", "Toward septum", "Upward", "Downward"], correct: 1, why: "Bevel toward the nasal septum allows the NPA to slide along the floor of the nasal passage without catching on the turbinates. Right nostril preferred (larger, straighter)." },
+      { q: "Cric tube size for adults:", options: ["4.0 cuffed", "6.0 cuffed", "8.0 cuffed", "10.0 cuffed"], correct: 1, why: "6.0 cuffed tube fits the cricothyroid membrane. Larger tubes risk tracheal damage; smaller tubes have excessive resistance. The cuff seals the airway for positive pressure ventilation." }
     ],
     flashcards: [
       { front: "NPA sizing?", back: "Nostril to earlobe. Male ~28Fr, female ~26Fr. Bevel toward septum, right nostril, along nasal floor." },
@@ -232,21 +232,21 @@ const TOPICS = [
       { title: "Storage, Cold Chain & Documentation", detail: "Fresh whole blood at room temp: use within 8 hours. Refrigerated within 8 hours of collection: becomes stored WBB blood, good for up to 35 days at 1-6C in CPDA-1 (21 days in CPD). Best hemostatic function in first 10 days. Golden Hour containers or approved coolers maintain cold chain for ~48 hours with ice. NEVER freeze whole blood. NEVER use microwave or hot water to warm blood (causes hemolysis). Document EVERYTHING: donor info, collection time, recipient info, transfusion start/end times, volume, any reactions. Report to Theater Medical Data System. All documentation travels with patient to next echelon of care.", instruction: "DOCUMENTATION: SF 518 for each donation. DD 1380 updated with all products given. Record: donor name/type/titer, collection time, recipient name/type, transfusion start time, volume, rate, any reactions, vitals before/during/after. This documentation is CRITICAL for follow-up disease testing and quality assurance. All records travel with patient." }
     ],
     quiz: [
-      { q: "What does ROLO stand for?", options: ["Ranger Operations Low Output", "Ranger O Low Titer", "Rapid Onset Lethal Operations", "Resuscitation Of Lethal Outcomes"], correct: 1 },
-      { q: "Low-titer O is defined as anti-A and anti-B titers:", options: ["<64", "<128", "<256", "<512"], correct: 2 },
-      { q: "Dog tags are incorrect for blood type approximately:", options: ["1% of the time", "4% of the time", "10% of the time", "Never"], correct: 1 },
-      { q: "Fresh whole blood at room temperature must be used within:", options: ["4 hours", "8 hours", "12 hours", "24 hours"], correct: 1 },
-      { q: "Standard collection volume per donor:", options: ["250ml", "350ml", "450ml", "500ml"], correct: 2 },
-      { q: "CPDA-1 stored whole blood (refrigerated) is good for:", options: ["7 days", "14 days", "21 days", "35 days"], correct: 3 },
-      { q: "Minimum donor weight requirement:", options: ["90 lbs", "100 lbs", "110 lbs", "130 lbs"], correct: 2 },
-      { q: "Most dangerous transfusion reaction:", options: ["Febrile non-hemolytic", "Allergic/urticaria", "Acute hemolytic (ABO mismatch)", "TACO"], correct: 2 },
-      { q: "Blood administration filter size:", options: ["80 micron", "170 micron", "250 micron", "No filter needed"], correct: 1 },
-      { q: "After donating, donor minimum rest time:", options: ["5 minutes", "15 minutes", "30 minutes", "1 hour"], correct: 1 },
-      { q: "Calcium chloride 1g IV should be given after every:", options: ["1 unit", "2 units", "4 units", "6 units"], correct: 2 },
-      { q: "On-site ABO confirmation uses:", options: ["Dog tags", "Self-reporting", "Eldon cards", "Visual inspection"], correct: 2 },
-      { q: "LTOWB can be transfused to:", options: ["Only type O recipients", "Only type O and A", "Any blood type", "Only after crossmatch"], correct: 2 },
-      { q: "Donor re-donation interval:", options: ["7 days", "14 days", "28 days", "56 days"], correct: 3 },
-      { q: "First action for suspected hemolytic reaction:", options: ["Give diphenhydramine", "Slow the rate", "STOP transfusion immediately", "Give epinephrine"], correct: 2 }
+      { q: "What does ROLO stand for?", options: ["Ranger Operations Low Output", "Ranger O Low Titer", "Rapid Onset Lethal Operations", "Resuscitation Of Lethal Outcomes"], correct: 1, why: "Ranger O Low Titer. Developed by the 75th Ranger Regiment to pre-identify Type O donors with low anti-A/anti-B antibody titers (<256) for universal emergency transfusion." },
+      { q: "Low-titer O is defined as anti-A and anti-B titers:", options: ["<64", "<128", "<256", "<512"], correct: 2, why: "Anti-A and anti-B titers both less than 256 by immediate spin testing. About 70% of Type O donors qualify. Low titers minimize risk of hemolytic reactions in non-O recipients." },
+      { q: "Dog tags are incorrect for blood type approximately:", options: ["1% of the time", "4% of the time", "10% of the time", "Never"], correct: 1, why: "Self-reported and dog tag blood types have a 4% error rate. ABO mismatch hemolytic reactions can be fatal. Always confirm with Eldon card or forward typing test." },
+      { q: "Fresh whole blood at room temperature must be used within:", options: ["4 hours", "8 hours", "12 hours", "24 hours"], correct: 1, why: "FWB at room temp must be used within 8 hours. If refrigerated within 8 hours of collection, it becomes stored WBB blood good for up to 35 days in CPDA-1." },
+      { q: "Standard collection volume per donor:", options: ["250ml", "350ml", "450ml", "500ml"], correct: 2, why: "450ml is the standard unit, matching CPDA bag volume and anticoagulant ratio. This amount is safe for donors over 110 lbs and provides a meaningful resuscitation dose." },
+      { q: "CPDA-1 stored whole blood (refrigerated) is good for:", options: ["7 days", "14 days", "21 days", "35 days"], correct: 3, why: "CPDA-1 preserves blood for 35 days at 1-6C (vs 21 days for CPD). Hemostatic function is best in the first 10 days. After 2 weeks, platelet function degrades." },
+      { q: "Minimum donor weight requirement:", options: ["90 lbs", "100 lbs", "110 lbs", "130 lbs"], correct: 2, why: "Donors under 110 lbs (50kg) risk hypovolemic symptoms from donating 450ml. The volume represents too large a percentage of their total blood volume." },
+      { q: "Most dangerous transfusion reaction:", options: ["Febrile non-hemolytic", "Allergic/urticaria", "Acute hemolytic (ABO mismatch)", "TACO"], correct: 2, why: "Acute hemolytic reaction from ABO mismatch destroys transfused red cells, releasing hemoglobin that causes renal failure, DIC, and shock. Often fatal if not caught immediately." },
+      { q: "Blood administration filter size:", options: ["80 micron", "170 micron", "250 micron", "No filter needed"], correct: 1, why: "170-micron filter catches microclots and debris that form during blood storage. Without filtration, these can cause pulmonary embolism or line occlusion." },
+      { q: "After donating, donor minimum rest time:", options: ["5 minutes", "15 minutes", "30 minutes", "1 hour"], correct: 1, why: "15 minutes minimum allows detection of vasovagal reactions (most common donor complication) and ensures donor is stable before returning to duty." },
+      { q: "Calcium chloride 1g IV should be given after every:", options: ["1 unit", "2 units", "4 units", "6 units"], correct: 2, why: "Citrate anticoagulant in blood bags binds calcium. After 4 units, ionized calcium drops enough to impair cardiac contractility and coagulation. 1g calcium chloride replaces it." },
+      { q: "On-site ABO confirmation uses:", options: ["Dog tags", "Self-reporting", "Eldon cards", "Visual inspection"], correct: 2, why: "Eldon cards are rapid forward blood typing cards. A drop of blood on pre-coated reagents shows agglutination patterns that determine ABO/Rh type in minutes without a lab." },
+      { q: "LTOWB can be transfused to:", options: ["Only type O recipients", "Only type O and A", "Any blood type", "Only after crossmatch"], correct: 2, why: "Low-titer O has low enough anti-A and anti-B antibodies to safely give to any blood type without significant hemolytic risk. That's the whole point of screening for low titer." },
+      { q: "Donor re-donation interval:", options: ["7 days", "14 days", "28 days", "56 days"], correct: 3, why: "56 days (8 weeks) allows the donor's red blood cell mass to fully regenerate. Donating sooner risks anemia and poor performance in the donor." },
+      { q: "First action for suspected hemolytic reaction:", options: ["Give diphenhydramine", "Slow the rate", "STOP transfusion immediately", "Give epinephrine"], correct: 2, why: "Stop the transfusion immediately. Every additional ml of incompatible blood worsens the reaction. Then NS bolus for renal protection, save the blood bag for investigation." }
     ],
     flashcards: [
       { front: "What is a Walking Blood Bank?", back: "A system of pre-screened donors who provide fresh whole blood on demand when stored products are unavailable. Pre-planned capability requiring screening, training, and rehearsal BEFORE casualties occur." },
@@ -746,6 +746,9 @@ export default function TCCCApp() {
       if (stored === "accepted") { setCookieConsent(true); }
       else if (stored === "declined") { setCookieConsent(false); }
     } catch(e) {}
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    }
   }, []);
 
   const handleCookieConsent = (accepted) => {
@@ -813,7 +816,7 @@ export default function TCCCApp() {
     const handleSubmit = async () => {
       if (!contactForm.msg.trim()) return;
       try {
-        await fetch("https://formspree.io/f/xkoqyklw", {
+        await fetch("https://formspree.io/f/YOUR_FORM_ID", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name: contactForm.name, email: contactForm.email, type: contactForm.type, message: contactForm.msg })
@@ -1055,20 +1058,29 @@ export default function TCCCApp() {
   if (tab === "rmh") {
     if (rmhTopic) {
       const t = rmhTopic;
+      const sentences = t.content.split('. ').reduce((acc, s, i, arr) => {
+        if (!acc.length) acc.push(s);
+        else if (acc[acc.length-1].length < 120) acc[acc.length-1] += '. ' + s;
+        else acc.push(s);
+        return acc;
+      }, []);
       return (<div style={S.app}><div style={S.hdr}><button style={S.back} onClick={()=>setRmhTopic(null)}>←</button><div style={{flex:1,minWidth:0}}><div style={{fontSize:14,fontWeight:700,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{t.title}</div></div></div>
         <div ref={ref} style={S.body}><div style={{padding:"20px 0 10px"}}>
-          <div style={{fontSize:14,color:"#ccc",lineHeight:1.8,margin:"0 0 20px"}}>{t.content}</div>
           {t.keyPoints && t.keyPoints.length > 0 && (
-            <div style={{background:"#ffffff08",border:"1px solid #ffffff14",borderRadius:13,padding:16}}>
-              <div style={{fontSize:10,fontWeight:700,color:"#8b5cf6",textTransform:"uppercase",letterSpacing:".07em",marginBottom:10}}>Key Points</div>
+            <div style={{background:"#8b5cf60a",border:"1px solid #8b5cf625",borderRadius:13,padding:14,marginBottom:18}}>
+              <div style={{fontSize:10,fontWeight:700,color:"#8b5cf6",textTransform:"uppercase",letterSpacing:".07em",marginBottom:10}}>Quick Reference</div>
               {t.keyPoints.map((kp,ki)=>(
-                <div key={ki} style={{display:"flex",gap:10,marginBottom:8,alignItems:"flex-start"}}>
-                  <div style={{width:5,height:5,borderRadius:5,background:"#8b5cf6",marginTop:7,flexShrink:0}}/>
-                  <div style={{fontSize:13,color:"#aaa",lineHeight:1.6}}>{kp}</div>
+                <div key={ki} style={{display:"flex",gap:8,marginBottom:6,alignItems:"flex-start"}}>
+                  <div style={{fontSize:11,color:"#8b5cf6",fontWeight:700,marginTop:1,flexShrink:0}}>></div>
+                  <div style={{fontSize:13,color:"#ccc",lineHeight:1.5,fontWeight:500}}>{kp}</div>
                 </div>
               ))}
             </div>
           )}
+          <div style={{fontSize:10,fontWeight:700,color:"#666",textTransform:"uppercase",letterSpacing:".07em",marginBottom:10}}>Detail</div>
+          {sentences.map((p,pi)=>(
+            <p key={pi} style={{fontSize:13,color:"#aaa",lineHeight:1.8,margin:"0 0 12px",paddingLeft:pi>0?0:0}}>{p}{p.endsWith('.')?'':'.'}</p>
+          ))}
         </div></div><Bar/></div>);
     }
     const f = search ? RMH.map(s=>({...s,topics:s.topics.filter(t=>t.title.toLowerCase().includes(search.toLowerCase())||t.content.toLowerCase().includes(search.toLowerCase()))})).filter(s=>s.topics.length) : RMH;
@@ -1159,7 +1171,8 @@ export default function TCCCApp() {
     return (<div style={S.app}><div style={S.hdr}><button style={S.back} onClick={()=>nav("topic")}>←</button><div style={{flex:1}}><div style={{fontSize:12,fontWeight:600}}>Q {quiz.i+1}/{topic.quiz.length}</div><Prog c={quiz.i+1} t={topic.quiz.length}/></div></div>
       <div ref={ref} style={S.body}><div style={{padding:"20px 0 14px"}}><h3 style={{fontSize:16,fontWeight:600,lineHeight:1.5,margin:0}}>{q.q}</h3></div>
         <div style={{display:"flex",flexDirection:"column",gap:7}}>{q.options.map((o,i)=>(<button key={i} style={S.opt(quiz.sel===i,q.correct===i,a)} onClick={()=>!a&&setQuiz(p=>({...p,sel:i}))}><span style={{fontWeight:600,marginRight:7,opacity:.5}}>{String.fromCharCode(65+i)}</span>{o}</button>))}</div>
-        {a&&<div style={{marginTop:14}}><button style={S.btn(topic.color,true)} onClick={()=>{const na=[...quiz.ans,quiz.sel];quiz.i<topic.quiz.length-1?tr(()=>setQuiz({i:quiz.i+1,ans:na,done:false,sel:null})):tr(()=>setQuiz({...quiz,ans:na,done:true}))}}>{quiz.i<topic.quiz.length-1?"Next":"Results"}</button></div>}
+        {a&&q.why&&<div style={{marginTop:12,background:quiz.sel===q.correct?"#10b9810c":"#ef44440c",border:`1px solid ${quiz.sel===q.correct?"#10b98120":"#ef444420"}`,borderRadius:11,padding:13}}><div style={{fontSize:10,fontWeight:700,color:quiz.sel===q.correct?"#10b981":"#ef4444",textTransform:"uppercase",letterSpacing:".06em",marginBottom:5}}>{quiz.sel===q.correct?"Correct":"Incorrect"}</div><div style={{fontSize:12,color:"#bbb",lineHeight:1.6}}>{q.why}</div></div>}
+        {a&&<div style={{marginTop:12}}><button style={S.btn(topic.color,true)} onClick={()=>{const na=[...quiz.ans,quiz.sel];quiz.i<topic.quiz.length-1?tr(()=>setQuiz({i:quiz.i+1,ans:na,done:false,sel:null})):tr(()=>setQuiz({...quiz,ans:na,done:true}))}}>{quiz.i<topic.quiz.length-1?"Next":"Results"}</button></div>}
       </div><Bar/></div>);
   }
 
