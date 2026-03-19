@@ -2,7 +2,7 @@ import './globals.css';
 import Script from 'next/script';
 
 export const metadata = {
-  title: 'Medeor — Tactical Combat Casualty Care',
+  title: 'Medeor - Tactical Combat Casualty Care',
   description: 'Interactive TCCC/CLS/PFC training, CPG reference, skills videos, and Ranger Medic Handbook field guide.',
   manifest: '/manifest.json',
   themeColor: '#0a0a0f',
@@ -12,7 +12,7 @@ export const metadata = {
     title: 'Medeor',
   },
   openGraph: {
-    title: 'Medeor — Tactical Combat Casualty Care',
+    title: 'Medeor - Tactical Combat Casualty Care',
     description: 'Interactive TCCC/CLS/PFC training, CPGs, skills videos, and Ranger Medic Handbook.',
     type: 'website',
   },
@@ -26,8 +26,6 @@ export const viewport = {
   viewportFit: 'cover',
 };
 
-const GA_ID = 'G-XXXXXXXXXX';
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -40,6 +38,18 @@ export default function RootLayout({ children }) {
       <body>
         {children}
         <Script
-          async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2117457463850623"
           crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('consent','default',{'analytics_storage':'denied'});gtag('config','G-XXXXXXXXXX',{page_path:window.location.pathname});`}
+        </Script>
+      </body>
+    </html>
+  );
+}
