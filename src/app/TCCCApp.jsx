@@ -480,55 +480,58 @@ const CPGS = [
 // Using publicly available TCCC training videos from official and reputable sources
 
 const VIDEOS = [
+  { mod: "01", title: "TCCC Overview", color: "#ef4444", vids: [
+    { name: "Introduction to Tactical Combat Casualty Care", yt: "UuTej7ALfNg", ext: true }
+  ]},
   { mod: "03", title: "Care Under Fire", color: "#ef4444", vids: [
-    { name: "CAT Tourniquet Application", yt: "CSECJQPJjuo" },
-    { name: "One-Handed TQ (Self-Aid)", yt: "CSECJQPJjuo" },
-    { name: "Casualty Drags & Carries", yt: "KPGMQDcttNs" },
-    { name: "Care Under Fire Overview", yt: "4jOq2EsBE-w" }
+    { name: "Care Under Fire: Bleeding Control", yt: "Nk3t-0VA1h8", ext: true },
+    { name: "CAT Self-Application (Routed)", yt: "1_VZrdfDy6g", ext: true }
   ]},
   { mod: "06", title: "Hemorrhage Control (TFC)", color: "#dc2626", vids: [
-    { name: "Wound Packing with Hemostatic Gauze", yt: "GSz9UHpHVWg" },
-    { name: "Israeli Bandage / Pressure Dressing", yt: "U2ss1suJ9FU" },
-    { name: "Tourniquet Conversion", yt: "CSECJQPJjuo" },
-    { name: "Junctional Hemorrhage Control", yt: "GSz9UHpHVWg" },
-    { name: "Stop the Bleed: Full Course", yt: "DlSx7mCuMaM" }
+    { name: "TFC Hemorrhage Control", yt: "JU43hsCUFrI", ext: true },
+    { name: "Hemostatic Gauze / Wound Packing", yt: "AsKihlJMDjg", ext: true },
+    { name: "Combat Gauze (Live Tissue)", yt: "ff5bYep566o", ext: true },
+    { name: "Celox Gauze (Live Tissue)", yt: "ryJoy93aR_c", ext: true },
+    { name: "XStat Application", yt: "m5f-sYm23mg", ext: true },
+    { name: "Tourniquet Replacement", yt: "MvagCmf_Q_U", ext: true },
+    { name: "CRoC Junctional Tourniquet", yt: "BMvHzEd-pbk", ext: true },
+    { name: "SAM Junctional Tourniquet", yt: "1iP0IbO9Gog", ext: true },
+    { name: "JETT Junctional Tourniquet", yt: "tMVl8g8DwNI", ext: true }
   ]},
   { mod: "07", title: "Airway Management (TFC)", color: "#3b82f6", vids: [
-    { name: "NPA Insertion Technique", yt: "QCSbj9rTkhM" },
-    { name: "Head-Tilt Chin-Lift", yt: "cosRaKzMklA" },
-    { name: "Jaw Thrust Maneuver", yt: "cosRaKzMklA" },
-    { name: "Recovery Position", yt: "cosRaKzMklA" },
-    { name: "Surgical Cricothyrotomy", yt: "ByGUkZP-GzA" }
+    { name: "TFC Airway Management", yt: "ewMZXFvBYC4", ext: true },
+    { name: "Head Tilt / Jaw Thrust", yt: "GCOb5EHPpRA", ext: true },
+    { name: "NPA Insertion", yt: "kKPyaKa2gNw", ext: true },
+    { name: "i-gel Extraglottic Airway", yt: "qatGyHwVIOc", ext: true },
+    { name: "Standard Open Cricothyroidotomy", yt: "WQOwSLWlHec", ext: true },
+    { name: "Bougie Aided Cricothyroidotomy", yt: "iftbUm3Ywv4", ext: true },
+    { name: "Emergency Cric using CricKey", yt: "C018REpwtlE", ext: true }
   ]},
-  { mod: "08", title: "Respiration Management", color: "#8b5cf6", vids: [
-    { name: "HyFin Chest Seal Application", yt: "5DFCPFhBlKQ" },
-    { name: "Needle Chest Decompression (ARS)", yt: "Lm1yB0A-cCE" },
-    { name: "Tension Pneumothorax Recognition", yt: "MaRIBEqMnzs" }
+  { mod: "08", title: "Respiration & Chest Trauma", color: "#8b5cf6", vids: [
+    { name: "TFC Respiration & Chest Trauma", yt: "1VpOIDEe5Fo", ext: true },
+    { name: "Vented Chest Seal & Burping", yt: "gzuEqqyNlII", ext: true },
+    { name: "Needle Chest Decompression", yt: "IIvvSCfOyJs", ext: true },
+    { name: "Needle Decompression via Pleuroscope", yt: "5YsQx_lo3Uk", ext: true }
   ]},
   { mod: "09", title: "Circulation & Shock", color: "#dc2626", vids: [
-    { name: "IV Access Establishment", yt: "7JfMeV1WnZY" },
-    { name: "EZ-IO Intraosseous Access", yt: "ZzGecAFNXTc" },
-    { name: "TXA Administration", yt: "e7SLBahfwEE" }
+    { name: "TFC Circulation, TXA & Shock", yt: "bGlggO1yhzA", ext: true },
+    { name: "Eldon Card Blood Typing", yt: "6qyg6pQiEnQ", ext: true }
   ]},
   { mod: "11", title: "Hypothermia Prevention", color: "#06b6d4", vids: [
-    { name: "Hypothermia Prevention Kit (HPMK)", yt: "IYzMRNPNaxY" },
-    { name: "Lethal Triad Explained", yt: "e7SLBahfwEE" }
+    { name: "TFC Hypothermia Prevention", yt: "6y0l_-Pvq9w", ext: true }
+  ]},
+  { mod: "12", title: "Burns", color: "#f97316", vids: [
+    { name: "Burns in TCCC", yt: "FIpXkjpZGQs", ext: true }
   ]},
   { mod: "13", title: "Pain Management", color: "#10b981", vids: [
-    { name: "Ketamine for Tactical Medicine", yt: "eUYAxAJklsE" },
-    { name: "OTFC Fentanyl Lozenge", yt: "eUYAxAJklsE" }
+    { name: "TFC Pain Management", yt: "Go5CntiEtEg", ext: true }
   ]},
-  { mod: "14", title: "Splinting", color: "#f97316", vids: [
-    { name: "SAM Splint Application", yt: "7mZajH-H68c" },
-    { name: "Traction Splint (Femur)", yt: "7mZajH-H68c" }
+  { mod: "15", title: "Antibiotics", color: "#10b981", vids: [
+    { name: "TFC Antibiotics", yt: "6G5AbkBQN38", ext: true }
   ]},
-  { mod: "17", title: "Documentation", color: "#6366f1", vids: [
-    { name: "DD 1380 TCCC Card", yt: "4jOq2EsBE-w" },
-    { name: "MIST Report Format", yt: "4jOq2EsBE-w" }
-  ]},
-  { mod: "19", title: "MEDEVAC & Evacuation", color: "#10b981", vids: [
-    { name: "9-Line MEDEVAC Request", yt: "oKE5P3AVUaA" },
-    { name: "Casualty Evacuation Procedures", yt: "KPGMQDcttNs" }
+  { mod: "16", title: "Eye Trauma", color: "#eab308", vids: [
+    { name: "TFC Penetrating Eye Trauma", yt: "TPXQcIikmIE", ext: true },
+    { name: "Rigid Eye Shield Application", yt: "IdPikS6XLTE", ext: true }
   ]}
 ];
 
@@ -1024,9 +1027,21 @@ export default function TCCCApp() {
             {expanded===mi && <div style={{paddingLeft:0,paddingTop:6}}>
               {mod.vids.map((v,vi)=>(<div key={vi} style={{marginBottom:10}}>
                 <div style={{fontSize:13,fontWeight:600,color:"#ccc",marginBottom:6,paddingLeft:6}}>{v.name}</div>
-                <div style={{borderRadius:10,overflow:"hidden",background:"#000",aspectRatio:"16/9"}}>
-                  <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${v.yt}`} title={v.name} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen style={{display:"block"}}/>
-                </div>
+                {v.ext ? (
+                  <a href={`https://www.youtube.com/watch?v=${v.yt}`} target="_blank" rel="noopener noreferrer" style={{textDecoration:"none",display:"block"}}>
+                    <div style={{borderRadius:10,overflow:"hidden",background:"#111",aspectRatio:"16/9",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",position:"relative"}}>
+                      <img src={`https://img.youtube.com/vi/${v.yt}/hqdefault.jpg`} alt={v.name} style={{position:"absolute",top:0,left:0,width:"100%",height:"100%",objectFit:"cover",opacity:.4}}/>
+                      <div style={{position:"relative",zIndex:1,textAlign:"center"}}>
+                        <div style={{width:48,height:48,borderRadius:24,background:"rgba(255,0,0,.9)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 8px"}}><span style={{color:"#fff",fontSize:20,marginLeft:3}}>▶</span></div>
+                        <div style={{fontSize:12,color:"#ccc",fontWeight:600}}>Watch on YouTube ↗</div>
+                      </div>
+                    </div>
+                  </a>
+                ) : (
+                  <div style={{borderRadius:10,overflow:"hidden",background:"#000",aspectRatio:"16/9"}}>
+                    <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${v.yt}`} title={v.name} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen style={{display:"block"}}/>
+                  </div>
+                )}
               </div>))}
             </div>}
           </div>
