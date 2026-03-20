@@ -39,6 +39,7 @@ input:focus {
   border-radius: 4px;
 }
 
+/* PWA status bar */
 @media (display-mode: standalone) {
   body {
     padding-top: env(safe-area-inset-top);
