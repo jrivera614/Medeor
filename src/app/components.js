@@ -127,10 +127,14 @@ export function Bar({ active, cookieConsent, handleCookieConsent, emailCapture, 
     <EmailPopup/>
     <Analytics/>
     <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,zIndex:20}}>
-      <div style={{display:"flex",justifyContent:"center",padding:"6px 0",background:"rgba(10,10,15,.95)",borderTop:"1px solid #ffffff08"}}>
-        <button onClick={()=>router.push("/contact")} style={{background:"none",border:"none",color:"#555",fontSize:10,cursor:"pointer",fontFamily:"inherit",padding:"2px 8px"}}>Contact & Feedback</button>
+      <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:0,padding:"6px 0",background:"rgba(10,10,15,.95)",borderTop:"1px solid #ffffff08",flexWrap:"wrap"}}>
+        <button onClick={()=>router.push("/contact")} style={{background:"none",border:"none",color:"#555",fontSize:10,cursor:"pointer",fontFamily:"inherit",padding:"2px 6px"}}>Feedback</button>
         <span style={{color:"#ffffff10",fontSize:10}}>·</span>
-        <span style={{fontSize:10,color:"#333",padding:"2px 8px"}}>medeor.app</span>
+        <button onClick={()=>router.push("/privacy")} style={{background:"none",border:"none",color:"#555",fontSize:10,cursor:"pointer",fontFamily:"inherit",padding:"2px 6px"}}>Privacy</button>
+        <span style={{color:"#ffffff10",fontSize:10}}>·</span>
+        <button onClick={()=>router.push("/terms")} style={{background:"none",border:"none",color:"#555",fontSize:10,cursor:"pointer",fontFamily:"inherit",padding:"2px 6px"}}>Terms</button>
+        <span style={{color:"#ffffff10",fontSize:10}}>·</span>
+        <span style={{fontSize:10,color:"#333",padding:"2px 6px"}}>medeor.app</span>
       </div>
       <div style={{display:"flex",background:"rgba(10,10,15,.97)",borderTop:"1px solid #ffffff0f"}}>
         {tabs.map(([k,path,ic,lb]) => (
