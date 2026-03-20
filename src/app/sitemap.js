@@ -15,5 +15,7 @@ export default function sitemap() {
     { url: `${base}/rmh`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/tools`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/contact`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${base}/privacy`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
+    { url: `${base}/terms`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
   ];
 }
