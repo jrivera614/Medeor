@@ -9,7 +9,7 @@ export default function Home() {
 
   return (<div style={S.app}><div style={S.hdr}><div><div style={{fontSize:16,fontWeight:700}}>TCCC / CLS / PFC Training</div><div style={{fontSize:10,color:"#666",marginTop:1,textTransform:"uppercase",letterSpacing:".04em"}}>Interactive Modules</div></div></div>
     <div ref={ref} style={S.body}>
-      <div style={{padding:"16px 0 8px"}}><p style={{fontSize:12,color:"#666",lineHeight:1.6,margin:0}}>MARCH, E-PAWS-B, RAVINES, hemorrhage control, airway management, walking blood bank, and tactical scenarios.</p></div>
+      <div style={{padding:"16px 0 8px"}}><p style={{fontSize:12,color:"#666",lineHeight:1.6,margin:0}}>Free interactive training for combat medics, corpsmen, and CLS certified personnel. Study MARCH protocol, E-PAWS-B secondary survey, RAVINES prolonged field care, hemorrhage control, airway management, and walking blood bank procedures. Includes 74 quiz questions with clinical rationale, spaced repetition flashcards, 86 JTS CPG direct PDF links, 31 Deployed Medicine skill videos, Parkland burn calculator, GCS calculator, pediatric dosing, and the full Ranger Medic Handbook field reference..</p></div>
       {TOPICS.map(t=>{
         const sp = progress[`steps_${t.id}`]; const qp = progress[`quiz_${t.id}`]; const fp = progress[`flash_${t.id}`];
         const done = sp || qp || fp; const badges = [];
