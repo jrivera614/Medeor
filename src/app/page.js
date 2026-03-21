@@ -9,7 +9,7 @@ export default function Home() {
 
   return (<div style={S.app}><div style={S.hdr}><div><div style={{fontSize:16,fontWeight:700}}>TCCC / CLS / PFC Training</div><div style={{fontSize:10,color:"#666",marginTop:1,textTransform:"uppercase",letterSpacing:".04em"}}>Interactive Modules</div></div></div>
     <div ref={ref} style={S.body}>
-      <div style={{padding:"16px 0 8px"}}><p style={{fontSize:12,color:"#666",lineHeight:1.6,margin:0}}>Free TCCC/CLS/PFC training with quizzes, flashcards, and clinical rationale. 86 JTS CPGs, Deployed Medicine videos, medical calculators, and Ranger Medic Handbook reference. </p></div>
+      <div style={{padding:"16px 0 8px"}}><p style={{fontSize:12,color:"#666",lineHeight:1.6,margin:0}}>MARCH, E-PAWS-B, RAVINES, hemorrhage control, airway management, walking blood bank, and tactical scenarios.</p></div>
       {TOPICS.map(t=>{
         const sp = progress[`steps_${t.id}`]; const qp = progress[`quiz_${t.id}`]; const fp = progress[`flash_${t.id}`];
         const done = sp || qp || fp; const badges = [];
