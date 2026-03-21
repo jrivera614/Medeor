@@ -9,7 +9,7 @@ export function useAppState() {
   const [search, setSearch] = useState("");
   const [cookieConsent, setCookieConsent] = useState(null);
   const [progress, setProgress] = useState({});
-  const [emailCapture, setEmailCapture] = useState({ show: false, email: "", sent: false });
+  const [emailCapture, setEmailCapture] = useState({ show: false, email: "", sent: false, dismissed: false });
   const [checkStates, setCheckStates] = useState({});
   const ref = useRef(null);
   const router = useRouter();
