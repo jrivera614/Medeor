@@ -83,11 +83,11 @@ export function Prog({ c, t }) {
 export function Bar({ active, cookieConsent, handleCookieConsent, emailCapture, setEmailCapture }) {
   const router = useRouter();
   const tabs = [
-   ["train", "/", "🎯", "Train"],
+    ["train", "/", "🎯", "Train"],
     ["cpg", "/cpgs", "📋", "CPGs"],
     ["videos", "/videos", "🎬", "Videos"],
     ["rmh", "/rmh", "📕", "RMH"],
-    ["grades", "/grades", "Ⅷ", "Table 8"],
+    ["grades", "/table8", "Ⅷ", "Table 8"],
     ["tools", "/tools", "🔧", "Tools"]
   ];
 
