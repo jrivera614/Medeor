@@ -8,16 +8,3 @@ export const metadata = {
 };
 
 export default function GradesPage() { return <GradesClient />; }
-```
-
-2. Then create `src/app/table8/GradesClient.js` - same content as `src/app/grades/GradesClient.js`, just copy it over.
-
-3. Update `components.js` tab to point to `/table8` instead of `/grades`:
-
-Find:
-```
-    ["grades", "/grades", "Ⅷ", "Table 8"],
-```
-Replace:
-```
-    ["grades", "/table8", "Ⅷ", "Table 8"],
