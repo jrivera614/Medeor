@@ -38,7 +38,7 @@ export default function GradesClient() {
     </div>);
   }
 
-  return (<div style={S.app}><div style={S.hdr}><div><div style={{fontSize:16,fontWeight:700}}>Skills Grade Sheets</div><div style={{fontSize:10,color:"#666",marginTop:1,textTransform:"uppercase",letterSpacing:".04em"}}>TCCC GO / NO-GO Evaluation</div></div></div>
+  return (<div style={S.app}><div style={S.hdr}><div><div style={{fontSize:16,fontWeight:700}}>Table VIII</div><div style={{fontSize:10,color:"#666",marginTop:1,textTransform:"uppercase",letterSpacing:".04em"}}>Skills Evaluation Grade Sheets</div></div></div>
     <div ref={ref} style={S.body}>
       <div style={{fontSize:12,color:"#666",lineHeight:1.6,padding:"14px 0 12px"}}>Practice to the official TCCC evaluation standard. Critical tasks marked (C) must all pass for GO.</div>
       {GRADE_SHEETS.map((gs,gi)=>(
