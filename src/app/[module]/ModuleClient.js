@@ -9,6 +9,8 @@ export default function ModulePage() {
   const router = useRouter();
   const { progress, saveProgress, cookieConsent, handleCookieConsent, emailCapture, setEmailCapture, ref, fade, tr } = useAppState();
 
+   const reserved = ["cpgs","videos","rmh","tools","contact","privacy","terms","grades"];
+  if (reserved.includes(params.module)) return null;
   const topic = TOPICS.find(t => t.id === params.module);
   const [view, setView] = useState("menu");
   const [quiz, setQuiz] = useState({ i: 0, ans: [], done: false, sel: null });
