@@ -7,4 +7,5 @@ export const metadata = {
   alternates: { canonical: "https://medeor.app/table8" },
 };
 
+export const dynamic = 'force-dynamic';
 export default function GradesPage() { return <GradesClient />; }
