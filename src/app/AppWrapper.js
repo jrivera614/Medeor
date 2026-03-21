@@ -1,24 +1,25 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Analytics } from "@vercel/analytics/react";
-import { useRouter } from "next/navigation";
 import { S } from "./components";
 
 export default function AppWrapper({ children }) {
-  const router = useRouter();
-  const [cookieConsent, setCookieConsent] = useState(() => {
-    try {
-      const s = typeof window !== "undefined" && localStorage.getItem("medeor_cookie_consent");
-      return s === "accepted" ? true : s === "declined" ? false : null;
-    } catch(e) { return null; }
-  });
- const [emailCapture, setEmailCapture] = useState({ show: false, email: "", sent: false, dismissed: false });
+  const [cookieConsent, setCookieConsent] = useState(null);
+  const [emailCapture, setEmailCapture] = useState({ show: false, email: "", sent: false, dismissed: false });
 
   useEffect(() => {
+    try {
+      const s = localStorage.getItem("medeor_cookie_consent");
+      if (s === "accepted") setCookieConsent(true);
+      else if (s === "declined") setCookieConsent(false);
+    } catch(e) {}
     try {
       const d = localStorage.getItem("medeor_email_dismissed");
       if (d) setEmailCapture(p => ({ ...p, dismissed: true }));
     } catch(e) {}
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    }
   }, []);
 
   useEffect(() => {
@@ -27,12 +28,6 @@ export default function AppWrapper({ children }) {
       return () => clearTimeout(t);
     }
   }, [emailCapture.dismissed]);
-
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(() => {});
-    }
-  }, []);
 
   const handleCookieConsent = (accepted) => {
     setCookieConsent(accepted);
@@ -54,7 +49,7 @@ export default function AppWrapper({ children }) {
           </div>
         </div>
       )}
-      {emailCapture.show && cookieConsent !== null && !emailCapture.sent && (
+      {emailCapture.show && cookieConsent !== null && (
         <div style={{position:"fixed",bottom:68,left:"50%",transform:"translateX(-50%)",width:"calc(100% - 32px)",maxWidth:448,background:"#1a1a24",border:"1px solid #8b5cf625",borderRadius:14,padding:"14px 16px",zIndex:45,boxShadow:"0 8px 32px rgba(0,0,0,.6)"}}>
           <div style={{fontSize:13,fontWeight:600,color:"#ccc",marginBottom:4}}>Get CPG updates and new modules</div>
           <div style={{fontSize:11,color:"#888",marginBottom:10}}>No spam. Just new training content and guideline updates.</div>
