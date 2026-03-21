@@ -12,12 +12,14 @@ export default function AppWrapper({ children }) {
       return s === "accepted" ? true : s === "declined" ? false : null;
     } catch(e) { return null; }
   });
-  const [emailCapture, setEmailCapture] = useState(() => {
+ const [emailCapture, setEmailCapture] = useState({ show: false, email: "", sent: false, dismissed: false });
+
+  useEffect(() => {
     try {
-      const d = typeof window !== "undefined" && localStorage.getItem("medeor_email_dismissed");
-      return { show: false, email: "", sent: false, dismissed: !!d };
-    } catch(e) { return { show: false, email: "", sent: false, dismissed: false }; }
-  });
+      const d = localStorage.getItem("medeor_email_dismissed");
+      if (d) setEmailCapture(p => ({ ...p, dismissed: true }));
+    } catch(e) {}
+  }, []);
 
   useEffect(() => {
     if (!emailCapture.dismissed) {
