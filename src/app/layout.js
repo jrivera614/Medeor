@@ -40,7 +40,7 @@ export const viewport = {
   viewportFit: 'cover',
 };
 
-const GA_ID = 'G-XXXXXXXXXX'; // Replace with your GA4 Measurement ID
+const GA_ID = 'G-E8LSJD2HJJ'; // Replace with your GA4 Measurement ID
 
 export default function RootLayout({ children }) {
   return (
