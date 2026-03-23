@@ -359,9 +359,9 @@ export default function PfcClient(){
   };
 
   return (
-    <div style={S.app}>
+    <div style={{...S.app,overflow:"hidden"}}>
       {/* Header */}
-      <div style={{...S.hdr,justifyContent:"space-between"}}>
+      <div style={{...S.hdr,justifyContent:"space-between",flexShrink:0}}>
         <div>
           <div style={{fontSize:14,fontWeight:700}}>PFC Casualty Card</div>
           <div style={{fontSize:9,color:"#555"}}>Based on PFC CC v25 | Interactive + PDF Export</div>
@@ -369,25 +369,26 @@ export default function PfcClient(){
         <button onClick={exportPDF} style={{background:"#8b5cf6",border:"none",color:"#fff",padding:"6px 12px",borderRadius:8,fontSize:11,fontWeight:700,cursor:"pointer",letterSpacing:".04em",fontFamily:"inherit"}}>EXPORT</button>
       </div>
 
-      {/* Section tabs - scrollable */}
-      <div style={{display:"flex",overflowX:"auto",borderBottom:"1px solid #ffffff0f",background:"rgba(10,10,15,.97)"}}>
+      {/* Section tabs - horizontally scrollable on mobile */}
+      <style dangerouslySetInnerHTML={{__html:`.pfc-tabs::-webkit-scrollbar{display:none}`}}/>
+      <div className="pfc-tabs" style={{display:"flex",overflowX:"auto",borderBottom:"1px solid #ffffff0f",background:"rgba(10,10,15,.97)",WebkitOverflowScrolling:"touch",scrollbarWidth:"none",msOverflowStyle:"none",flexShrink:0}}>
         {TABS.map((t,i)=>(
-          <button key={t} onClick={()=>setTab(i)} style={{padding:"8px 12px",fontSize:10,fontWeight:tab===i?700:400,color:tab===i?"#8b5cf6":"#555",background:tab===i?"#8b5cf618":"transparent",border:"none",borderBottom:tab===i?"2px solid #8b5cf6":"2px solid transparent",cursor:"pointer",fontFamily:"inherit",whiteSpace:"nowrap",flexShrink:0}}>
+          <button key={t} onClick={()=>setTab(i)} style={{padding:"8px 14px",fontSize:11,fontWeight:tab===i?700:400,color:tab===i?"#8b5cf6":"#555",background:tab===i?"#8b5cf618":"transparent",border:"none",borderBottom:tab===i?"2px solid #8b5cf6":"2px solid transparent",cursor:"pointer",fontFamily:"inherit",whiteSpace:"nowrap",flexShrink:0,minWidth:0}}>
             {t}
             {i===5&&txDone>0&&<span style={{marginLeft:3,fontSize:8,background:"#10b981",color:"#fff",borderRadius:6,padding:"1px 4px"}}>{txDone}</span>}
           </button>
         ))}
       </div>
 
-      {/* Content */}
-      <div ref={ref} style={S.body}>
+      {/* Content - scrollable area with enough bottom padding to clear both fixed bars */}
+      <div ref={ref} style={{flex:1,padding:"0 16px",paddingBottom:160,overflowY:"auto",WebkitOverflowScrolling:"touch"}}>
         <div style={{padding:"4px 0 20px"}}>
           {content()}
         </div>
       </div>
 
-      {/* Nav */}
-      <div style={{position:"fixed",bottom:56,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,display:"flex",justifyContent:"space-between",padding:"8px 16px",background:"rgba(10,10,15,.95)",borderTop:"1px solid #ffffff08",zIndex:15}}>
+      {/* Nav - sits above the Bar */}
+      <div style={{position:"fixed",bottom:52,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,display:"flex",justifyContent:"space-between",alignItems:"center",padding:"8px 16px",background:"rgba(10,10,15,.97)",borderTop:"1px solid #ffffff08",zIndex:15}}>
         <button onClick={()=>setTab(Math.max(0,tab-1))} disabled={tab===0} style={{padding:"7px 18px",background:tab===0?"#ffffff06":"#ffffff10",border:"none",borderRadius:8,color:tab===0?"#333":"#aaa",fontSize:12,fontWeight:600,cursor:tab===0?"default":"pointer",fontFamily:"inherit"}}>← Back</button>
         <span style={{fontSize:10,color:"#444",alignSelf:"center",fontFamily:"monospace"}}>{tab+1}/{TABS.length}</span>
         <button onClick={()=>setTab(Math.min(TABS.length-1,tab+1))} disabled={tab===TABS.length-1} style={{padding:"7px 18px",background:tab===TABS.length-1?"#ffffff06":"#8b5cf6",border:"none",borderRadius:8,color:tab===TABS.length-1?"#333":"#fff",fontSize:12,fontWeight:600,cursor:tab===TABS.length-1?"default":"pointer",fontFamily:"inherit"}}>Next →</button>
