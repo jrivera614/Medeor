@@ -1,10 +1,12 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAppState, S, Bar, Prog } from "../components";
 import { CHECKLISTS, GRADE_SHEETS } from "../data";
 
 export default function ToolsClient() {
   const { cookieConsent, handleCookieConsent, emailCapture, setEmailCapture, ref } = useAppState();
+  const router = useRouter();
   const [calcType, setCalcType] = useState(null);
   const [calcInputs, setCalcInputs] = useState({});
   const [toolView, setToolView] = useState(null);
@@ -156,6 +158,10 @@ export default function ToolsClient() {
           <div style={{display:"flex",alignItems:"center",gap:11}}><span style={{fontSize:22}}>{c.icon}</span><div style={{flex:1}}><div style={{fontSize:14,fontWeight:600}}>{c.title}</div><div style={{fontSize:11,color:"#666",marginTop:2}}>{c.desc}</div></div><span style={{color:"#444"}}>{'>'}</span></div>
         </div>
       ))}
+      <div style={{padding:"18px 0 8px",fontSize:12,color:"#666",fontWeight:600,textTransform:"uppercase",letterSpacing:".05em"}}>PFC Tools</div>
+      <div style={S.card} onClick={()=>router.push("/pfc")}>
+        <div style={{display:"flex",alignItems:"center",gap:11}}><span style={{fontSize:22}}>📝</span><div style={{flex:1}}><div style={{fontSize:14,fontWeight:600}}>PFC Casualty Card</div><div style={{fontSize:11,color:"#666",marginTop:2}}>Interactive checklist with PDF export. Based on PFC CC v25.</div></div><span style={{color:"#444"}}>{'>'}</span></div>
+      </div>
       <div style={{padding:"18px 0 8px",fontSize:12,color:"#666",fontWeight:600,textTransform:"uppercase",letterSpacing:".05em"}}>Checklists</div>
       {CHECKLISTS.map((cl,ci)=>(
         <div key={ci} style={S.card} onClick={()=>setToolView(ci)}>

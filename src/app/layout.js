@@ -40,7 +40,7 @@ export const viewport = {
   viewportFit: 'cover',
 };
 
-const GA_ID = 'G-E8LSJD2HJJ'; // Replace with your GA4 Measurement ID
+const GA_ID = 'G-E8LSJD2HJJ';
 
 export default function RootLayout({ children }) {
   return (
@@ -82,6 +82,12 @@ export default function RootLayout({ children }) {
             });
           `}
         </Script>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2117457463850623"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
