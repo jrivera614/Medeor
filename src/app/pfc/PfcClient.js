@@ -360,7 +360,7 @@ export default function PfcClient(){
 
   return (
     <div style={{fontFamily:"'DM Sans',system-ui,sans-serif",background:"#0a0a0f",color:"#e8e8ed",minHeight:"100dvh",maxWidth:480,margin:"0 auto"}}>
-      <style dangerouslySetInnerHTML={{__html:`.pfc-tabs::-webkit-scrollbar{display:none}`}}/>
+      <style dangerouslySetInnerHTML={{__html:`html,body{overflow:auto!important;height:auto!important}.pfc-tabs::-webkit-scrollbar{display:none}`}}/>
 
       {/* Header */}
       <div style={{position:"fixed",top:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,zIndex:20,background:"rgba(10,10,15,.97)",borderBottom:"1px solid #ffffff0f",padding:"12px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",backdropFilter:"blur(20px)"}}>
