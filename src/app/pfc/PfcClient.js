@@ -1,6 +1,7 @@
 "use client";
 import { useState, useCallback, useEffect } from "react";
-import { useAppState, S, Bar, Prog } from "../components";
+import { useRouter } from "next/navigation";
+import { useAppState, S, Prog } from "../components";
 
 const SAVE_KEY = "medeor_pfc_card";
 
@@ -358,13 +359,16 @@ export default function PfcClient(){
     }
   };
 
+  const router = useRouter();
+
   return (
     <div style={{fontFamily:"'DM Sans',system-ui,sans-serif",background:"#0a0a0f",color:"#e8e8ed",minHeight:"100dvh",maxWidth:480,margin:"0 auto"}}>
       <style dangerouslySetInnerHTML={{__html:`html,body{overflow:auto!important;height:auto!important}.pfc-tabs::-webkit-scrollbar{display:none}`}}/>
 
       {/* Header */}
-      <div style={{position:"fixed",top:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,zIndex:20,background:"rgba(10,10,15,.97)",borderBottom:"1px solid #ffffff0f",padding:"12px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",backdropFilter:"blur(20px)"}}>
-        <div>
+      <div style={{position:"fixed",top:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,zIndex:20,background:"rgba(10,10,15,.97)",borderBottom:"1px solid #ffffff0f",padding:"10px 16px",display:"flex",alignItems:"center",gap:10,backdropFilter:"blur(20px)"}}>
+        <button onClick={()=>router.push("/tools")} style={{background:"#ffffff0f",border:"none",color:"#888",fontSize:16,width:32,height:32,borderRadius:9,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>←</button>
+        <div style={{flex:1}}>
           <div style={{fontSize:14,fontWeight:700}}>PFC Casualty Card</div>
           <div style={{fontSize:9,color:"#555"}}>Based on PFC CC v25 | Interactive + PDF Export</div>
         </div>
@@ -381,19 +385,17 @@ export default function PfcClient(){
         ))}
       </div>
 
-      {/* Content - uses native page scroll */}
-      <div style={{paddingTop:90,paddingBottom:120,paddingLeft:16,paddingRight:16}}>
+      {/* Content */}
+      <div style={{paddingTop:90,paddingBottom:70,paddingLeft:16,paddingRight:16}}>
         {content()}
       </div>
 
-      {/* Nav */}
-      <div style={{position:"fixed",bottom:52,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,display:"flex",justifyContent:"space-between",alignItems:"center",padding:"8px 16px",background:"rgba(10,10,15,.97)",borderTop:"1px solid #ffffff08",zIndex:15}}>
+      {/* Nav - pinned to very bottom */}
+      <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 16px",paddingBottom:"max(10px, env(safe-area-inset-bottom))",background:"rgba(10,10,15,.97)",borderTop:"1px solid #ffffff08",zIndex:15}}>
         <button onClick={()=>setTab(Math.max(0,tab-1))} disabled={tab===0} style={{padding:"7px 18px",background:tab===0?"#ffffff06":"#ffffff10",border:"none",borderRadius:8,color:tab===0?"#333":"#aaa",fontSize:12,fontWeight:600,cursor:tab===0?"default":"pointer",fontFamily:"inherit"}}>← Back</button>
         <span style={{fontSize:10,color:"#444",alignSelf:"center",fontFamily:"monospace"}}>{tab+1}/{TABS.length}</span>
         <button onClick={()=>setTab(Math.min(TABS.length-1,tab+1))} disabled={tab===TABS.length-1} style={{padding:"7px 18px",background:tab===TABS.length-1?"#ffffff06":"#8b5cf6",border:"none",borderRadius:8,color:tab===TABS.length-1?"#333":"#fff",fontSize:12,fontWeight:600,cursor:tab===TABS.length-1?"default":"pointer",fontFamily:"inherit"}}>Next →</button>
       </div>
-
-      <Bar active="tools"/>
     </div>
   );
 }
