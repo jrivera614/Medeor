@@ -78,7 +78,7 @@ export function Bar({ active }) {
         <span style={{color:"#ffffff10",fontSize:10}}>·</span>
         <button onClick={()=>router.push("/terms")} style={{background:"none",border:"none",color:"#555",fontSize:10,cursor:"pointer",fontFamily:"inherit",padding:"2px 6px"}}>Terms</button>
         <span style={{color:"#ffffff10",fontSize:10}}>·</span>
-        <span style={{fontSize:10,color:"#333",padding:"2px 6px"}}>medeor.app</span>
+        <span style={{fontSize:10,color:"#333",padding:"2px 6px"}}>© 2026 Justin Rivera</span>
       </div>
       <div style={{display:"flex",background:"rgba(10,10,15,.97)",borderTop:"1px solid #ffffff0f"}}>
         {tabs.map(([k,path,ic,lb]) => (
