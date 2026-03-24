@@ -91,7 +91,7 @@ export default function PfcClient(){
     if(ppgc.notes)w.document.write(`<div style="margin-top:8px;border:1px solid #ddd;padding:6px"><div style="font-weight:700;font-size:10px">Assessment Notes</div><div style="font-size:11px;white-space:pre-wrap">${esc(ppgc.notes)}</div></div>`);
     w.document.write(`<div style="text-align:center;margin-top:12px;font-size:8px;color:#aaa">Based on PFC CC v25 | prolongedfieldcare.org | medeor.app</div>`);
     w.document.write(`<div style="text-align:center;font-size:7px;color:#bbb;margin-top:4px">FOR OFFICIAL USE ONLY. Use Battle Roster # for patient identification. Do not include SSN or full name in unsecured systems. All data stored locally on device only.</div>`);
-    w.document.write(`<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js" crossorigin="anonymous"><\/script><script>window.onload=function(){html2pdf().set({margin:[8,8,8,8],filename:"PFC_Card_${esc((pt.name||"Patient").replace(/[^a-zA-Z0-9]/g,"_"))}_${pt.date||new Date().toISOString().split("T")[0]}.pdf",image:{type:"jpeg",quality:0.98},html2canvas:{scale:2},jsPDF:{unit:"mm",format:"letter",orientation:"portrait"}}).from(document.body).save()};<\/script></body></html>`);
+    w.document.write(`<script src="/html2pdf.min.js"><\/script><script>window.onload=function(){html2pdf().set({margin:[8,8,8,8],filename:"PFC_Card_${esc((pt.name||"Patient").replace(/[^a-zA-Z0-9]/g,"_"))}_${pt.date||new Date().toISOString().split("T")[0]}.pdf",image:{type:"jpeg",quality:0.98},html2canvas:{scale:2},jsPDF:{unit:"mm",format:"letter",orientation:"portrait"}}).from(document.body).save()};<\/script></body></html>`);
     w.document.close();
   };
 

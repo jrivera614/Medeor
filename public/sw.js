@@ -1,10 +1,11 @@
-const CACHE_NAME = 'medeor-v3';
+const CACHE_NAME = 'medeor-v4';
 const OFFLINE_URLS = [
   '/',
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png',
   '/favicon.ico',
+  '/html2pdf.min.js',
   '/cpgs',
   '/videos',
   '/rmh',
