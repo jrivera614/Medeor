@@ -56,6 +56,25 @@ export function SmallField({ label, value, onChange }) {
   );
 }
 
+export function NumField({ label, value, onChange, min, max }) {
+  const warn = value && (isNaN(value) || (min !== undefined && Number(value) < min) || (max !== undefined && Number(value) > max));
+  return (
+    <div style={{ flex: "1 1 22%", minWidth: 55 }}>
+      <label style={{ fontSize: 9, color: warn ? "#ef4444" : "#666" }}>{label}</label>
+      <input
+        type="text"
+        inputMode="numeric"
+        value={value || ""}
+        onChange={e => {
+          const v = e.target.value;
+          if (v === "" || v === "-" || /^-?\d*\.?\d*$/.test(v)) onChange(v);
+        }}
+        style={{ ...smInp, borderColor: warn ? "#ef444480" : "#ffffff14" }}
+      />
+    </div>
+  );
+}
+
 export function ReadOnlyField({ label, value, warn }) {
   return (
     <div style={{ flex: "1 1 22%", minWidth: 55 }}>

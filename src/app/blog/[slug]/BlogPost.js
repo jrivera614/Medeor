@@ -6,9 +6,42 @@ function renderContent(content) {
   const lines = content.split("\n");
   const elements = [];
   let key = 0;
+  let listItems = [];
+
+  const flushList = () => {
+    if (listItems.length > 0) {
+      elements.push(
+        <ol key={key++} style={{ fontSize: 14, color: "#bbb", lineHeight: 1.7, marginBottom: 12, paddingLeft: 20 }}>
+          {listItems.map((item, i) => (
+            <li key={i} style={{ marginBottom: 4 }}>{formatText(item)}</li>
+          ))}
+        </ol>
+      );
+      listItems = [];
+    }
+  };
+
+  const formatText = (text) => {
+    const parts = text.split(/(\*\*[^*]+\*\*)/g);
+    return parts.map((part, i) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return <strong key={i} style={{ color: "#e8e8ed", fontWeight: 600 }}>{part.slice(2, -2)}</strong>;
+      }
+      return part;
+    });
+  };
 
   for (const line of lines) {
     const trimmed = line.trim();
+    const listMatch = trimmed.match(/^(\d+)\.\s+(.*)/);
+
+    if (listMatch) {
+      listItems.push(listMatch[2]);
+      continue;
+    }
+
+    flushList();
+
     if (!trimmed) {
       elements.push(<div key={key++} style={{ height: 12 }} />);
     } else if (trimmed.startsWith("## ")) {
@@ -26,11 +59,12 @@ function renderContent(content) {
           fontSize: 14, color: "#bbb", lineHeight: 1.7,
           marginBottom: 8
         }}>
-          {trimmed}
+          {formatText(trimmed)}
         </p>
       );
     }
   }
+  flushList();
   return elements;
 }
 

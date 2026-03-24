@@ -1,10 +1,17 @@
-const CACHE_NAME = 'medeor-v2';
+const CACHE_NAME = 'medeor-v3';
 const OFFLINE_URLS = [
   '/',
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png',
   '/favicon.ico',
+  '/cpgs',
+  '/videos',
+  '/rmh',
+  '/tools',
+  '/pfc',
+  '/table8',
+  '/blog',
 ];
 
 self.addEventListener('install', (event) => {
@@ -25,17 +32,31 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
-  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        const clone = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          if (event.request.url.startsWith(self.location.origin)) {
-            cache.put(event.request, clone);
+  const url = new URL(event.request.url);
+  if (!url.origin.includes(self.location.origin)) return;
+
+  if (event.request.headers.get('accept')?.includes('text/html')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          return response;
+        })
+        .catch(() => caches.match(event.request).then((r) => r || caches.match('/')))
+    );
+  } else {
+    event.respondWith(
+      caches.match(event.request).then((cached) => {
+        if (cached) return cached;
+        return fetch(event.request).then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
           }
-        });
-        return response;
+          return response;
+        }).catch(() => new Response('', { status: 408 }));
       })
-      .catch(() => caches.match(event.request).then((r) => r || caches.match('/')))
-  );
+    );
+  }
 });

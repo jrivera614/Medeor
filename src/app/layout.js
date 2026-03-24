@@ -1,6 +1,7 @@
 import './globals.css';
 import Script from 'next/script';
 import ErrorBoundary from './ErrorBoundary';
+import AppWrapper from './AppWrapper';
 
 export const metadata = {
   title: 'Medeor - Free TCCC/CLS/PFC Training | Quizzes, CPGs, Videos',
@@ -66,7 +67,9 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <ErrorBoundary>
-          {children}
+          <AppWrapper>
+            {children}
+          </AppWrapper>
         </ErrorBoundary>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}

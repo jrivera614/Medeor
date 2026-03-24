@@ -4,7 +4,7 @@ import { TOPICS } from "./data";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { progress, cookieConsent, handleCookieConsent, emailCapture, setEmailCapture, ref } = useAppState();
+  const { progress, ref } = useAppState();
   const router = useRouter();
 
   return (<div style={S.app}><div style={S.hdr}><div><div style={{fontSize:16,fontWeight:700}}>TCCC / CLS / PFC Training</div><div style={{fontSize:10,color:"#666",marginTop:1,textTransform:"uppercase",letterSpacing:".04em"}}>Interactive Modules</div></div></div>
@@ -26,6 +26,6 @@ export default function Home() {
           </div>
         </div>)})}
     </div>
-    <Bar active="train" cookieConsent={cookieConsent} handleCookieConsent={handleCookieConsent} emailCapture={emailCapture} setEmailCapture={setEmailCapture}/>
+    <Bar active="train"/>
   </div>);
 }

@@ -65,7 +65,8 @@ export function Bar({ active }) {
     ["videos", "/videos", "🎬", "Videos"],
     ["rmh", "/rmh", "📕", "RMH"],
     ["grades", "/table8", "Ⅷ", "Table 8"],
-    ["tools", "/tools", "🔧", "Tools"]
+    ["tools", "/tools", "🔧", "Tools"],
+    ["blog", "/blog", "📝", "Blog"]
   ];
 
   return (
