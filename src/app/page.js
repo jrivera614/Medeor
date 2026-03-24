@@ -7,7 +7,7 @@ export default function Home() {
   const { progress, ref } = useAppState();
   const router = useRouter();
 
-  return (<div style={S.app}><div style={S.hdr}><div><div style={{fontSize:16,fontWeight:700}}>TCCC / CLS / PFC Training</div><div style={{fontSize:10,color:"#666",marginTop:1,textTransform:"uppercase",letterSpacing:".04em"}}>Interactive Modules</div></div></div>
+  return (<div style={S.app}><div style={S.hdr}><div><div style={{fontSize:11,color:"#10b981",fontWeight:700,letterSpacing:".12em",textTransform:"uppercase",marginBottom:2}}>MEDEOR</div><div style={{fontSize:16,fontWeight:700}}>TCCC / CLS / PFC Training</div><div style={{fontSize:10,color:"#666",marginTop:1,textTransform:"uppercase",letterSpacing:".04em"}}>Interactive Modules</div></div></div>
     <div ref={ref} style={S.body}>
       <div style={{padding:"16px 0 8px"}}><p style={{fontSize:12,color:"#666",lineHeight:1.6,margin:0}}>MARCH, E-PAWS-B, RAVINES, hemorrhage control, airway management, walking blood bank, and tactical scenarios.</p></div>
       {TOPICS.map(t=>{
