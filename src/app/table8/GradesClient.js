@@ -34,7 +34,7 @@ export default function GradesClient() {
         })}
         <button style={{...S.btn("#555",false),marginTop:16}} onClick={()=>setGradeStates({...gradeStates,[key]:{}})}>Reset Grade Sheet</button>
       </div></div>
-      <Bar active="grades"/>
+      <Bar active="ref"/>
     </div>);
   }
 
@@ -47,6 +47,6 @@ export default function GradesClient() {
         </div>
       ))}
     </div>
-    <Bar active="grades"/>
+    <Bar active="ref"/>
   </div>);
 }

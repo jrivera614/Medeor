@@ -20,6 +20,6 @@ export default function CpgClient() {
         </div>
       ))}
     </div>
-    <Bar active="cpg"/>
+    <Bar active="ref"/>
   </div>);
 }

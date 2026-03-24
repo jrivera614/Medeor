@@ -37,6 +37,6 @@ export default function VideoClient() {
         </div>
       ))}
     </div>
-    <Bar active="videos"/>
+    <Bar active="ref"/>
   </div>);
 }

@@ -14,6 +14,7 @@ export default function sitemap() {
     { url: `${base}/videos`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/rmh`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/tools`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${base}/reference`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/pfc`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/table8`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },

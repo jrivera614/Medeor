@@ -10,6 +10,7 @@ const OFFLINE_URLS = [
   '/videos',
   '/rmh',
   '/tools',
+  '/reference',
   '/pfc',
   '/table8',
   '/blog',
