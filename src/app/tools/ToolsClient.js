@@ -5,7 +5,7 @@ import { useAppState, S, Bar, Prog } from "../components";
 import { CHECKLISTS, GRADE_SHEETS } from "../data";
 
 export default function ToolsClient() {
-  const { cookieConsent, handleCookieConsent, emailCapture, setEmailCapture, ref } = useAppState();
+  const { ref } = useAppState();
   const router = useRouter();
   const [calcType, setCalcType] = useState(null);
   const [calcInputs, setCalcInputs] = useState({});
@@ -124,7 +124,7 @@ export default function ToolsClient() {
           </div>)}
         </>)}
       </div></div>
-      <Bar active="tools" cookieConsent={cookieConsent} handleCookieConsent={handleCookieConsent} emailCapture={emailCapture} setEmailCapture={setEmailCapture}/>
+      <Bar active="tools"/>
     </div>);
   }
 
@@ -145,7 +145,7 @@ export default function ToolsClient() {
         </div>
         <button style={{...S.btn("#555",false),marginTop:16}} onClick={()=>setCheckStates({...checkStates,[key]:{}})}>Reset Checklist</button>
       </div></div>
-      <Bar active="tools" cookieConsent={cookieConsent} handleCookieConsent={handleCookieConsent} emailCapture={emailCapture} setEmailCapture={setEmailCapture}/>
+      <Bar active="tools"/>
     </div>);
   }
 
@@ -181,6 +181,6 @@ export default function ToolsClient() {
       <a href="https://www.crisis-medicine.com" target="_blank" rel="noopener noreferrer" style={{textDecoration:"none",display:"block"}}><div style={{...S.card,background:"#10b98110",border:"1px solid #10b98125"}}><div style={{fontSize:14,fontWeight:600,color:"#10b981"}}>Crisis Medicine ↗</div><div style={{fontSize:11,color:"#888",marginTop:3}}>TCCC/TECC training courses, quick tips, resources</div></div></a>
       <a href="https://jsomonline.org/product/2025-ranger-medic-handbook/" target="_blank" rel="noopener noreferrer" style={{textDecoration:"none",display:"block"}}><div style={{...S.card,background:"#f59e0b10",border:"1px solid #f59e0b25"}}><div style={{fontSize:14,fontWeight:600,color:"#f59e0b"}}>2025 Ranger Medic Handbook ↗</div><div style={{fontSize:11,color:"#888",marginTop:3}}>Latest edition, waterproof, pocket-sized field reference</div></div></a>
     </div>
-    <Bar active="tools" cookieConsent={cookieConsent} handleCookieConsent={handleCookieConsent} emailCapture={emailCapture} setEmailCapture={setEmailCapture}/>
+    <Bar active="tools"/>
   </div>);
 }

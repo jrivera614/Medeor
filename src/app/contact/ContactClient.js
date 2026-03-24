@@ -5,7 +5,7 @@ import { useAppState, S, Bar } from "../components";
 
 export default function ContactClient() {
   const router = useRouter();
-  const { cookieConsent, handleCookieConsent, emailCapture, setEmailCapture, ref } = useAppState();
+  const { ref } = useAppState();
   const [form, setForm] = useState({ name: "", email: "", type: "feedback", msg: "" });
   const [sent, setSent] = useState(false);
 
@@ -57,6 +57,6 @@ export default function ContactClient() {
         </div>
       )}
     </div>
-    <Bar active="" cookieConsent={cookieConsent} handleCookieConsent={handleCookieConsent} emailCapture={emailCapture} setEmailCapture={setEmailCapture}/>
+    <Bar active=""/>
   </div>);
 }

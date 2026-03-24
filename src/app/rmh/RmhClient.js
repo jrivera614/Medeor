@@ -4,7 +4,7 @@ import { useAppState, S, Bar } from "../components";
 import { RMH } from "../data";
 
 export default function RmhClient() {
-  const { expanded, setExpanded, search, setSearch, cookieConsent, handleCookieConsent, emailCapture, setEmailCapture, ref } = useAppState();
+  const { expanded, setExpanded, search, setSearch, ref } = useAppState();
   const [rmhTopic, setRmhTopic] = useState(null);
 
   if (rmhTopic) {
@@ -33,7 +33,7 @@ export default function RmhClient() {
           <p key={pi} style={{fontSize:13,color:"#aaa",lineHeight:1.8,margin:"0 0 12px"}}>{p}{p.endsWith('.')?'':'.'}</p>
         ))}
       </div></div>
-      <Bar active="rmh" cookieConsent={cookieConsent} handleCookieConsent={handleCookieConsent} emailCapture={emailCapture} setEmailCapture={setEmailCapture}/>
+      <Bar active="rmh"/>
     </div>);
   }
 
@@ -55,6 +55,6 @@ export default function RmhClient() {
         </div>
       ))}
     </div>
-    <Bar active="rmh" cookieConsent={cookieConsent} handleCookieConsent={handleCookieConsent} emailCapture={emailCapture} setEmailCapture={setEmailCapture}/>
+    <Bar active="rmh"/>
   </div>);
 }

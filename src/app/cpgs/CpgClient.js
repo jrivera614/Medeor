@@ -3,7 +3,7 @@ import { useAppState, S, Bar } from "../components";
 import { CPGS } from "../data";
 
 export default function CpgClient() {
-  const { expanded, setExpanded, search, setSearch, cookieConsent, handleCookieConsent, emailCapture, setEmailCapture, ref } = useAppState();
+  const { expanded, setExpanded, search, setSearch, ref } = useAppState();
   const f = search ? CPGS.map(c => ({...c, items: c.items.filter(x => x.title.toLowerCase().includes(search.toLowerCase()))})).filter(c => c.items.length) : CPGS;
   return (<div style={S.app}><div style={S.hdr}><div><div style={{fontSize:16,fontWeight:700}}>Clinical Practice Guidelines</div><div style={{fontSize:10,color:"#666",marginTop:1,textTransform:"uppercase",letterSpacing:".04em"}}>JTS / CoTCCC</div></div></div>
     <div ref={ref} style={S.body}>
@@ -20,6 +20,6 @@ export default function CpgClient() {
         </div>
       ))}
     </div>
-    <Bar active="cpg" cookieConsent={cookieConsent} handleCookieConsent={handleCookieConsent} emailCapture={emailCapture} setEmailCapture={setEmailCapture}/>
+    <Bar active="cpg"/>
   </div>);
 }

@@ -3,7 +3,7 @@ import { useAppState, S, Bar } from "../components";
 import { VIDEOS } from "../data";
 
 export default function VideoClient() {
-  const { expanded, setExpanded, search, setSearch, cookieConsent, handleCookieConsent, emailCapture, setEmailCapture, ref } = useAppState();
+  const { expanded, setExpanded, search, setSearch, ref } = useAppState();
   const f = search ? VIDEOS.map(m=>({...m,vids:m.vids.filter(v=>v.name.toLowerCase().includes(search.toLowerCase()))})).filter(m=>m.vids.length) : VIDEOS;
   return (<div style={S.app}><div style={S.hdr}><div><div style={{fontSize:16,fontWeight:700}}>Skills Video Library</div><div style={{fontSize:10,color:"#666",marginTop:1,textTransform:"uppercase",letterSpacing:".04em"}}>TCCC Training Videos</div></div></div>
     <div ref={ref} style={S.body}>
@@ -37,6 +37,6 @@ export default function VideoClient() {
         </div>
       ))}
     </div>
-    <Bar active="videos" cookieConsent={cookieConsent} handleCookieConsent={handleCookieConsent} emailCapture={emailCapture} setEmailCapture={setEmailCapture}/>
+    <Bar active="videos"/>
   </div>);
 }
