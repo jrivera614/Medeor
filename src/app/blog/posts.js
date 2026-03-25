@@ -254,7 +254,7 @@ Track fluid input and urine output meticulously. Urine output should be at least
 
 ## Medications in PFC
 
-Pain management in PFC goes beyond the initial ketamine push during TCCC. You're setting up a drip or scheduled dosing regimen. Ketamine drip for analgesia, midazolam or propofol if you need procedural sedation, antibiotics for open wounds (ertapenem 1g IV daily is the standard), and potentially pressors if you're dealing with distributive shock.
+Pain management in PFC goes beyond the initial ketamine push during TCCC. You're setting up a drip or scheduled dosing regimen. Ketamine drip for analgesia, midazolam or propofol if you need procedural sedation, antibiotics for open wounds (ceftriaxone 1g IV daily is the standard), and potentially pressors if you're dealing with distributive shock.
 
 Document every medication: drug name, dose, route, and time. Every single one. When you hand this patient off to a surgical team, they need to know exactly what's been given.
 
