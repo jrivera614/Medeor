@@ -13,6 +13,10 @@ export default function sitemap() {
     { url: `${base}/airway`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/wbb`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/pfc-scenarios`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/pfc-meds`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/shock`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/longitudinal`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/pfc-procedures`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
 
     // Reference content
     { url: `${base}/cpgs`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
