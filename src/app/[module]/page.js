@@ -7,7 +7,11 @@ const META = {
   hemorrhage: { t: "Hemorrhage Control Training - Tourniquets & Packing | Medeor", d: "Hemorrhage control: tourniquet application, wound packing with hemostatic gauze, junctional devices CRoC SAM-JT JETT, conversion, blood products." },
   airway: { t: "Airway Management Training - NPA, Cric, RSI | Medeor", d: "Airway management from basic maneuvers through surgical cricothyrotomy. NPA, supraglottic airways, RSI protocols, capnography interpretation." },
   wbb: { t: "Walking Blood Bank Training - ROLO & Transfusion | Medeor", d: "Walking Blood Bank WBB training. ROLO program, donor screening, Eldon cards, CPDA collection, transfusion reactions, cold chain." },
-  "pfc-scenarios": { t: "Tactical Medical Scenarios - Decision Training | Medeor", d: "Branching tactical scenarios: delayed MEDEVAC, chest trauma, MASCAL triage, 24-hour PFC. Test clinical decision-making under pressure." }
+  "pfc-scenarios": { t: "Tactical Medical Scenarios - Decision Training | Medeor", d: "Branching tactical scenarios: delayed MEDEVAC, chest trauma, MASCAL triage, 24-hour PFC. Test clinical decision-making under pressure." },
+  "pfc-meds": { t: "PFC Medications - Ketamine Drips, Pressors & Dosing | Medeor", d: "PFC medication management: ketamine drip titration, RASS sedation scale, push-dose epinephrine, norepinephrine drip, antibiotic scheduling, analgesic ladder." },
+  "shock": { t: "Shock Recognition & Treatment - Combat Casualty Care | Medeor", d: "Shock recognition and treatment: hemorrhagic classes, field assessment without monitors, hemorrhagic and septic shock protocols, obstructive shock, reassessment endpoints." },
+  "longitudinal": { t: "Longitudinal PFC - Managing Patients Over 24 Hours | Medeor", d: "Hour-by-hour prolonged field care management: stabilization, early PFC, extended care, sustained care phases, deterioration recognition, MEDEVAC handoff." },
+  "pfc-procedures": { t: "PFC Procedures - Thoracostomy, Escharotomy, Fasciotomy | Medeor", d: "PFC surgical procedures: finger thoracostomy, chest tube, escharotomy for burns, fasciotomy for compartment syndrome, lateral canthotomy, wound debridement and delayed closure." }
 };
 
 const CONTENT = {
@@ -103,6 +107,58 @@ const CONTENT = {
       "24-hour PFC: isolated patrol base, two units whole blood, deterioration recognition, MEDEVAC handoff"
     ],
     keywords: "tactical medical scenarios, MASCAL triage, MEDEVAC planning, prolonged field care scenarios, combat medic training, TCCC decision making"
+  },
+  "pfc-meds": {
+    heading: "PFC Medications Training",
+    intro: "Medication management in Prolonged Field Care covering ketamine drip titration, sedation assessment, vasopressors, antibiotic scheduling, and the analgesic ladder for sustained patient care.",
+    topics: [
+      "Ketamine drip: 500mg in 500ml NS = 1mg/ml, start 0.1mg/kg/hr, titrate to RASS -2 to -3",
+      "RASS sedation scale: assessment technique, target ranges, response to under and oversedation",
+      "Push-dose epinephrine: preparation 10mcg/ml, dosing 5-20mcg IV push, bridge to definitive vasopressor",
+      "Norepinephrine drip: 4mg in 250ml NS = 16mcg/ml, distributive shock, titrate to MAP >65",
+      "Antibiotic scheduling: moxifloxacin q24hr, ceftriaxone q24hr, metronidazole q8hr, never miss a dose",
+      "Analgesic ladder: acetaminophen + meloxicam, OTFC, ketamine bolus, ketamine drip for intubated"
+    ],
+    keywords: "ketamine drip PFC, RASS sedation, push-dose epinephrine, norepinephrine drip, PFC antibiotics, analgesic ladder combat"
+  },
+  "shock": {
+    heading: "Shock Recognition and Treatment",
+    intro: "Recognition and treatment of all four shock types in combat: hemorrhagic, distributive, obstructive, and cardiogenic. Covers field assessment without monitors, treatment ladders, and reassessment endpoints.",
+    topics: [
+      "Shock classes: hemorrhagic I-IV by blood loss volume, HR, BP, and mental status",
+      "Field shock recognition: radial pulse as SBP proxy, mental status as earliest indicator",
+      "Hemorrhagic shock treatment: source control first, blood product preference order, permissive hypotension",
+      "Septic shock: warm flushed presentation, ceftriaxone + metronidazole, fluid challenge, norepinephrine",
+      "Obstructive shock: tension pneumo, cardiac tamponade Beck's triad, massive PE recognition",
+      "Reassessment endpoints: mental status, radial pulse quality, HR trend, urine output"
+    ],
+    keywords: "shock recognition combat, hemorrhagic shock classes, septic shock treatment, obstructive shock, Beck's triad, permissive hypotension"
+  },
+  "longitudinal": {
+    heading: "Longitudinal Prolonged Field Care",
+    intro: "Hour-by-hour framework for managing combat casualties over extended periods. Covers the stabilization phase through 24-hour sustained care, deterioration recognition, and MEDEVAC preparation.",
+    topics: [
+      "Hour 0-2 stabilization: secondary survey, monitoring baseline, medication schedule, telemedicine",
+      "Hour 2-6 early PFC: fluid reassessment, pain management, hypothermia, wound reassessment",
+      "Hour 6-12 extended care: tourniquet decisions, infection surveillance, pressure injury prevention",
+      "Hour 12-24 sustained care: sepsis surveillance, fluid balance, sedation vacation, GI decompression",
+      "Deterioration recognition: early warning signs, critical signs, escalation triggers",
+      "MEDEVAC preparation: DD 1380 completion, patient packaging, verbal handoff"
+    ],
+    keywords: "prolonged field care timeline, PFC hour by hour, combat casualty sustained care, MEDEVAC handoff, deterioration recognition"
+  },
+  "pfc-procedures": {
+    heading: "PFC Surgical Procedures",
+    intro: "Surgical procedures within PFC scope: finger thoracostomy, chest tube insertion, escharotomy for burns, fasciotomy for compartment syndrome, lateral canthotomy for orbital compartment syndrome, and wound debridement.",
+    topics: [
+      "Finger thoracostomy: 4th/5th ICS AAL, blunt dissection, confirmation, preferred over needle in intubated patients",
+      "Tube thoracostomy: 28-32Fr for hemothorax, Heimlich valve, securing and monitoring",
+      "Escharotomy: circumferential burn indications, medial/lateral extremity incisions, chest incision pattern",
+      "Fasciotomy: 5 Ps of compartment syndrome, lower leg/forearm/thigh technique, telemedicine before proceeding",
+      "Lateral canthotomy: orbital compartment syndrome, 90-120 minute window, lateral canthus technique",
+      "Wound debridement and delayed primary closure: devitalized tissue identification, DPC at 3-5 days"
+    ],
+    keywords: "finger thoracostomy, chest tube insertion, escharotomy burns, fasciotomy compartment syndrome, lateral canthotomy, wound debridement PFC"
   }
 };
 
