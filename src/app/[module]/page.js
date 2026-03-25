@@ -29,7 +29,7 @@ const CONTENT = {
     topics: [
       "Secondary survey: head-to-toe palpation, log roll, baseline vitals documentation",
       "Pain management: CWMP, OTFC 800mcg, ketamine analgesic and procedural dosing",
-      "Antibiotics: moxifloxacin, ertapenem, metronidazole for penetrating wounds",
+      "Antibiotics: moxifloxacin, ceftriaxone, metronidazole for penetrating wounds",
       "Wound care: irrigation, hemostatic gauze management, dressing changes",
       "Splinting: PMS checks, traction splints, pelvic binders",
       "Burns: Rule of Nines, Parkland formula, fluid resuscitation targets"
