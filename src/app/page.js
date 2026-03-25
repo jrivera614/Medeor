@@ -1,41 +1,63 @@
-"use client";
-import { useAppState, S, Bar } from "./components";
-import { TOPICS } from "./data";
-import { useRouter } from "next/navigation";
+import HomeClient from "./HomeClient";
 
-export default function Home() {
-  const { progress, ref } = useAppState();
-  const router = useRouter();
+export const metadata = {
+  title: 'Medeor - Free TCCC/CLS/PFC Training | Quizzes, CPGs, Videos',
+  description: 'Free interactive TCCC, CLS, and Prolonged Field Care training app. MARCH protocol quizzes, flashcards, 86 JTS CPG direct PDF links, Deployed Medicine videos, Walking Blood Bank module, Parkland burn calculator, GCS calculator, and Ranger Medic Handbook reference. Built for combat medics, corpsmen, PJs, and 18Ds.',
+  alternates: {
+    canonical: 'https://medeor.app',
+  },
+};
+
+export default function HomePage() {
   return (
-    <div style={S.app}>
-      <div style={S.hdr}>
-        <div>
-          <div style={{fontSize:11,color:"#10b981",fontWeight:700,letterSpacing:".12em",textTransform:"uppercase",marginBottom:2}}>MEDEOR</div>
-          <div style={{fontSize:16,fontWeight:700}}>TCCC / CLS / PFC Training</div>
-          <div style={{fontSize:10,color:"#666",marginTop:1,textTransform:"uppercase",letterSpacing:".04em"}}>Interactive Modules</div>
-        </div>
+    <>
+      {/* SSR content for crawlers */}
+      <div style={{position:"absolute",left:"-9999px",width:"1px",height:"1px",overflow:"hidden"}} aria-hidden="true">
+        <h1>Medeor - Free TCCC, CLS, and Prolonged Field Care Training</h1>
+        <p>Interactive military medical training app with quizzes, flashcards, and clinical decision scenarios. No login required. Works offline.</p>
+
+        <h2>Training Modules</h2>
+        <ul>
+          <li><a href="/march">MARCH Protocol - Systematic casualty assessment covering massive hemorrhage, airway, respiration, circulation, and hypothermia. 14 steps, 15 quiz questions, 15 flashcards.</a></li>
+          <li><a href="/epaws">E-PAWS-B Secondary Survey - Pain management, antibiotics, wound care, splinting, and burns. 9 steps, 12 quiz questions, 12 flashcards.</a></li>
+          <li><a href="/ravines">RAVINES Prolonged Field Care - Resuscitation, airway care, ventilation, telemedicine, HITMAN nursing, environmental, and surgical procedures. 8 steps, 12 quiz questions, 12 flashcards.</a></li>
+          <li><a href="/hemorrhage">Hemorrhage Control - Tourniquets, wound packing with hemostatic gauze, junctional hemorrhage devices, blood products. 8 steps, 10 quiz questions, 10 flashcards.</a></li>
+          <li><a href="/airway">Airway Management - NPA insertion, surgical cricothyrotomy, supraglottic airways, RSI protocols. 8 steps, 10 quiz questions, 10 flashcards.</a></li>
+          <li><a href="/wbb">Walking Blood Bank - ROLO program, donor screening, Eldon cards, CPDA collection, transfusion reactions. 10 steps, 15 quiz questions, 12 flashcards.</a></li>
+          <li><a href="/pfc-scenarios">Tactical Scenarios - Branching clinical decision scenarios for delayed MEDEVAC, chest trauma, MASCAL triage, and 24-hour PFC.</a></li>
+          <li><a href="/pfc-meds">PFC Medications - Ketamine drip titration, push-dose pressors, antibiotic scheduling, analgesic ladder, RASS sedation scale.</a></li>
+          <li><a href="/shock">Shock Recognition - Hemorrhagic shock classes, field assessment, septic shock protocol, obstructive shock, reassessment endpoints.</a></li>
+          <li><a href="/longitudinal">Longitudinal PFC - Hour-by-hour management from stabilization through MEDEVAC handoff over 24+ hours.</a></li>
+          <li><a href="/pfc-procedures">PFC Procedures - Finger thoracostomy, chest tube, escharotomy, fasciotomy, lateral canthotomy, wound debridement.</a></li>
+        </ul>
+
+        <h2>Reference Library</h2>
+        <ul>
+          <li><a href="/cpgs">86 JTS Clinical Practice Guidelines with direct PDF links</a></li>
+          <li><a href="/videos">31 Deployed Medicine training videos</a></li>
+          <li><a href="/rmh">Ranger Medic Handbook digital reference</a></li>
+          <li><a href="/table8">Table 8 skills evaluation grade sheets</a></li>
+        </ul>
+
+        <h2>Clinical Tools</h2>
+        <ul>
+          <li><a href="/tools">Parkland Burn Calculator, GCS Calculator, Pediatric Dosing Calculator</a></li>
+          <li><a href="/pfc">PFC Casualty Card with PDF export</a></li>
+        </ul>
+
+        <h2>Blog</h2>
+        <ul>
+          <li><a href="/blog/free-tccc-practice-quiz">Free TCCC Practice Quiz</a></li>
+          <li><a href="/blog/march-protocol-steps">MARCH Protocol Steps Guide</a></li>
+          <li><a href="/blog/how-to-apply-tourniquet-cat-gen7">How to Apply a CAT Gen 7 Tourniquet</a></li>
+          <li><a href="/blog/needle-chest-decompression-guide">Needle Chest Decompression Guide</a></li>
+          <li><a href="/blog/prolonged-field-care-guide">Prolonged Field Care Guide</a></li>
+        </ul>
+
+        <p>Built by a combat medic with 17 years of service. Content aligned with current Committee on TCCC guidelines and Joint Trauma System clinical practice guidelines. Free, no account required.</p>
       </div>
-      <div ref={ref} style={S.body}>
-        <div style={{padding:"16px 0 8px"}}>
-          <p style={{fontSize:12,color:"#666",lineHeight:1.6,margin:0}}>MARCH, E-PAWS-B, RAVINES, hemorrhage control, airway management, walking blood bank, and tactical scenarios.</p>
-        </div>
-        {TOPICS.map(t=>{
-          const sp = progress[`steps_${t.id}`]; const qp = progress[`quiz_${t.id}`]; const fp = progress[`flash_${t.id}`];
-          const done = sp || qp || fp; const badges = [];
-          if (sp) badges.push("Steps");
-          if (qp) badges.push(`Quiz ${qp.score}%`);
-          if (fp) badges.push("Cards");
-          return (<div key={t.id} style={S.card} onMouseEnter={e=>{e.currentTarget.style.background="#ffffff0f";e.currentTarget.style.borderColor=`${t.color}30`}} onMouseLeave={e=>{e.currentTarget.style.background="#ffffff08";e.currentTarget.style.borderColor="#ffffff0f"}} onClick={()=>router.push(`/${t.id}`)}>
-            <div style={{display:"flex",alignItems:"center",gap:11}}>
-              <div style={{fontSize:22,width:40,height:40,display:"flex",alignItems:"center",justifyContent:"center",borderRadius:11,background:`${t.color}14`,position:"relative"}}>{t.icon}{done&&<div style={{position:"absolute",top:-2,right:-2,width:12,height:12,borderRadius:6,background:"#10b981",display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{color:"#fff",fontSize:8,fontWeight:700}}>✓</span></div>}</div>
-              <div style={{flex:1}}><div style={{fontSize:14,fontWeight:600}}>{t.title}</div><div style={{fontSize:11,color:"#666",marginTop:2}}>{t.subtitle}</div>
-                {badges.length > 0 && <div style={{display:"flex",gap:4,marginTop:4}}>{badges.map((b,bi)=>(<span key={bi} style={{fontSize:9,color:"#10b981",background:"#10b98114",padding:"1px 6px",borderRadius:4,fontWeight:600}}>{b}</span>))}</div>}
-              </div>
-              <span style={{color:"#444",fontSize:14}}>›</span>
-            </div>
-          </div>)})}
-      </div>
-      <Bar active="train"/>
-    </div>
+
+      <HomeClient />
+    </>
   );
 }
