@@ -25,9 +25,7 @@ export const metadata = {
     title: 'Medeor - Free TCCC/CLS Training',
     description: 'Interactive military medical training. Quizzes, CPGs, videos, calculators. Free.',
   },
-  alternates: {
-    canonical: 'https://medeor.app',
-  },
+  // REMOVED: alternates.canonical from layout -- each page sets its own canonical
   robots: {
     index: true,
     follow: true,
@@ -52,7 +50,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
         <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="canonical" href="https://medeor.app" />
+        {/* REMOVED: hardcoded <link rel="canonical"> -- was bleeding onto every page */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebApplication",
