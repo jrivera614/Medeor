@@ -33,6 +33,7 @@ export default function HomePage() {
 
         <h2>Reference Library</h2>
         <ul>
+          <li><a href="/meds">Medication Reference: TCCC, PFC, and garrison medications with dosing, routes, and warnings</a></li>
           <li><a href="/cpgs">86 JTS Clinical Practice Guidelines with direct PDF links</a></li>
           <li><a href="/videos">31 Deployed Medicine training videos</a></li>
           <li><a href="/rmh">Ranger Medic Handbook digital reference</a></li>

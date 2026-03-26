@@ -1,0 +1,30 @@
+name: Validate & Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Validate clinical data
+        run: node tests/validate-data.js
+
+      - name: Run smoke tests
+        run: node tests/smoke-tests.js
+
+      - name: Build
+        run: npx next build

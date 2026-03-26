@@ -55,6 +55,7 @@ export default function ModulePage() {
           <div style={{fontSize:9,fontWeight:700,color:topic.color,textTransform:"uppercase",letterSpacing:".08em",marginBottom:6}}>Field Instruction</div>
           <p style={{fontSize:12,color:"#ccc",lineHeight:1.7,margin:0}}>{currentStep.instruction}</p>
         </div>
+        <div style={{fontSize:9,color:"#444",marginTop:8,textAlign:"right"}}>Content verified against CoTCCC/JTS CPG guidelines, Mar 2026</div>
       </div>
       <div style={{display:"flex",gap:8,paddingTop:10}}>
         <button style={{...S.btn("#555",false),opacity:stepState.index===0?.3:1}} disabled={stepState.index===0} onClick={()=>tr(()=>setStepState({index:stepState.index-1}))}>Prev</button>

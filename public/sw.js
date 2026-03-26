@@ -1,11 +1,10 @@
-const CACHE_NAME = 'medeor-v4';
+const CACHE_NAME = 'medeor-v5';
 const OFFLINE_URLS = [
   '/',
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png',
   '/favicon.ico',
-  '/html2pdf.min.js',
   '/cpgs',
   '/videos',
   '/rmh',
@@ -14,6 +13,10 @@ const OFFLINE_URLS = [
   '/pfc',
   '/table8',
   '/blog',
+  '/meds',
+  '/diagrams/ncd.svg',
+  '/diagrams/npa.svg',
+  '/diagrams/cric.svg',
 ];
 
 self.addEventListener('install', (event) => {

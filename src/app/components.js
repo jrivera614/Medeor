@@ -64,7 +64,7 @@ export function Bar({ active }) {
     ["ref", "/reference", "📋", "Reference"],
     ["pfc", "/pfc", "🩺", "PFC"],
     ["tools", "/tools", "🔧", "Tools"],
-    ["blog", "/blog", "📝", "Blog"]
+    ["meds", "/meds", "💊", "Meds"]
   ];
 
   return (

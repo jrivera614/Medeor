@@ -31,6 +31,13 @@ const sections = [
     color: "#10b981",
     path: "/rmh"
   },
+  {
+    title: "Blog",
+    desc: "TCCC articles, training guides, and clinical breakdowns.",
+    icon: "📝",
+    color: "#78716c",
+    path: "/blog"
+  },
 ];
 
 export default function ReferenceClient() {
@@ -43,7 +50,7 @@ export default function ReferenceClient() {
         <div>
           <div style={{ fontSize: 16, fontWeight: 700 }}>Reference Library</div>
           <div style={{ fontSize: 10, color: "#666", marginTop: 1, textTransform: "uppercase", letterSpacing: ".04em" }}>
-            CPGs, Videos, Grade Sheets, RMH
+            CPGs, Videos, Grade Sheets, RMH, Blog
           </div>
         </div>
       </div>

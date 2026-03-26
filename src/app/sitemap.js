@@ -19,6 +19,7 @@ export default function sitemap() {
     { url: `${base}/pfc-procedures`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
 
     // Reference content
+    { url: `${base}/meds`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/cpgs`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/videos`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/rmh`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },

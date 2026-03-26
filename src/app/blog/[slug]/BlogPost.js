@@ -154,7 +154,7 @@ export default function BlogPost({ post }) {
           </div>
         </div>
       </div>
-      <Bar active="train" />
+      <Bar active="ref" />
     </div>
   );
 }
