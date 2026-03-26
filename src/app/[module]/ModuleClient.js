@@ -50,6 +50,7 @@ export default function ModulePage() {
         <span style={{fontSize:10,fontWeight:700,color:topic.color,textTransform:"uppercase",letterSpacing:".06em",background:`${topic.color}18`,padding:"2px 8px",borderRadius:6}}>{topic.title}</span>
         <h2 style={{fontSize:18,fontWeight:700,marginTop:12,marginBottom:8,lineHeight:1.3}}>{currentStep.title}</h2>
         <p style={{fontSize:13,color:"#aaa",lineHeight:1.7,margin:"0 0 16px"}}>{currentStep.detail}</p>
+        {currentStep.diagram && <div style={{margin:"0 0 16px",borderRadius:11,overflow:"hidden",border:"1px solid #ffffff14"}}><img src={currentStep.diagram} alt={currentStep.title + " diagram"} style={{width:"100%",display:"block"}}/></div>}
         <div style={{background:`${topic.color}0a`,border:`1px solid ${topic.color}25`,borderRadius:11,padding:14}}>
           <div style={{fontSize:9,fontWeight:700,color:topic.color,textTransform:"uppercase",letterSpacing:".08em",marginBottom:6}}>Field Instruction</div>
           <p style={{fontSize:12,color:"#ccc",lineHeight:1.7,margin:0}}>{currentStep.instruction}</p>
