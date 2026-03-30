@@ -24,7 +24,7 @@ Airway and respiration questions cover NPA insertion, surgical cricothyrotomy in
 
 Most TCCC quizzes give you a score and move on. That's fine for validation but terrible for learning. We include a detailed rationale with every single question. If you get it wrong, you know exactly what you missed and why. If you get it right, the rationale reinforces the underlying principle so it sticks.
 
-For example, one question asks about TXA timing. The correct answer is within 3 hours of injury. The rationale explains that TXA inhibits fibrinolysis to stabilize clots, but after 3 hours it can paradoxically increase mortality. That's the kind of context that transforms rote memorization into actual clinical understanding.
+For example, one question asks about TXA administration. The correct answer is to give it as soon as possible after wounding. The rationale explains that TXA inhibits fibrinolysis to stabilize clots and that earlier administration provides the greatest survival benefit. The 3-hour restriction has been removed from current guidelines. That's the kind of context that transforms rote memorization into actual clinical understanding.
 
 ## How to use it
 
@@ -53,17 +53,19 @@ In Tactical Field Care (TFC), you slow down and get systematic. Full blood sweep
 
 For junctional hemorrhage that you can't tourniquet, you're packing with hemostatic gauze (Combat Gauze, ChitoGauze, or Celox). Pack to the deepest point of the wound, use the entire roll, and hold direct pressure for a minimum of 3 minutes. Time it. Don't lift to check early.
 
-TXA goes in within 3 hours of injury. 2 grams slow IV push. After 3 hours, it may actually increase mortality, so timing matters.
+TXA goes in as soon as possible after wounding. 2 grams slow IV/IO push. The 3-hour restriction has been removed from current guidelines. Earlier administration provides the greatest survival benefit. Also now indicated for significant TBI.
 
 ## A - Airway
 
 Airway obstruction is the second leading cause of preventable combat death. If your casualty is talking, screaming, or cursing at you, the airway is patent. Move on.
 
-Snoring or gurgling means partial obstruction. Silence with no chest rise means complete obstruction. In an unconscious casualty, the tongue falls back and blocks the airway. Basic maneuvers first: head-tilt chin-lift if no C-spine concern, jaw thrust if there is.
+Snoring or gurgling means partial obstruction. Silence with no chest rise means complete obstruction. In an unconscious casualty, the tongue falls back and blocks the airway.
 
-The NPA (nasopharyngeal airway) is the CLS standard adjunct. Size it from the nostril to the earlobe. Lubricate with water-based lube, bevel toward the septum, insert into the right nostril, and advance along the nasal floor. Not angled upward toward the brain. Along the floor.
+Per TCCC Change 24-1, the TFC airway algorithm has been simplified. Head-tilt chin-lift for positioning. For unconscious casualties without traumatic airway obstruction, use the recovery position with head tilted back and chin away from the chest. For conscious casualties with facial trauma, use the Sit-Up and Lean-Forward position. Jaw thrust and supraglottic airways are no longer recommended in TFC.
 
-If basic maneuvers and an NPA fail, or if there's massive facial trauma, you're doing a surgical cricothyrotomy. Palpate the cricothyroid membrane between the thyroid and cricoid cartilages, vertical skin incision, horizontal membrane stab, tracheal hook, insert a cuffed 6.0 ETT, inflate, and confirm with capnography.
+NPA has been moved to the Respiration/Breathing section and is now only indicated when SpO2 drops below 90% with impaired ventilation. It is no longer a routine airway adjunct.
+
+If positioning and suction fail, or if there's massive facial trauma, you're doing a surgical cricothyrotomy. Palpate the cricothyroid membrane between the thyroid and cricoid cartilages, vertical skin incision, horizontal membrane stab, tracheal hook, insert a cuffed 6.0 ETT, inflate, and confirm with mandatory continuous capnography.
 
 ## R - Respiration
 
@@ -254,7 +256,7 @@ Track fluid input and urine output meticulously. Urine output should be at least
 
 ## Medications in PFC
 
-Pain management in PFC goes beyond the initial ketamine push during TCCC. You're setting up a drip or scheduled dosing regimen. Ketamine drip for analgesia, midazolam or propofol if you need procedural sedation, antibiotics for open wounds (ceftriaxone 1g IV daily is the standard), and potentially pressors if you're dealing with distributive shock.
+Pain management in PFC goes beyond the initial ketamine push during TCCC. You're setting up a drip or scheduled dosing regimen. Ketamine drip for analgesia, midazolam or propofol if you need procedural sedation, antibiotics for open wounds (ceftriaxone 2g IV daily per Change 25-1), and potentially pressors if you're dealing with distributive shock.
 
 Document every medication: drug name, dose, route, and time. Every single one. When you hand this patient off to a surgical team, they need to know exactly what's been given.
 
@@ -273,5 +275,257 @@ We built an interactive PFC Casualty Card at medeor.app that digitizes the v25 c
 Everything persists on your device. Nothing is lost if you switch tabs or close the browser. When you're done, hit Export and it generates a PDF you can hand off to the surgical team or upload to the patient's medical record.
 
 It's the PFC card, but usable on a phone, in the dark, with gloves on. Free, no login, works offline.`,
+  },
+  {
+    slug: "tccc-changes-2024-2025-airway-antibiotics",
+    title: "TCCC Changes 24-1 and 25-1: What Changed and Why It Matters",
+    description: "Complete breakdown of TCCC Change 24-1 (airway management overhaul) and Change 25-1 (antibiotic replacement). What was removed, what replaced it, and how to update your training.",
+    date: "2026-03-27",
+    category: "Clinical",
+    readTime: "8 min",
+    content: `The CoTCCC issued two major guideline changes in 2024-2025 that affect how every combat medic, corpsman, and CLS manages airways and administers antibiotics. If you're still teaching jaw thrust, supraglottic airways in TFC, or carrying moxifloxacin in your CWMP, your training is outdated. Here's what changed and why.
+
+## Change 24-1: Airway Management Overhaul
+
+Published in the Journal of Special Operations Medicine (Shaw et al., Spring 2025), Change 24-1 is the most significant revision to TCCC airway management since the guidelines were formalized. The CoTCCC spent years reviewing every assumption about prehospital airway management and concluded that several longstanding practices lacked evidence in the combat trauma setting.
+
+### What was removed from TFC
+
+**Jaw thrust is out.** It was previously recommended for unconscious casualties with suspected C-spine injury. The CoTCCC found insufficient evidence that it provides meaningful benefit over simpler positioning in the tactical environment.
+
+**Supraglottic airways (SGAs) are out of TFC.** The i-gel, KingLT-D, and LMA have been removed from the Tactical Field Care airway algorithm entirely. The evidence showed no survival benefit over BVM ventilation in battlefield conditions. Placement without RSI sedation in trauma patients demonstrated very high mortality. Environmental factors like extreme temperatures and altitude changes during TACEVAC made them unreliable.
+
+**NPA is out of the Airway section.** The nasopharyngeal airway has been moved to the Respiration/Breathing section. It is no longer a routine airway adjunct. NPA is now only indicated when the casualty has impaired ventilation with SpO2 dropping below 90% and positioning alone is insufficient.
+
+**Control-Cric is out as the preferred device.** The CoTCCC found it performed second or third in every evaluation category. Providers should train with whatever surgical airway kit is available to them.
+
+### What the new TFC airway algorithm looks like
+
+The sequence is now dramatically simplified:
+
+1. **Positioning and suction.** For conscious casualties with maxillofacial trauma: Sit-Up and Lean-Forward. For unconscious casualties without traumatic airway obstruction: recovery position with head tilted back and chin away from the chest.
+2. **Surgical cricothyrotomy** if positioning fails or for massive facial/airway trauma. This is now the only advanced airway intervention in TFC. No intermediate devices.
+3. **Mandatory continuous capnography** after any cricothyrotomy to confirm and monitor tube position.
+
+That's it. Position, suction, cric. The cognitive load on the provider just dropped significantly.
+
+### Why this matters
+
+The old algorithm had multiple decision points: try jaw thrust, consider NPA, consider SGA, then cric as last resort. Each step added complexity, consumed time, and required equipment that might not work in the field. The new algorithm acknowledges that if basic positioning doesn't fix the airway, you need a definitive surgical airway. Intermediate devices were consuming time and resources without improving survival.
+
+## Change 25-1: Antibiotic Replacement
+
+Published in JSOM (Wisniewski et al., December 2025), Change 25-1 replaces both the oral and parenteral TCCC antibiotics based on new data from the Russo-Ukrainian War.
+
+### What was replaced
+
+**Moxifloxacin is out.** The fluoroquinolone that's been the TCCC oral antibiotic since 2002 has been replaced. Moxifloxacin is no longer recommended.
+
+**Ertapenem is out.** The carbapenem that served as the parenteral antibiotic since 2017 has been removed. The reason is serious: data from the Global War on Terror showed that 86% of hospital-acquired multidrug-resistant organisms were Acinetobacter baumannii, with 91% being carbapenem-resistant. Field use of ertapenem was contributing to the resistance problem that killed patients downstream at the hospital.
+
+### What replaced them
+
+**Oral: Cefadroxil 1g PO daily** (preferred) or **Cephalexin 500mg PO** (alternative). First-generation cephalosporins that cover the point-of-wounding organisms identified in Ukrainian casualty wound cultures taken a median of 7 hours post-wounding.
+
+**Parenteral: Ceftriaxone 2g IV/IO/IM once daily.** Third-generation cephalosporin with good tissue penetration. Narrower spectrum than ertapenem, which is the point. Important: reconstitute in normal saline only. Do NOT mix with lactated Ringer's or any calcium-containing solution (causes precipitation).
+
+**Metronidazole 500mg IV q8hr** remains for penetrating abdominal/pelvic wounds (anaerobic coverage).
+
+### What you need to do
+
+Update your CWMP contents. Replace moxifloxacin with cefadroxil. Replace ertapenem with ceftriaxone 2g in your aid bag. Screen your unit for cephalosporin/penicillin allergies during pre-deployment medical screening, the same way you screened for fluoroquinolone allergies before.
+
+## TXA Update
+
+The TXA dosing protocol was previously updated to a single 2g IV/IO slow push (replacing the old 1g + 1g infusion protocol). The 3-hour administration window has also been removed. Current guidance is to administer TXA as soon as possible after wounding. Earlier administration provides the greatest survival benefit. TXA is also now indicated for significant traumatic brain injury.
+
+## Train on current guidelines
+
+If your unit is still teaching the old airway algorithm or carrying moxifloxacin, you're training to an outdated standard. The free training modules at medeor.app have been updated to reflect Change 24-1 and 25-1 across all content, quizzes, and flashcards.`,
+  },
+  {
+    slug: "tccc-practice-test-2026",
+    title: "TCCC Practice Test 2026 - 50 Questions With Answers and Rationales",
+    description: "Free 2026 TCCC practice test covering MARCH, hemorrhage control, airway management, PFC, shock, and medications. Updated for Change 24-1 and 25-1. Every answer explained.",
+    date: "2026-03-27",
+    category: "Training",
+    readTime: "12 min",
+    content: `Studying for your TCCC certification, recert, or just trying to stay current? Here are 50 practice questions covering the core domains. Every answer includes the rationale. All content reflects the current CoTCCC guidelines including Change 24-1 (airway) and Change 25-1 (antibiotics).
+
+These are not trick questions. They test whether you know the material well enough to apply it under pressure.
+
+## Hemorrhage Control
+
+**1. The #1 cause of preventable combat death is:**
+Hemorrhage. Over 90% of potentially survivable combat deaths are from bleeding that could have been stopped with a tourniquet, wound packing, or junctional device.
+
+**2. A tourniquet should be placed:**
+2-3 inches above the wound during TFC (deliberate application). During CUF, go high and tight over the uniform for speed.
+
+**3. Your tourniquet fails to stop bleeding. Next action:**
+Apply a second tourniquet proximal to and touching the first. Never remove a failed tourniquet.
+
+**4. Minimum direct pressure time after wound packing:**
+3 minutes. Time it. Don't release to check early. You'll disrupt the forming clot.
+
+**5. Hemostatic gauze should NOT be packed into:**
+Chest wounds. Packing can interfere with lung re-expansion. Chest wounds get sealed, not packed.
+
+**6. Bleeding soaks through a pressure dressing. You should:**
+Add more material on top. Never remove the original dressing. Removal disrupts the clot underneath.
+
+**7. TQ conversion requires ALL of the following:**
+Tactical situation permits monitoring, tourniquet on less than 6 hours, casualty not in shock. Missing any one means the TQ stays.
+
+**8. After 6 hours of tourniquet time, the biggest risk of conversion is:**
+Reperfusion injury. Ischemic tissue releases potassium, lactate, and myoglobin. Sudden release can cause hyperkalemia and cardiac arrest. Consult telemedicine.
+
+## Airway Management (Updated for Change 24-1)
+
+**9. Per Change 24-1, the TFC airway sequence is:**
+Positioning/suction, then surgical cricothyrotomy if needed. No intermediate devices. NPA, SGAs, and jaw thrust are no longer in the TFC airway algorithm.
+
+**10. Jaw thrust is:**
+No longer recommended in TCCC. Removed by Change 24-1.
+
+**11. Supraglottic airways (i-gel, KingLT-D) in TFC are:**
+Removed from the TFC algorithm by Change 24-1. Evidence showed no survival benefit over BVM in battlefield trauma and very high mortality when placed without RSI sedation.
+
+**12. NPA is now indicated only when:**
+The casualty has impaired ventilation with SpO2 dropping below 90%. It has been moved from the Airway section to Respiration/Breathing.
+
+**13. The updated recovery position is:**
+Head tilted back, chin away from the chest. This is the primary TFC intervention for unconscious casualties without traumatic airway obstruction.
+
+**14. After a surgical cricothyrotomy, what monitoring is now mandatory?**
+Continuous capnography. This was upgraded from recommended to mandatory by Change 24-1.
+
+**15. NPA is contraindicated in:**
+Suspected basilar skull fracture. Signs: raccoon eyes, Battle's sign, CSF rhinorrhea or otorrhea.
+
+**16. Cric tube size for adults:**
+6.0 cuffed. Larger risks tracheal damage, smaller has excessive resistance.
+
+## Respiration
+
+**17. Tension pneumothorax is the ___ leading cause of preventable combat death:**
+Third, after hemorrhage and airway obstruction.
+
+**18. Primary needle decompression site:**
+2nd intercostal space, midclavicular line. Insert above the 3rd rib to avoid the neurovascular bundle.
+
+**19. Minimum needle length for chest decompression:**
+3.25 inches. Standard 1.5-inch needles frequently fail due to chest wall thickness.
+
+**20. After applying a chest seal, the casualty worsens. First action:**
+Burp the seal. Lift one corner, release trapped air, reseal. If no improvement, then needle decompression.
+
+**21. You must seal:**
+Both entry and exit wounds. Always check the back.
+
+## Circulation
+
+**22. Radial pulse present means SBP is approximately:**
+80+ mmHg. Femoral = 70+. Carotid only = 60+.
+
+**23. Permissive hypotension target SBP:**
+80-90 mmHg. Exception: TBI patients need SBP greater than 90 for cerebral perfusion.
+
+**24. Fluid resuscitation preference order:**
+Whole blood, then 1:1:1 components, then plasma + RBC, then plasma alone, then crystalloid (LR or Plasma-Lyte). Never normal saline. Never Hextend.
+
+**25. Calcium chloride 1g IV is given after every:**
+4 units of blood products. Citrate in stored blood binds calcium, impairing cardiac function and coagulation.
+
+**26. TXA dose and timing:**
+2g IV/IO slow push, given as soon as possible after wounding. The 3-hour restriction has been removed. Earlier is better. Also indicated for significant TBI.
+
+## Antibiotics (Updated for Change 25-1)
+
+**27. First-line oral antibiotic for open combat wounds:**
+Cefadroxil 1g PO daily (preferred) or Cephalexin 500mg PO (alternative). Moxifloxacin is no longer recommended per Change 25-1.
+
+**28. First-line parenteral antibiotic:**
+Ceftriaxone 2g IV/IO/IM once daily. Ertapenem is no longer recommended due to carbapenem resistance concerns.
+
+**29. Ceftriaxone must be reconstituted in:**
+Normal saline only. Not LR or any calcium-containing solution. Calcium causes precipitation.
+
+**30. Why was ertapenem removed?**
+Data from GWOT showed 86% of hospital-acquired MDR organisms were Acinetobacter baumannii, with 91% being carbapenem-resistant. Field use of carbapenems was driving resistance.
+
+**31. When to add Metronidazole:**
+Penetrating abdominal or pelvic wounds. 500mg IV every 8 hours for anaerobic coverage.
+
+## Hypothermia and TBI
+
+**32. The lethal triad is:**
+Hypothermia, acidosis, and coagulopathy. Each worsens the others.
+
+**33. The single most important hypothermia prevention step:**
+Insulate from the ground. Ground conduction is the fastest route of heat loss.
+
+**34. GCS score that requires a definitive airway:**
+8 or less.
+
+**35. Herniation treatment:**
+3% hypertonic saline 250ml IV push, hyperventilate to EtCO2 30-35 (only for herniation), head up 30 degrees, immediate MEDEVAC.
+
+**36. Seizure prophylaxis for TBI:**
+Levetiracetam (Keppra) 1500mg IV.
+
+## Pain Management
+
+**37. Preferred analgesic for hemodynamically unstable patients:**
+Ketamine. Does not cause respiratory depression or hypotension at analgesic doses. 20-30mg IV slow push or 50-100mg IM/IN.
+
+**38. CWMP contains:**
+Acetaminophen 650mg and Meloxicam 15mg PO. For mild to moderate pain in stable patients.
+
+**39. OTFC dose:**
+800mcg lozenge placed between cheek and gum. Do not chew. Monitor respiratory rate.
+
+## PFC and Shock
+
+**40. RAVINES stands for:**
+Resuscitate/Reduce tourniquets, Airway care, Ventilate, Initiate telemedicine, Nursing (HITMAN), Environmental, Surgical procedures.
+
+**41. HITMAN stands for:**
+Head-to-toe assessment, Infection control, Tubes, Medications, Administration, Nursing fundamentals.
+
+**42. PFC vital signs should be trended every:**
+30 minutes. The trend tells you if the patient is improving or deteriorating. A single set means nothing.
+
+**43. Class III hemorrhagic shock involves:**
+1500-2000ml blood loss (30-40% volume). HR 120-140, BP dropping, confusion.
+
+**44. Beck's triad indicates:**
+Cardiac tamponade. Hypotension + JVD + muffled heart sounds.
+
+**45. The most sensitive early indicator of shock:**
+Mental status change. A casualty who was talking and is now confused has lost significant volume.
+
+## Walking Blood Bank
+
+**46. Low-titer O is defined as:**
+Anti-A and anti-B titers both less than 256 by immediate spin.
+
+**47. LTOWB can be transfused to:**
+Any blood type. That's the purpose of screening for low titer.
+
+**48. Dog tags are wrong for blood type approximately:**
+4% of the time. Always confirm with Eldon card.
+
+**49. Fresh whole blood at room temperature must be used within:**
+8 hours. If refrigerated within 8 hours, it becomes stored WBB blood good for up to 35 days in CPDA-1.
+
+**50. Most dangerous transfusion reaction:**
+Acute hemolytic reaction from ABO mismatch. Stop transfusion immediately, NS bolus, save the blood bag.
+
+## How to use this
+
+These 50 questions cover the core TCCC domains tested on certification exams. If you want to practice interactively with scoring and detailed rationales for every answer, the free quiz modules at medeor.app cover all of these topics and more. No login, works on your phone, works offline.
+
+All content reflects current CoTCCC guidelines as of March 2026, including Change 24-1 (airway management overhaul) and Change 25-1 (antibiotic replacement).`,
   },
 ];
