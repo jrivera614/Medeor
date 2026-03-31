@@ -1,105 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 720">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 420">
   <style>text { font-family: system-ui, sans-serif; }</style>
-  <rect width="480" height="720" fill="#0d0d14" rx="14"/>
+  <rect width="480" height="420" fill="#0d0d14" rx="14"/>
 
   <text x="240" y="30" text-anchor="middle" fill="#e8e8ed" font-size="15" font-weight="700" letter-spacing="0.04em">LOWER LEG FASCIOTOMY</text>
-  <text x="240" y="46" text-anchor="middle" fill="#666" font-size="10">FOUR-COMPARTMENT RELEASE</text>
+  <text x="240" y="48" text-anchor="middle" fill="#666" font-size="10">Two-Incision Technique | Cross-Section</text>
 
-  <!-- Cross-section label -->
-  <text x="170" y="72" text-anchor="middle" fill="#888" font-size="11" font-weight="500">Cross-Section (Mid-Leg)</text>
+  <!-- Skin outline -->
+  <ellipse cx="240" cy="210" rx="155" ry="120" fill="#1a1a24" stroke="#444" stroke-width="2"/>
 
-  <!-- Skin outline (oval) -->
-  <ellipse cx="170" cy="185" rx="115" ry="90" fill="#1a1a24" stroke="#444" stroke-width="1.5"/>
-
-  <!-- Tibia (triangular) -->
-  <path d="M138 118 L198 118 L168 180 Z" fill="#2a2520" stroke="#665840" stroke-width="1.2"/>
-  <text x="168" y="150" text-anchor="middle" fill="#887060" font-size="9">Tibia</text>
+  <!-- Tibia -->
+  <path d="M195 130 L275 130 L235 210 Z" fill="#2a2520" stroke="#665840" stroke-width="1.5"/>
+  <text x="235" y="170" text-anchor="middle" fill="#998070" font-size="13" font-weight="600">Tibia</text>
 
   <!-- Fibula -->
-  <circle cx="248" cy="195" r="12" fill="#2a2520" stroke="#665840" stroke-width="1.2"/>
-  <text x="248" y="199" text-anchor="middle" fill="#887060" font-size="7">Fib</text>
+  <circle cx="340" cy="220" r="16" fill="#2a2520" stroke="#665840" stroke-width="1.5"/>
+  <text x="340" y="225" text-anchor="middle" fill="#998070" font-size="9">Fib</text>
 
   <!-- IO membrane -->
-  <line x1="180" y1="172" x2="237" y2="190" stroke="#665840" stroke-width="1" stroke-dasharray="3 2"/>
-  <text x="208" y="170" text-anchor="middle" fill="#666" font-size="8">IO membrane</text>
+  <line x1="250" y1="200" x2="325" y2="215" stroke="#665840" stroke-width="1.2" stroke-dasharray="4 3"/>
 
   <!-- ANTERIOR compartment -->
-  <path d="M138 118 Q170 90 258 130 L237 190 L180 172 L168 180 Z" fill="#3b82f6" fill-opacity="0.15" stroke="#3b82f6" stroke-width="1"/>
-  <text x="200" y="125" fill="#3b82f6" font-size="10" font-weight="600">ANTERIOR</text>
+  <path d="M195 130 Q240 95 350 150 L325 215 L250 200 L235 210 Z" fill="#3b82f6" fill-opacity="0.12" stroke="#3b82f6" stroke-width="1.2"/>
+  <text x="275" y="148" fill="#3b82f6" font-size="13" font-weight="600">Anterior</text>
 
   <!-- LATERAL compartment -->
-  <path d="M258 130 Q285 150 282 210 L248 208 L237 190 Z" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1"/>
-  <text x="265" y="168" fill="#10b981" font-size="8" font-weight="600">LAT</text>
+  <path d="M350 150 Q385 175 380 240 L340 236 L325 215 Z" fill="#10b981" fill-opacity="0.12" stroke="#10b981" stroke-width="1.2"/>
+  <text x="358" y="198" fill="#10b981" font-size="11" font-weight="600">Lat</text>
 
-  <!-- DEEP POSTERIOR compartment -->
-  <path d="M168 180 L180 172 L237 190 L248 208 Q220 245 155 238 Z" fill="#f59e0b" fill-opacity="0.15" stroke="#f59e0b" stroke-width="1"/>
-  <text x="198" y="218" fill="#f59e0b" font-size="8" font-weight="600">DEEP POST</text>
+  <!-- DEEP POSTERIOR -->
+  <path d="M235 210 L250 200 L325 215 L340 236 Q300 275 205 265 Z" fill="#f59e0b" fill-opacity="0.12" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="270" y="250" fill="#f59e0b" font-size="11" font-weight="600">Deep Post</text>
 
-  <!-- SUPERFICIAL POSTERIOR compartment -->
-  <path d="M155 238 Q220 245 282 210 Q290 238 275 265 Q220 285 115 268 Q98 240 120 212 Z" fill="#a855f7" fill-opacity="0.15" stroke="#a855f7" stroke-width="1"/>
-  <text x="198" y="260" fill="#a855f7" font-size="8" font-weight="600">SUPERFICIAL POST</text>
+  <!-- SUPERFICIAL POSTERIOR -->
+  <path d="M205 265 Q300 275 380 240 Q392 270 370 305 Q300 330 155 308 Q130 275 155 240 Z" fill="#a855f7" fill-opacity="0.12" stroke="#a855f7" stroke-width="1.2"/>
+  <text x="268" y="300" fill="#a855f7" font-size="11" font-weight="600">Superficial Post</text>
 
-  <!-- LATERAL incision marker -->
-  <line x1="272" y1="105" x2="272" y2="148" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="272" cy="105" r="3.5" fill="#ef4444"/>
-  <text x="286" y="110" fill="#ef4444" font-size="9" font-weight="600">Lateral</text>
-  <text x="286" y="122" fill="#ef4444" font-size="9" font-weight="600">incision</text>
+  <!-- LATERAL INCISION -->
+  <line x1="370" y1="110" x2="370" y2="165" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="370" cy="110" r="5" fill="#ef4444"/>
+  <text x="400" y="118" fill="#ef4444" font-size="12" font-weight="700">Lateral</text>
+  <text x="400" y="134" fill="#aaa" font-size="10">2cm anterior</text>
+  <text x="400" y="148" fill="#aaa" font-size="10">to fibula</text>
 
-  <!-- MEDIAL incision marker -->
-  <line x1="103" y1="168" x2="103" y2="210" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="103" cy="168" r="3.5" fill="#ef4444"/>
-  <text x="60" y="174" text-anchor="end" fill="#ef4444" font-size="9" font-weight="600">Medial</text>
-  <text x="60" y="186" text-anchor="end" fill="#ef4444" font-size="9" font-weight="600">incision</text>
+  <!-- MEDIAL INCISION -->
+  <line x1="130" y1="195" x2="130" y2="250" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="130" cy="195" r="5" fill="#ef4444"/>
+  <text x="42" y="208" fill="#ef4444" font-size="12" font-weight="700">Medial</text>
+  <text x="42" y="224" fill="#aaa" font-size="10">2cm posterior</text>
+  <text x="42" y="238" fill="#aaa" font-size="10">to tibia</text>
 
-  <!-- Callout boxes -->
-  <rect x="350" y="82" width="122" height="82" rx="8" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
-  <text x="411" y="101" text-anchor="middle" fill="#e8e8ed" font-size="12" font-weight="700">Two Incisions</text>
-  <text x="411" y="117" text-anchor="middle" fill="#aaa" font-size="10">Lateral: 2cm ant</text>
-  <text x="411" y="131" text-anchor="middle" fill="#aaa" font-size="10">to fibular shaft</text>
-  <text x="411" y="147" text-anchor="middle" fill="#aaa" font-size="10">Medial: 2cm post</text>
-  <text x="411" y="161" text-anchor="middle" fill="#aaa" font-size="10">to tibial border</text>
+  <!-- Bottom summary -->
+  <text x="240" y="365" text-anchor="middle" fill="#aaa" font-size="11">Lateral releases anterior + lateral. Medial releases deep + superficial posterior.</text>
+  <text x="240" y="385" text-anchor="middle" fill="#888" font-size="10">Full-length incisions through skin and fascia. Do not cut muscle.</text>
 
-  <rect x="350" y="178" width="122" height="82" rx="8" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
-  <text x="411" y="197" text-anchor="middle" fill="#e8e8ed" font-size="12" font-weight="700">Releases</text>
-  <text x="411" y="213" text-anchor="middle" fill="#aaa" font-size="10">Lateral: anterior</text>
-  <text x="411" y="227" text-anchor="middle" fill="#aaa" font-size="10">+ lateral comps</text>
-  <text x="411" y="243" text-anchor="middle" fill="#aaa" font-size="10">Medial: deep +</text>
-  <text x="411" y="257" text-anchor="middle" fill="#aaa" font-size="10">superficial post</text>
-
-  <!-- Compartment key -->
-  <rect x="18" y="300" width="444" height="72" rx="10" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
-  <text x="240" y="322" text-anchor="middle" fill="#e8e8ed" font-size="12" font-weight="700">Four Compartments</text>
-  <rect x="42" y="332" width="8" height="8" rx="2" fill="#3b82f6" fill-opacity="0.5"/>
-  <text x="56" y="340" fill="#aaa" font-size="10">Anterior: tib anterior, EHL, EDL</text>
-  <rect x="42" y="348" width="8" height="8" rx="2" fill="#10b981" fill-opacity="0.5"/>
-  <text x="56" y="356" fill="#aaa" font-size="10">Lateral: peroneals</text>
-  <rect x="255" y="332" width="8" height="8" rx="2" fill="#f59e0b" fill-opacity="0.5"/>
-  <text x="269" y="340" fill="#aaa" font-size="10">Deep post: tib post, FHL, FDL</text>
-  <rect x="255" y="348" width="8" height="8" rx="2" fill="#a855f7" fill-opacity="0.5"/>
-  <text x="269" y="356" fill="#aaa" font-size="10">Superficial post: gastroc, soleus</text>
-
-  <!-- 5 P's box -->
-  <rect x="18" y="388" width="444" height="80" rx="10" fill="#10b98110" stroke="#10b981" stroke-width="0.5"/>
-  <text x="240" y="410" text-anchor="middle" fill="#10b981" font-size="12" font-weight="700">5 P's of Compartment Syndrome</text>
-  <text x="240" y="430" text-anchor="middle" fill="#aaa" font-size="11">Pain (out of proportion, with passive stretch) -- earliest sign</text>
-  <text x="240" y="448" text-anchor="middle" fill="#aaa" font-size="11">Pressure (firm compartment), Paresthesias, Paralysis</text>
-  <text x="240" y="462" text-anchor="middle" fill="#888" font-size="10">Pulselessness (LATE finding -- do NOT wait for this)</text>
-
-  <!-- Technique box -->
-  <rect x="18" y="484" width="444" height="120" rx="10" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
-  <text x="240" y="506" text-anchor="middle" fill="#e8e8ed" font-size="13" font-weight="700">Technique</text>
-  <text x="240" y="526" text-anchor="middle" fill="#aaa" font-size="11">1. Full-length incision through skin and fascia.</text>
-  <text x="240" y="544" text-anchor="middle" fill="#aaa" font-size="11">2. Each incision 15-20cm. Do NOT cut muscle.</text>
-  <text x="240" y="562" text-anchor="middle" fill="#aaa" font-size="11">3. Forearm: dorsal + volar incisions.</text>
-  <text x="240" y="580" text-anchor="middle" fill="#aaa" font-size="11">4. Thigh: lateral incision through IT band.</text>
-  <text x="240" y="598" text-anchor="middle" fill="#888" font-size="10">Leave wounds open. Wet saline dressings. Consult telemedicine.</text>
-
-  <!-- Critical notes -->
-  <rect x="18" y="620" width="444" height="55" rx="10" fill="#ef444410" stroke="#ef4444" stroke-width="0.5"/>
-  <text x="240" y="642" text-anchor="middle" fill="#ef4444" font-size="11" font-weight="600">Pressure >30 mmHg or within 30 of diastolic = emergent</text>
-  <text x="240" y="658" text-anchor="middle" fill="#ef4444" font-size="10">Avoid: saphenous vein/nerve (medial), superficial peroneal nerve (lateral)</text>
-  <text x="240" y="672" text-anchor="middle" fill="#888" font-size="9">Irreversible procedure. Reassess perfusion after release.</text>
-
-  <text x="240" y="698" text-anchor="middle" fill="#444" font-size="9">medeor.app | Content per JTS CPG &amp; CoTCCC guidelines</text>
-  <text x="240" y="713" text-anchor="middle" fill="#f59e0b" font-size="8" opacity="0.7">Training reference only. Not a substitute for clinical judgment.</text>
+  <text x="240" y="410" text-anchor="middle" fill="#444" font-size="9">medeor.app | Content per JTS CPG &amp; CoTCCC guidelines</text>
 </svg>
