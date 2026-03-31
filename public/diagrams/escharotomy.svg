@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 740">
+  <style>text { font-family: system-ui, sans-serif; }</style>
+  <rect width="480" height="740" fill="#0d0d14" rx="14"/>
+
+  <text x="240" y="30" text-anchor="middle" fill="#e8e8ed" font-size="15" font-weight="700" letter-spacing="0.04em">ESCHAROTOMY</text>
+  <text x="240" y="46" text-anchor="middle" fill="#666" font-size="10">CIRCUMFERENTIAL BURN RELEASE -- INCISION LINES</text>
+
+  <!-- ANTERIOR BODY -->
+  <text x="130" y="72" text-anchor="middle" fill="#888" font-size="11" font-weight="500">Anterior</text>
+
+  <!-- Head -->
+  <ellipse cx="130" cy="100" rx="18" ry="22" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <!-- Neck -->
+  <rect x="124" y="120" width="12" height="10" rx="2" fill="#2a1a14" stroke="#8B4513" stroke-width="0.8"/>
+  <!-- Torso -->
+  <rect x="98" y="130" width="64" height="96" rx="6" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <!-- Left upper arm -->
+  <rect x="66" y="134" width="28" height="44" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <!-- Left elbow (dark emphasis - incision crosses joint) -->
+  <rect x="64" y="176" width="32" height="14" rx="4" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+  <!-- Left forearm -->
+  <rect x="66" y="188" width="28" height="34" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <!-- Left hand (dark emphasis) -->
+  <ellipse cx="80" cy="228" rx="10" ry="8" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+
+  <!-- Right upper arm -->
+  <rect x="166" y="134" width="28" height="44" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <!-- Right elbow (dark emphasis) -->
+  <rect x="164" y="176" width="32" height="14" rx="4" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+  <!-- Right forearm -->
+  <rect x="166" y="188" width="28" height="34" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <!-- Right hand (dark emphasis) -->
+  <ellipse cx="180" cy="228" rx="10" ry="8" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+
+  <!-- Perineum -->
+  <rect x="118" y="226" width="24" height="8" rx="2" fill="#2a1a14" stroke="#8B4513" stroke-width="0.5"/>
+
+  <!-- Left thigh -->
+  <rect x="100" y="236" width="28" height="50" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <!-- Left knee (dark emphasis) -->
+  <rect x="98" y="284" width="32" height="14" rx="4" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+  <!-- Left lower leg -->
+  <rect x="100" y="296" width="28" height="50" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <!-- Left ankle/foot (dark emphasis) -->
+  <ellipse cx="114" cy="352" rx="12" ry="7" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+
+  <!-- Right thigh -->
+  <rect x="132" y="236" width="28" height="50" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <!-- Right knee (dark emphasis) -->
+  <rect x="130" y="284" width="32" height="14" rx="4" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+  <!-- Right lower leg -->
+  <rect x="132" y="296" width="28" height="50" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <!-- Right ankle/foot (dark emphasis) -->
+  <ellipse cx="146" cy="352" rx="12" ry="7" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+
+  <!-- ANTERIOR INCISION LINES -->
+  <!-- Chest bilateral AAL -->
+  <line x1="104" y1="134" x2="104" y2="222" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="156" y1="134" x2="156" y2="222" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Subcostal connecting -->
+  <line x1="104" y1="192" x2="156" y2="192" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 2"/>
+  <!-- Arms: lateral lines (continuous through joints) -->
+  <line x1="73" y1="138" x2="73" y2="232" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="187" y1="138" x2="187" y2="232" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Arms: medial lines -->
+  <line x1="87" y1="138" x2="87" y2="232" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 2" stroke-linecap="round"/>
+  <line x1="173" y1="138" x2="173" y2="232" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 2" stroke-linecap="round"/>
+  <!-- Legs: lateral lines (continuous through joints) -->
+  <line x1="105" y1="240" x2="105" y2="356" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="155" y1="240" x2="155" y2="356" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Legs: medial lines -->
+  <line x1="123" y1="240" x2="123" y2="356" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 2" stroke-linecap="round"/>
+  <line x1="137" y1="240" x2="137" y2="356" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 2" stroke-linecap="round"/>
+  <!-- Hand dorsal intermetacarpal lines -->
+  <line x1="76" y1="222" x2="74" y2="236" stroke="#ef4444" stroke-width="1.2"/>
+  <line x1="80" y1="222" x2="80" y2="236" stroke="#ef4444" stroke-width="1.2"/>
+  <line x1="84" y1="222" x2="86" y2="236" stroke="#ef4444" stroke-width="1.2"/>
+  <line x1="176" y1="222" x2="174" y2="236" stroke="#ef4444" stroke-width="1.2"/>
+  <line x1="180" y1="222" x2="180" y2="236" stroke="#ef4444" stroke-width="1.2"/>
+  <line x1="184" y1="222" x2="186" y2="236" stroke="#ef4444" stroke-width="1.2"/>
+
+  <!-- POSTERIOR BODY -->
+  <text x="350" y="72" text-anchor="middle" fill="#888" font-size="11" font-weight="500">Posterior</text>
+
+  <!-- Head -->
+  <ellipse cx="350" cy="100" rx="18" ry="22" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <rect x="344" y="120" width="12" height="10" rx="2" fill="#2a1a14" stroke="#8B4513" stroke-width="0.8"/>
+  <!-- Torso -->
+  <rect x="318" y="130" width="64" height="96" rx="6" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <!-- Left arm -->
+  <rect x="286" y="134" width="28" height="44" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <rect x="284" y="176" width="32" height="14" rx="4" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+  <rect x="286" y="188" width="28" height="34" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <!-- Right arm -->
+  <rect x="386" y="134" width="28" height="44" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <rect x="384" y="176" width="32" height="14" rx="4" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+  <rect x="386" y="188" width="28" height="34" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <!-- Left leg -->
+  <rect x="320" y="236" width="28" height="50" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <rect x="318" y="284" width="32" height="14" rx="4" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+  <rect x="320" y="296" width="28" height="50" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <ellipse cx="334" cy="352" rx="12" ry="7" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+  <!-- Right leg -->
+  <rect x="352" y="236" width="28" height="50" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <rect x="350" y="284" width="32" height="14" rx="4" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+  <rect x="352" y="296" width="28" height="50" rx="8" fill="#2a1a14" stroke="#8B4513" stroke-width="1"/>
+  <ellipse cx="366" cy="352" rx="12" ry="7" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8" opacity="0.7"/>
+
+  <!-- POSTERIOR INCISION LINES -->
+  <line x1="324" y1="134" x2="324" y2="222" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="376" y1="134" x2="376" y2="222" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="293" y1="138" x2="293" y2="222" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="407" y1="138" x2="407" y2="222" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="325" y1="240" x2="325" y2="356" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="375" y1="240" x2="375" y2="356" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Joint crossing callout -->
+  <rect x="210" y="170" width="60" height="26" rx="6" fill="#ef444420" stroke="#ef4444" stroke-width="0.8"/>
+  <text x="240" y="187" text-anchor="middle" fill="#ef4444" font-size="8" font-weight="600">CROSS JOINTS</text>
+
+  <!-- Line key -->
+  <rect x="18" y="378" width="444" height="55" rx="10" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
+  <text x="240" y="397" text-anchor="middle" fill="#e8e8ed" font-size="12" font-weight="700">Incision Line Key</text>
+  <line x1="42" y1="415" x2="68" y2="415" stroke="#ef4444" stroke-width="2.5"/>
+  <text x="76" y="419" fill="#aaa" font-size="10">Primary: mid-axial (lateral) lines</text>
+  <line x1="262" y1="415" x2="288" y2="415" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="296" y="419" fill="#aaa" font-size="10">Secondary: mid-medial (if needed)</text>
+  <rect x="42" y="425" width="8" height="8" rx="2" fill="#1a0a08" stroke="#ef4444" stroke-width="0.8"/>
+  <text x="56" y="433" fill="#aaa" font-size="10">Dark areas: incisions must extend ACROSS joints</text>
+
+  <!-- Technique box -->
+  <rect x="18" y="450" width="444" height="100" rx="10" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
+  <text x="240" y="472" text-anchor="middle" fill="#e8e8ed" font-size="13" font-weight="700">Technique</text>
+  <text x="240" y="492" text-anchor="middle" fill="#aaa" font-size="11">1. Cut through eschar to subcutaneous fat only.</text>
+  <text x="240" y="510" text-anchor="middle" fill="#aaa" font-size="11">2. Use scalpel or electrocautery.</text>
+  <text x="240" y="528" text-anchor="middle" fill="#ef4444" font-size="11" font-weight="600">3. Extend incisions ACROSS all joints.</text>
+  <text x="240" y="544" text-anchor="middle" fill="#aaa" font-size="10">Incision should gap 1-2 cm if adequate depth.</text>
+
+  <!-- Indications -->
+  <rect x="18" y="566" width="210" height="80" rx="10" fill="#10b98110" stroke="#10b981" stroke-width="0.5"/>
+  <text x="123" y="586" text-anchor="middle" fill="#10b981" font-size="12" font-weight="700">Indications</text>
+  <text x="42" y="604" fill="#aaa" font-size="10">Circumferential full-</text>
+  <text x="42" y="618" fill="#aaa" font-size="10">thickness burns with:</text>
+  <text x="42" y="634" fill="#aaa" font-size="10">Distal vascular compromise</text>
+
+  <!-- Chest/abd -->
+  <rect x="244" y="566" width="218" height="80" rx="10" fill="#3b82f610" stroke="#3b82f6" stroke-width="0.5"/>
+  <text x="353" y="586" text-anchor="middle" fill="#3b82f6" font-size="12" font-weight="700">Chest/Abdomen</text>
+  <text x="268" y="604" fill="#aaa" font-size="10">Chest: impaired ventilation</text>
+  <text x="268" y="618" fill="#aaa" font-size="10">Bilateral AAL + subcostal</text>
+  <text x="268" y="634" fill="#aaa" font-size="10">connecting incision</text>
+
+  <!-- Hands -->
+  <rect x="18" y="662" width="444" height="30" rx="10" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
+  <text x="240" y="682" text-anchor="middle" fill="#aaa" font-size="10">Hands: dorsal intermetacarpal incisions. Avoid tendons and digital NV bundles.</text>
+
+  <!-- Full-thickness note -->
+  <text x="240" y="710" text-anchor="middle" fill="#888" font-size="10">Full-thickness burns: no local anesthesia needed. Leave wounds open, wet dressings.</text>
+
+  <text x="240" y="730" text-anchor="middle" fill="#444" font-size="9">medeor.app | Content per JTS CPG &amp; CoTCCC guidelines</text>
+</svg>

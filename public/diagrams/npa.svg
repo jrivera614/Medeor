@@ -1,201 +1,84 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 620" width="480" height="620">
-  <!-- Background -->
-  <rect width="480" height="620" fill="#f2f1ec" rx="14"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 620">
+  <style>text { font-family: system-ui, sans-serif; }</style>
+  <rect width="480" height="620" fill="#0d0d14" rx="14"/>
 
-  <!-- Title -->
-  <text x="240" y="30" text-anchor="middle" fill="#333" font-family="system-ui,sans-serif" font-size="15" font-weight="700" letter-spacing="0.04em">NASOPHARYNGEAL AIRWAY (NPA)</text>
-  <text x="240" y="46" text-anchor="middle" fill="#999" font-family="system-ui,sans-serif" font-size="10">MIDSAGITTAL SCHEMATIC</text>
+  <text x="240" y="30" text-anchor="middle" fill="#e8e8ed" font-size="15" font-weight="700" letter-spacing="0.04em">NASOPHARYNGEAL AIRWAY (NPA)</text>
+  <text x="240" y="46" text-anchor="middle" fill="#666" font-size="10">MIDSAGITTAL SCHEMATIC | TCCC Change 24-1</text>
 
-  <!-- ======= HEAD PROFILE - clean simple outline ======= -->
-  <!-- Facing left. Key points: top of skull, forehead, nose, mouth, chin, neck -->
-  <path d="
-    M 260,70
-    Q 230,65 200,70
-    Q 170,78 150,95
-    Q 135,110 128,130
-    Q 122,150 120,170
-    Q 118,185 112,195
-    Q 105,205 95,215
-    Q 85,225 82,235
-    Q 80,242 84,248
-    Q 90,252 96,248
-    L 96,255
-    Q 94,265 96,272
-    Q 100,282 110,290
-    Q 125,302 135,312
-    Q 140,320 140,330
-    L 140,400
-  " fill="none" stroke="#999" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Head profile facing left -->
+  <path d="M 260,70 Q 230,65 200,70 Q 170,78 150,95 Q 135,110 128,130 Q 122,150 120,170 Q 118,185 112,195 Q 105,205 95,215 Q 85,225 82,235 Q 80,242 84,248 Q 90,252 96,248 L 96,255 Q 94,265 96,272 Q 100,282 110,290 Q 125,302 135,312 Q 140,320 140,330 L 140,400" fill="none" stroke="#555" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 260,70 Q 285,72 300,85 Q 312,100 316,125 Q 318,155 314,190 Q 308,225 302,260 Q 296,295 292,330 L 290,400" fill="none" stroke="#555" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 260,70 Q 230,65 200,70 Q 170,78 150,95 Q 135,110 128,130 Q 122,150 120,170 Q 118,185 112,195 Q 105,205 95,215 Q 85,225 82,235 Q 80,242 84,248 Q 90,252 96,248 L 96,255 Q 94,265 96,272 Q 100,282 110,290 Q 125,302 135,312 Q 140,320 140,330 L 140,400 L 290,400 L 292,330 Q 296,295 302,260 Q 308,225 314,190 Q 318,155 316,125 Q 312,100 300,85 Q 285,72 260,70 Z" fill="#1a1a24" stroke="none"/>
+  <path d="M 260,70 Q 230,65 200,70 Q 170,78 150,95 Q 135,110 128,130 Q 122,150 120,170 Q 118,185 112,195 Q 105,205 95,215 Q 85,225 82,235 Q 80,242 84,248 Q 90,252 96,248 L 96,255 Q 94,265 96,272 Q 100,282 110,290 Q 125,302 135,312 Q 140,320 140,330 L 140,400" fill="none" stroke="#555" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 260,70 Q 285,72 300,85 Q 312,100 316,125 Q 318,155 314,190 Q 308,225 302,260 Q 296,295 292,330 L 290,400" fill="none" stroke="#555" stroke-width="2" stroke-linejoin="round"/>
 
-  <!-- Back of head and neck -->
-  <path d="
-    M 260,70
-    Q 285,72 300,85
-    Q 312,100 316,125
-    Q 318,155 314,190
-    Q 308,225 302,260
-    Q 296,295 292,330
-    L 290,400
-  " fill="none" stroke="#999" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="145" cy="140" r="4" fill="#444"/>
+  <path d="M 310,135 Q 318,130 321,140 Q 323,152 318,160 Q 313,163 310,158" fill="none" stroke="#444" stroke-width="1.5"/>
 
-  <!-- Fill head area lightly -->
-  <path d="
-    M 260,70
-    Q 230,65 200,70
-    Q 170,78 150,95
-    Q 135,110 128,130
-    Q 122,150 120,170
-    Q 118,185 112,195
-    Q 105,205 95,215
-    Q 85,225 82,235
-    Q 80,242 84,248
-    Q 90,252 96,248
-    L 96,255
-    Q 94,265 96,272
-    Q 100,282 110,290
-    Q 125,302 135,312
-    Q 140,320 140,330
-    L 140,400
-    L 290,400
-    L 292,330
-    Q 296,295 302,260
-    Q 308,225 314,190
-    Q 318,155 316,125
-    Q 312,100 300,85
-    Q 285,72 260,70
-    Z
-  " fill="#fafafa" stroke="none"/>
+  <!-- Nasal passage -->
+  <line x1="95" y1="222" x2="258" y2="185" stroke="#444" stroke-width="1.5"/>
+  <line x1="95" y1="244" x2="248" y2="255" stroke="#555" stroke-width="2.5"/>
+  <path d="M 95,222 L 258,185 L 258,250 L 248,255 L 95,244 Z" fill="#10b981" opacity="0.08"/>
+  <text x="175" y="228" text-anchor="middle" fill="#10b981" font-size="10" font-weight="600">Nasal passage</text>
+  <text x="175" y="272" text-anchor="middle" fill="#888" font-size="10" font-style="italic">hard palate (nasal floor)</text>
 
-  <!-- Re-stroke the outline on top of fill -->
-  <path d="
-    M 260,70
-    Q 230,65 200,70
-    Q 170,78 150,95
-    Q 135,110 128,130
-    Q 122,150 120,170
-    Q 118,185 112,195
-    Q 105,205 95,215
-    Q 85,225 82,235
-    Q 80,242 84,248
-    Q 90,252 96,248
-    L 96,255
-    Q 94,265 96,272
-    Q 100,282 110,290
-    Q 125,302 135,312
-    Q 140,320 140,330
-    L 140,400
-  " fill="none" stroke="#999" stroke-width="2" stroke-linejoin="round"/>
-  <path d="
-    M 260,70
-    Q 285,72 300,85
-    Q 312,100 316,125
-    Q 318,155 314,190
-    Q 308,225 302,260
-    Q 296,295 292,330
-    L 290,400
-  " fill="none" stroke="#999" stroke-width="2" stroke-linejoin="round"/>
+  <line x1="268" y1="175" x2="275" y2="360" stroke="#444" stroke-width="1.5"/>
+  <path d="M 248,255 Q 256,260 258,270 Q 258,280 252,288" fill="none" stroke="#444" stroke-width="2"/>
+  <text x="232" y="290" fill="#888" font-size="9" font-style="italic">soft palate</text>
+  <text x="272" y="230" fill="#10b981" font-size="9" font-weight="600" opacity="0.7">Pharynx</text>
 
-  <!-- Eye (simple dot) -->
-  <circle cx="145" cy="140" r="4" fill="#ccc"/>
+  <path d="M 130,290 Q 170,285 210,290 Q 240,298 248,310 Q 245,325 230,332 Q 195,340 165,338 Q 140,332 132,318 Q 130,305 130,290 Z" fill="#1e1e28" stroke="#444" stroke-width="1"/>
+  <text x="190" y="318" text-anchor="middle" fill="#666" font-size="10" font-style="italic">tongue</text>
 
-  <!-- Ear (simple) -->
-  <path d="M 310,135 Q 318,130 321,140 Q 323,152 318,160 Q 313,163 310,158" fill="none" stroke="#bbb" stroke-width="1.5"/>
+  <rect x="255" y="355" width="24" height="40" rx="4" fill="#1e1e28" stroke="#444" stroke-width="1"/>
+  <text x="267" y="378" text-anchor="middle" fill="#555" font-size="7">trachea</text>
 
-  <!-- ======= INTERNAL ANATOMY - minimal schematic ======= -->
+  <!-- NPA tube -->
+  <path d="M 90,240 L 150,248 L 210,253 L 245,255 Q 258,258 265,268 Q 270,280 270,300 L 270,320" fill="none" stroke="#ef4444" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+  <circle cx="90" cy="240" r="7" fill="#ef4444" stroke="#b03030" stroke-width="2"/>
+  <text x="76" y="240" text-anchor="end" fill="#ef4444" font-size="9" font-weight="600">Flange</text>
+  <circle cx="270" cy="320" r="3" fill="#ef4444"/>
+  <text x="255" y="340" fill="#ef4444" font-size="9" font-weight="600">Tip in</text>
+  <text x="255" y="351" fill="#ef4444" font-size="9" font-weight="600">pharynx</text>
 
-  <!-- NASAL PASSAGE - shown as a simple channel -->
-  <!-- Roof of nasal passage -->
-  <line x1="95" y1="222" x2="258" y2="185" stroke="#bbb" stroke-width="1.5"/>
-  <!-- Floor of nasal passage (hard palate) -->
-  <line x1="95" y1="244" x2="248" y2="255" stroke="#bbb" stroke-width="2.5"/>
+  <text x="62" y="210" fill="#ef4444" font-size="10" font-weight="600">Along nasal</text>
+  <text x="62" y="222" fill="#10b981" font-size="10" font-weight="600">FLOOR &#x2713;</text>
+  <line x1="105" y1="236" x2="135" y2="205" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.5"/>
+  <text x="120" y="196" fill="#ef4444" font-size="9" opacity="0.7">NOT up &#x2717;</text>
 
-  <!-- Light fill for nasal passage -->
-  <path d="M 95,222 L 258,185 L 258,250 L 248,255 L 95,244 Z" fill="#ddeef5" opacity="0.4"/>
+  <!-- Callout boxes -->
+  <rect x="350" y="60" width="122" height="55" rx="8" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
+  <text x="411" y="79" text-anchor="middle" fill="#e8e8ed" font-size="12" font-weight="700">Sizing</text>
+  <text x="411" y="95" text-anchor="middle" fill="#aaa" font-size="11">Nostril to earlobe</text>
+  <text x="411" y="109" text-anchor="middle" fill="#888" font-size="10">M ~28Fr / F ~26Fr</text>
 
-  <!-- Labels inside passage -->
-  <text x="175" y="228" text-anchor="middle" fill="#6090a8" font-family="system-ui,sans-serif" font-size="10" font-weight="600">Nasal passage</text>
+  <rect x="350" y="128" width="122" height="68" rx="8" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
+  <text x="411" y="147" text-anchor="middle" fill="#e8e8ed" font-size="12" font-weight="700">Insertion</text>
+  <text x="411" y="163" text-anchor="middle" fill="#aaa" font-size="11">Right nostril</text>
+  <text x="411" y="178" text-anchor="middle" fill="#aaa" font-size="11">Bevel toward septum</text>
+  <text x="411" y="192" text-anchor="middle" fill="#888" font-size="10">Along nasal floor</text>
 
-  <!-- Hard palate label -->
-  <text x="175" y="272" text-anchor="middle" fill="#888" font-family="system-ui,sans-serif" font-size="10" font-style="italic">hard palate (nasal floor)</text>
+  <rect x="350" y="210" width="122" height="68" rx="8" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
+  <text x="411" y="229" text-anchor="middle" fill="#e8e8ed" font-size="12" font-weight="700">Indication</text>
+  <text x="411" y="245" text-anchor="middle" fill="#aaa" font-size="11">SpO2 &lt;90% with</text>
+  <text x="411" y="259" text-anchor="middle" fill="#aaa" font-size="11">impaired ventilation</text>
+  <text x="411" y="273" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="600">Change 24-1</text>
 
-  <!-- Posterior pharynx wall -->
-  <line x1="268" y1="175" x2="275" y2="360" stroke="#bbb" stroke-width="1.5"/>
+  <rect x="350" y="292" width="122" height="68" rx="8" fill="#ef444410" stroke="#ef4444" stroke-width="1"/>
+  <text x="411" y="311" text-anchor="middle" fill="#ef4444" font-size="12" font-weight="700">Contraindicated</text>
+  <text x="411" y="327" text-anchor="middle" fill="#aaa" font-size="11">Basilar skull fracture</text>
+  <text x="411" y="344" text-anchor="middle" fill="#888" font-size="9">Raccoon eyes, Battle's</text>
+  <text x="411" y="356" text-anchor="middle" fill="#888" font-size="9">sign, CSF leak</text>
 
-  <!-- Soft palate -->
-  <path d="M 248,255 Q 256,260 258,270 Q 258,280 252,288" fill="none" stroke="#bbb" stroke-width="2"/>
-  <text x="232" y="290" fill="#888" font-family="system-ui,sans-serif" font-size="9" font-style="italic">soft palate</text>
+  <rect x="18" y="420" width="444" height="132" rx="10" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
+  <text x="240" y="442" text-anchor="middle" fill="#e8e8ed" font-size="13" font-weight="700">Technique</text>
+  <text x="240" y="462" text-anchor="middle" fill="#aaa" font-size="11">1. Size: nostril to earlobe. Lubricate with water-based lube.</text>
+  <text x="240" y="480" text-anchor="middle" fill="#aaa" font-size="11">2. Bevel toward septum, insert into right nostril.</text>
+  <text x="240" y="498" text-anchor="middle" fill="#aaa" font-size="11">3. Advance along nasal FLOOR with gentle rotation.</text>
+  <text x="240" y="516" text-anchor="middle" fill="#aaa" font-size="11">4. Do NOT angle upward toward cribriform plate.</text>
+  <text x="240" y="534" text-anchor="middle" fill="#aaa" font-size="11">5. Stop at flange. Secure with safety pin through flange.</text>
+  <text x="240" y="548" text-anchor="middle" fill="#888" font-size="10">If resistance, try left nostril. Gagging is normal.</text>
 
-  <!-- Pharynx label -->
-  <text x="272" y="230" fill="#6090a8" font-family="system-ui,sans-serif" font-size="9" font-weight="600">Pharynx</text>
-
-  <!-- Tongue (simple) -->
-  <path d="M 130,290 Q 170,285 210,290 Q 240,298 248,310 Q 245,325 230,332 Q 195,340 165,338 Q 140,332 132,318 Q 130,305 130,290 Z" fill="#f0e8e8" stroke="#ccc" stroke-width="1"/>
-  <text x="190" y="318" text-anchor="middle" fill="#aaa" font-family="system-ui,sans-serif" font-size="10" font-style="italic">tongue</text>
-
-  <!-- Trachea hint -->
-  <rect x="255" y="355" width="24" height="40" rx="4" fill="#f5f5f5" stroke="#ccc" stroke-width="1"/>
-  <text x="267" y="378" text-anchor="middle" fill="#bbb" font-family="system-ui,sans-serif" font-size="7">trachea</text>
-
-  <!-- ======= NPA TUBE ======= -->
-  <!-- Red tube along nasal floor, curving into pharynx -->
-  <path d="M 90,240 L 150,248 L 210,253 L 245,255 Q 258,258 265,268 Q 270,280 270,300 L 270,320" fill="none" stroke="#d94040" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
-
-  <!-- Flange at nostril -->
-  <circle cx="90" cy="240" r="7" fill="#d94040" stroke="#b03030" stroke-width="2"/>
-  <text x="76" y="240" text-anchor="end" fill="#d94040" font-family="system-ui,sans-serif" font-size="9" font-weight="600">Flange</text>
-
-  <!-- Tip label -->
-  <circle cx="270" cy="320" r="3" fill="#d94040"/>
-  <text x="255" y="340" fill="#d94040" font-family="system-ui,sans-serif" font-size="9" font-weight="600">Tip in</text>
-  <text x="255" y="351" fill="#d94040" font-family="system-ui,sans-serif" font-size="9" font-weight="600">pharynx</text>
-
-  <!-- CORRECT direction annotation -->
-  <text x="62" y="210" fill="#d94040" font-family="system-ui,sans-serif" font-size="10" font-weight="600">Along nasal</text>
-  <text x="62" y="222" fill="#d94040" font-family="system-ui,sans-serif" font-size="10" font-weight="600">FLOOR ✓</text>
-
-  <!-- WRONG direction -->
-  <line x1="105" y1="236" x2="135" y2="205" stroke="#d94040" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.5"/>
-  <text x="120" y="196" fill="#d94040" font-family="system-ui,sans-serif" font-size="9" opacity="0.7">NOT up ✗</text>
-
-  <!-- ======= RIGHT SIDE CALLOUT BOXES ======= -->
-
-  <!-- Sizing -->
-  <rect x="350" y="60" width="122" height="55" rx="8" fill="#fff" stroke="#ddd" stroke-width="1"/>
-  <text x="411" y="79" text-anchor="middle" fill="#333" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Sizing</text>
-  <text x="411" y="95" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">Nostril to earlobe</text>
-  <text x="411" y="109" text-anchor="middle" fill="#999" font-family="system-ui,sans-serif" font-size="10">M ~28Fr / F ~26Fr</text>
-
-  <!-- Insertion -->
-  <rect x="350" y="128" width="122" height="68" rx="8" fill="#fff" stroke="#ddd" stroke-width="1"/>
-  <text x="411" y="147" text-anchor="middle" fill="#333" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Insertion</text>
-  <text x="411" y="163" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">Right nostril</text>
-  <text x="411" y="178" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">Bevel toward septum</text>
-  <text x="411" y="192" text-anchor="middle" fill="#999" font-family="system-ui,sans-serif" font-size="10">Along nasal floor</text>
-
-  <!-- Indication -->
-  <rect x="350" y="210" width="122" height="55" rx="8" fill="#fff" stroke="#ddd" stroke-width="1"/>
-  <text x="411" y="229" text-anchor="middle" fill="#333" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Indication</text>
-  <text x="411" y="245" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">Unconscious or</text>
-  <text x="411" y="259" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">semi-conscious</text>
-
-  <!-- Contraindication -->
-  <rect x="350" y="278" width="122" height="68" rx="8" fill="#fff" stroke="#d94040" stroke-width="1"/>
-  <text x="411" y="297" text-anchor="middle" fill="#d94040" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Contraindicated</text>
-  <text x="411" y="313" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">Basilar skull fracture</text>
-  <text x="411" y="330" text-anchor="middle" fill="#999" font-family="system-ui,sans-serif" font-size="9">Raccoon eyes, Battle's</text>
-  <text x="411" y="342" text-anchor="middle" fill="#999" font-family="system-ui,sans-serif" font-size="9">sign, CSF leak</text>
-
-  <!-- ======= BOTTOM TECHNIQUE BOX ======= -->
-  <rect x="18" y="420" width="444" height="132" rx="10" fill="#fff" stroke="#ddd" stroke-width="1"/>
-  <text x="240" y="442" text-anchor="middle" fill="#333" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Technique</text>
-  <text x="240" y="462" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">1. Size: nostril to earlobe. Lubricate with water-based lube.</text>
-  <text x="240" y="480" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">2. Bevel toward septum, insert into right nostril.</text>
-  <text x="240" y="498" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">3. Advance along nasal FLOOR with gentle rotation.</text>
-  <text x="240" y="516" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">4. Do NOT angle upward toward cribriform plate.</text>
-  <text x="240" y="534" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">5. Stop at flange. Secure with safety pin through flange.</text>
-  <text x="240" y="548" text-anchor="middle" fill="#999" font-family="system-ui,sans-serif" font-size="10">If resistance, try left nostril. Gagging is normal.</text>
-
-  <!-- Footer -->
-  <text x="240" y="578" text-anchor="middle" fill="#bbb" font-family="system-ui,sans-serif" font-size="9">medeor.app | Content per JTS CPG &amp; CoTCCC guidelines</text>
-  <text x="240" y="593" text-anchor="middle" fill="#c0a040" font-family="system-ui,sans-serif" font-size="8">Training reference only. Not a substitute for clinical judgment.</text>
+  <text x="240" y="578" text-anchor="middle" fill="#444" font-size="9">medeor.app | Content per JTS CPG &amp; CoTCCC guidelines</text>
+  <text x="240" y="593" text-anchor="middle" fill="#f59e0b" font-size="8" opacity="0.7">Training reference only. Not a substitute for clinical judgment.</text>
 </svg>

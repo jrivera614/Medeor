@@ -1,123 +1,85 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 620" width="480" height="620">
-  <!-- Background -->
-  <rect width="480" height="620" fill="#f2f1ec" rx="14"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 620">
+  <style>text { font-family: system-ui, sans-serif; }</style>
+  <rect width="480" height="620" fill="#0d0d14" rx="14"/>
 
-  <!-- ======= CHEST BODY ======= -->
-  <!-- Torso -->
-  <path d="M150,55 Q135,60 125,75 Q110,98 107,130 Q104,175 106,230 Q108,290 110,345 Q112,380 114,400 L346,400 Q348,380 350,345 Q352,290 354,230 Q356,175 353,130 Q350,98 335,75 Q325,60 310,55" fill="#ffffff" stroke="#d0d0d0" stroke-width="1.5"/>
+  <text x="240" y="30" text-anchor="middle" fill="#e8e8ed" font-size="15" font-weight="700" letter-spacing="0.04em">NEEDLE CHEST DECOMPRESSION</text>
+  <text x="240" y="46" text-anchor="middle" fill="#666" font-size="10">ANTERIOR CHEST VIEW</text>
 
-  <!-- Neck -->
-  <path d="M198,55 Q200,42 204,36 L256,36 Q260,42 262,55" fill="#ffffff" stroke="#d0d0d0" stroke-width="1"/>
+  <path d="M150,55 Q135,60 125,75 Q110,98 107,130 Q104,175 106,230 Q108,290 110,345 Q112,380 114,400 L346,400 Q348,380 350,345 Q352,290 354,230 Q356,175 353,130 Q350,98 335,75 Q325,60 310,55" fill="#1a1a24" stroke="#333" stroke-width="1.5"/>
+  <path d="M198,55 Q200,42 204,36 L256,36 Q260,42 262,55" fill="#1a1a24" stroke="#333" stroke-width="1"/>
 
-  <!-- Sternum -->
-  <rect x="224" y="78" width="12" height="210" rx="4" fill="#eaeaea" stroke="#d0d0d0" stroke-width="0.5"/>
+  <rect x="224" y="78" width="12" height="210" rx="4" fill="#1e1e28" stroke="#444" stroke-width="0.5"/>
 
-  <!-- Clavicles -->
-  <path d="M224,78 Q198,74 175,80 Q155,88 135,100" fill="none" stroke="#bbb" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M236,78 Q262,74 285,80 Q305,88 325,100" fill="none" stroke="#bbb" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M224,78 Q198,74 175,80 Q155,88 135,100" fill="none" stroke="#555" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M236,78 Q262,74 285,80 Q305,88 325,100" fill="none" stroke="#555" stroke-width="3.5" stroke-linecap="round"/>
 
-  <!-- ======= LEFT RIBS ======= -->
-  <!-- Rib 1 (under clavicle, dashed, faint) -->
-  <path d="M224,95 Q206,93 190,98 Q172,106 156,118" fill="none" stroke="#ccc" stroke-width="2" stroke-dasharray="4,3" opacity="0.45"/>
+  <path d="M224,95 Q206,93 190,98 Q172,106 156,118" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="4,3" opacity="0.45"/>
+  <path d="M224,132 Q202,129 182,138 Q160,150 142,166" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M224,175 Q198,172 177,183 Q154,196 137,214" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M224,218 Q195,215 173,227 Q149,242 133,262" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M224,261 Q192,258 170,271 Q146,287 130,308" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M224,304 Q190,300 167,314 Q143,330 128,352" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
 
-  <!-- Rib 2 -->
-  <path d="M224,132 Q202,129 182,138 Q160,150 142,166" fill="none" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M236,95 Q254,93 270,98 Q288,106 304,118" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="4,3" opacity="0.45"/>
+  <path d="M236,132 Q258,129 278,138 Q300,150 318,166" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M236,175 Q262,172 283,183 Q306,196 323,214" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M236,218 Q265,215 287,227 Q311,242 327,262" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M236,261 Q268,258 290,271 Q314,287 330,308" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M236,304 Q270,300 293,314 Q317,330 332,352" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
 
-  <!-- Rib 3 -->
-  <path d="M224,175 Q198,172 177,183 Q154,196 137,214" fill="none" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="148" y1="90" x2="135" y2="400" stroke="#10b981" stroke-width="1.2" stroke-dasharray="6,5" opacity="0.7"/>
+  <line x1="192" y1="74" x2="192" y2="400" stroke="#10b981" stroke-width="1.2" stroke-dasharray="6,5" opacity="0.7"/>
+  <text x="135" y="416" text-anchor="middle" fill="#aaa" font-size="12" font-weight="600">AAL</text>
+  <text x="192" y="416" text-anchor="middle" fill="#aaa" font-size="12" font-weight="600">MCL</text>
 
-  <!-- Rib 4 -->
-  <path d="M224,218 Q195,215 173,227 Q149,242 133,262" fill="none" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="72" y="82" text-anchor="end" fill="#aaa" font-size="11" font-weight="500">Clavicle</text>
+  <text x="72" y="100" text-anchor="end" fill="#666" font-size="10" font-style="italic">Rib 1 (deep)</text>
+  <text x="72" y="140" text-anchor="end" fill="#ccc" font-size="12" font-weight="600">Rib 2</text>
 
-  <!-- Rib 5 -->
-  <path d="M224,261 Q192,258 170,271 Q146,287 130,308" fill="none" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="82" y1="148" x2="82" y2="170" stroke="#ef4444" stroke-width="2"/>
+  <line x1="79" y1="148" x2="85" y2="148" stroke="#ef4444" stroke-width="2"/>
+  <line x1="79" y1="170" x2="85" y2="170" stroke="#ef4444" stroke-width="2"/>
+  <text x="72" y="163" text-anchor="end" fill="#ef4444" font-size="11" font-weight="700">2nd ICS</text>
 
-  <!-- Rib 6 -->
-  <path d="M224,304 Q190,300 167,314 Q143,330 128,352" fill="none" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="72" y="183" text-anchor="end" fill="#ccc" font-size="12" font-weight="600">Rib 3</text>
+  <text x="72" y="228" text-anchor="end" fill="#888" font-size="11">Rib 4</text>
+  <text x="72" y="270" text-anchor="end" fill="#ccc" font-size="12" font-weight="600">Rib 5</text>
 
-  <!-- ======= RIGHT RIBS (mirror) ======= -->
-  <path d="M236,95 Q254,93 270,98 Q288,106 304,118" fill="none" stroke="#ccc" stroke-width="2" stroke-dasharray="4,3" opacity="0.45"/>
-  <path d="M236,132 Q258,129 278,138 Q300,150 318,166" fill="none" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M236,175 Q262,172 283,183 Q306,196 323,214" fill="none" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M236,218 Q265,215 287,227 Q311,242 327,262" fill="none" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M236,261 Q268,258 290,271 Q314,287 330,308" fill="none" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M236,304 Q270,300 293,314 Q317,330 332,352" fill="none" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="82" y1="277" x2="82" y2="299" stroke="#f59e0b" stroke-width="2"/>
+  <line x1="79" y1="277" x2="85" y2="277" stroke="#f59e0b" stroke-width="2"/>
+  <line x1="79" y1="299" x2="85" y2="299" stroke="#f59e0b" stroke-width="2"/>
+  <text x="72" y="292" text-anchor="end" fill="#f59e0b" font-size="11" font-weight="700">5th ICS</text>
 
-  <!-- ======= AAL dashed line ======= -->
-  <line x1="148" y1="90" x2="135" y2="400" stroke="#78b049" stroke-width="1.2" stroke-dasharray="6,5" opacity="0.7"/>
+  <text x="72" y="314" text-anchor="end" fill="#ccc" font-size="12" font-weight="600">Rib 6</text>
 
-  <!-- ======= MCL dashed line ======= -->
-  <line x1="192" y1="74" x2="192" y2="400" stroke="#78b049" stroke-width="1.2" stroke-dasharray="6,5" opacity="0.7"/>
+  <circle cx="192" cy="155" r="11" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-width="2"/>
+  <circle cx="192" cy="155" r="3" fill="#ef4444"/>
 
-  <!-- AAL / MCL bottom labels -->
-  <text x="135" y="416" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="12" font-weight="600">AAL</text>
-  <text x="192" y="416" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="12" font-weight="600">MCL</text>
+  <rect x="130" y="278" width="20" height="20" rx="4" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="2"/>
+  <circle cx="140" cy="288" r="3" fill="#f59e0b"/>
 
-  <!-- ======= LEFT LABELS ======= -->
-  <text x="72" y="82" text-anchor="end" fill="#555" font-family="system-ui,sans-serif" font-size="11" font-weight="500">Clavicle</text>
-  <text x="72" y="100" text-anchor="end" fill="#aaa" font-family="system-ui,sans-serif" font-size="10" font-style="italic">Rib 1 (deep)</text>
+  <rect x="358" y="115" width="115" height="58" rx="8" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
+  <text x="415" y="134" text-anchor="middle" fill="#e8e8ed" font-size="12" font-weight="700">Primary site</text>
+  <text x="415" y="150" text-anchor="middle" fill="#aaa" font-size="11">2nd ICS at MCL</text>
+  <text x="415" y="165" text-anchor="middle" fill="#888" font-size="10">Above the 3rd rib</text>
 
-  <text x="72" y="140" text-anchor="end" fill="#444" font-family="system-ui,sans-serif" font-size="12" font-weight="600">Rib 2</text>
+  <rect x="358" y="230" width="115" height="58" rx="8" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
+  <text x="415" y="249" text-anchor="middle" fill="#e8e8ed" font-size="12" font-weight="700">Alternate site</text>
+  <text x="415" y="265" text-anchor="middle" fill="#aaa" font-size="11">5th ICS at AAL</text>
+  <text x="415" y="280" text-anchor="middle" fill="#888" font-size="10">Above the 6th rib</text>
 
-  <!-- 2nd ICS bracket between Rib 2 (y132) and Rib 3 (y175) -->
-  <line x1="82" y1="148" x2="82" y2="170" stroke="#d94040" stroke-width="2"/>
-  <line x1="79" y1="148" x2="85" y2="148" stroke="#d94040" stroke-width="2"/>
-  <line x1="79" y1="170" x2="85" y2="170" stroke="#d94040" stroke-width="2"/>
-  <text x="72" y="163" text-anchor="end" fill="#d94040" font-family="system-ui,sans-serif" font-size="11" font-weight="700">2nd ICS</text>
+  <rect x="358" y="340" width="115" height="58" rx="8" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
+  <text x="415" y="359" text-anchor="middle" fill="#e8e8ed" font-size="12" font-weight="700">Key rule</text>
+  <text x="415" y="375" text-anchor="middle" fill="#aaa" font-size="11">Insert ABOVE the rib</text>
+  <text x="415" y="390" text-anchor="middle" fill="#888" font-size="10">NV bundle runs below</text>
 
-  <text x="72" y="183" text-anchor="end" fill="#444" font-family="system-ui,sans-serif" font-size="12" font-weight="600">Rib 3</text>
+  <rect x="18" y="440" width="444" height="110" rx="10" fill="#ffffff08" stroke="#ffffff14" stroke-width="1"/>
+  <text x="240" y="462" text-anchor="middle" fill="#e8e8ed" font-size="13" font-weight="700">Equipment and technique</text>
+  <text x="240" y="482" text-anchor="middle" fill="#aaa" font-size="11">14-gauge catheter-over-needle, 3.25 inch minimum length</text>
+  <text x="240" y="500" text-anchor="middle" fill="#aaa" font-size="11">Insert perpendicular to chest wall, above the target rib</text>
+  <text x="240" y="518" text-anchor="middle" fill="#aaa" font-size="11">Remove needle, leave catheter in place, secure with tape</text>
+  <text x="240" y="536" text-anchor="middle" fill="#888" font-size="11">May need to repeat if catheter kinks or symptoms recur</text>
 
-  <text x="72" y="228" text-anchor="end" fill="#666" font-family="system-ui,sans-serif" font-size="11">Rib 4</text>
-
-  <text x="72" y="270" text-anchor="end" fill="#444" font-family="system-ui,sans-serif" font-size="12" font-weight="600">Rib 5</text>
-
-  <!-- 5th ICS bracket between Rib 5 (y261) and Rib 6 (y304) -->
-  <line x1="82" y1="277" x2="82" y2="299" stroke="#d98030" stroke-width="2"/>
-  <line x1="79" y1="277" x2="85" y2="277" stroke="#d98030" stroke-width="2"/>
-  <line x1="79" y1="299" x2="85" y2="299" stroke="#d98030" stroke-width="2"/>
-  <text x="72" y="292" text-anchor="end" fill="#d98030" font-family="system-ui,sans-serif" font-size="11" font-weight="700">5th ICS</text>
-
-  <text x="72" y="314" text-anchor="end" fill="#444" font-family="system-ui,sans-serif" font-size="12" font-weight="600">Rib 6</text>
-
-  <!-- ======= PRIMARY SITE MARKER ======= -->
-  <!-- Red circle at 2nd ICS (midpoint ~y155) on MCL (x192) -->
-  <circle cx="192" cy="155" r="11" fill="#d94040" fill-opacity="0.2" stroke="#d94040" stroke-width="2"/>
-  <circle cx="192" cy="155" r="3" fill="#d94040"/>
-
-  <!-- ======= ALTERNATE SITE MARKER ======= -->
-  <!-- Orange square at 5th ICS (midpoint ~y285) on AAL (x140) -->
-  <rect x="130" y="278" width="20" height="20" rx="4" fill="#d98030" fill-opacity="0.2" stroke="#d98030" stroke-width="2"/>
-  <circle cx="140" cy="288" r="3" fill="#d98030"/>
-
-  <!-- ======= RIGHT SIDE CALLOUT BOXES ======= -->
-
-  <!-- Primary site box -->
-  <rect x="358" y="115" width="115" height="58" rx="8" fill="#fff" stroke="#ddd" stroke-width="1"/>
-  <text x="415" y="134" text-anchor="middle" fill="#333" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Primary site</text>
-  <text x="415" y="150" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">2nd ICS at MCL</text>
-  <text x="415" y="165" text-anchor="middle" fill="#999" font-family="system-ui,sans-serif" font-size="10">Above the 3rd rib</text>
-
-  <!-- Alternate site box -->
-  <rect x="358" y="230" width="115" height="58" rx="8" fill="#fff" stroke="#ddd" stroke-width="1"/>
-  <text x="415" y="249" text-anchor="middle" fill="#333" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Alternate site</text>
-  <text x="415" y="265" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">5th ICS at AAL</text>
-  <text x="415" y="280" text-anchor="middle" fill="#999" font-family="system-ui,sans-serif" font-size="10">Above the 6th rib</text>
-
-  <!-- Key rule box -->
-  <rect x="358" y="340" width="115" height="58" rx="8" fill="#fff" stroke="#ddd" stroke-width="1"/>
-  <text x="415" y="359" text-anchor="middle" fill="#333" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Key rule</text>
-  <text x="415" y="375" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">Insert ABOVE the rib</text>
-  <text x="415" y="390" text-anchor="middle" fill="#999" font-family="system-ui,sans-serif" font-size="10">NV bundle runs below</text>
-
-  <!-- ======= BOTTOM EQUIPMENT BOX ======= -->
-  <rect x="18" y="440" width="444" height="110" rx="10" fill="#fff" stroke="#ddd" stroke-width="1"/>
-  <text x="240" y="462" text-anchor="middle" fill="#333" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Equipment and technique</text>
-  <text x="240" y="482" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">14-gauge catheter-over-needle, 3.25 inch minimum length</text>
-  <text x="240" y="500" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">Insert perpendicular to chest wall, above the target rib</text>
-  <text x="240" y="518" text-anchor="middle" fill="#555" font-family="system-ui,sans-serif" font-size="11">Remove needle, leave catheter in place, secure with tape</text>
-  <text x="240" y="536" text-anchor="middle" fill="#999" font-family="system-ui,sans-serif" font-size="11">May need to repeat if catheter kinks or symptoms recur</text>
-
-  <!-- Footer -->
-  <text x="240" y="575" text-anchor="middle" fill="#bbb" font-family="system-ui,sans-serif" font-size="9">medeor.app | Content per JTS CPG &amp; CoTCCC guidelines</text>
-  <text x="240" y="590" text-anchor="middle" fill="#c0a040" font-family="system-ui,sans-serif" font-size="8">Training reference only. Not a substitute for clinical judgment.</text>
+  <text x="240" y="575" text-anchor="middle" fill="#444" font-size="9">medeor.app | Content per JTS CPG &amp; CoTCCC guidelines</text>
+  <text x="240" y="590" text-anchor="middle" fill="#f59e0b" font-size="8" opacity="0.7">Training reference only. Not a substitute for clinical judgment.</text>
 </svg>

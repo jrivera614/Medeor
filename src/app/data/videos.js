@@ -51,6 +51,10 @@ export const VIDEOS = [
   { mod: "16", title: "Eye Trauma", color: "#eab308", vids: [
     { name: "TFC Penetrating Eye Trauma", yt: "TPXQcIikmIE", ext: true },
     { name: "Rigid Eye Shield Application", yt: "IdPikS6XLTE", ext: true }
+  ]},
+  { mod: "PFC", title: "PFC Surgical Procedures", color: "#f59e0b", vids: [
+    { name: "Lateral Canthotomy", yt: "tZ7qmbGEdhg", ext: true },
+    { name: "Fasciotomy", yt: "WNyKp1hlZKc", ext: true }
   ]}
 ];
 

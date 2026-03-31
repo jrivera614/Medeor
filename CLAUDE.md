@@ -37,11 +37,22 @@ All source files live in src/app/. Key structure:
 - pfc-scenarios — Tactical Scenarios (4 branching scenarios)
 
 ## Pending Additions (built, not yet integrated)
+- SF600 Chronological Medical Record (sf600/)
+
+## Recently Integrated
 - PFC Medications module (pfc-meds)
 - Shock Recognition module (shock)
 - Longitudinal Care module (longitudinal)
-- PFC Procedures module (pfc-procedures)
-- SF600 Chronological Medical Record (sf600/)
+- PFC Procedures module (pfc-procedures) -- includes diagrams for escharotomy, fasciotomy, lateral canthotomy
+
+## Procedure Diagrams (public/diagrams/)
+- cric.svg -- Surgical cricothyrotomy, anterior neck view
+- ncd.svg -- Needle chest decompression, anterior chest with rib landmarks
+- npa.svg -- NPA insertion, midsagittal schematic (updated for Change 24-1)
+- lateral-canthotomy.svg -- Orbital compartment syndrome release
+- fasciotomy.svg -- Lower leg four-compartment release
+- escharotomy.svg -- Circumferential burn incision lines
+All diagrams use dark theme (#0d0d14 bg) matching app aesthetic.
 
 ## Patterns
 - All user data: localStorage only, no backend
