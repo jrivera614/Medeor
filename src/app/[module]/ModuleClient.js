@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useParams, useRouter, notFound } from "next/navigation";
 import { useAppState, S, Bar, Prog } from "../components";
 import { TOPICS } from "../data";
@@ -17,6 +17,32 @@ export default function ModulePage() {
   const [scenarioState, setScenarioState] = useState({ scenarioIndex: 0, decisionIndex: 0, selected: null, history: [], done: false });
   const [missedCards, setMissedCards] = useState([]);
   const [spacedMode, setSpacedMode] = useState(false);
+  const mounted = useRef(false);
+
+  // Restore view from URL hash on mount
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash && topic) {
+      const [v, idx] = hash.split('/');
+      const i = parseInt(idx) || 0;
+      if (v === 'steps' && topic.steps) { setView('steps'); setStepState({ index: Math.min(i, topic.steps.length - 1) }); }
+      else if (v === 'quiz' && topic.quiz) { setView('quiz'); setQuizState({ index: 0, answers: [], done: false, selected: null }); }
+      else if (v === 'flashcards' && topic.flashcards) { setView('flashcards'); setFlashState({ index: 0, flipped: false }); }
+      else if (v === 'scenarios' && topic.scenarios) { setView('scenarios'); }
+    }
+    setTimeout(() => { mounted.current = true; }, 0);
+  }, []);
+
+  // Sync view state to URL hash
+  useEffect(() => {
+    if (!mounted.current) return;
+    let h = '';
+    if (view === 'steps') h = `steps/${stepState.index}`;
+    else if (view === 'quiz') h = `quiz/${quizState.index}`;
+    else if (view === 'flashcards') h = `flashcards/${flashState.index}`;
+    else if (view !== 'menu') h = view;
+    history.replaceState(null, '', h ? `#${h}` : window.location.pathname);
+  }, [view, stepState.index, quizState.index, flashState.index]);
 
   const navigate = useCallback((targetView, setupFn) => { tr(() => { setupFn && setupFn(); setView(targetView); }); }, [tr]);
 
