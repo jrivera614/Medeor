@@ -1,4 +1,4 @@
-const CACHE_NAME = 'medeor-v5';
+const CACHE_NAME = 'medeor-v6';
 const OFFLINE_URLS = [
   '/',
   '/manifest.json',
@@ -17,6 +17,9 @@ const OFFLINE_URLS = [
   '/diagrams/ncd.svg',
   '/diagrams/npa.svg',
   '/diagrams/cric.svg',
+  '/diagrams/lateral-canthotomy.svg',
+  '/diagrams/fasciotomy.svg',
+  '/diagrams/escharotomy.png',
 ];
 
 self.addEventListener('install', (event) => {
