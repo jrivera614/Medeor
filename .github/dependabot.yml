@@ -1,0 +1,39 @@
+version: 2
+updates:
+  # npm packages - weekly, grouped to reduce PR noise
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "08:00"
+      timezone: America/Los_Angeles
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+      types:
+        patterns:
+          - "@types/*"
+    labels:
+      - dependencies
+    commit-message:
+      prefix: "deps"
+      include: scope
+
+  # GitHub Actions - weekly
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "08:00"
+      timezone: America/Los_Angeles
+    labels:
+      - dependencies
+      - github-actions
+    commit-message:
+      prefix: "ci"
+      include: scope
