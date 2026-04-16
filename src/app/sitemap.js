@@ -30,6 +30,10 @@ export default function sitemap() {
     { url: `${base}/reference`, lastModified: updated, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/table8`, lastModified: launched, changeFrequency: 'monthly', priority: 0.8 },
 
+    // PCC
+    { url: `${base}/pcc`, lastModified: updated, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${base}/pcc/card`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
+
     // Blog
     { url: `${base}/blog`, lastModified: launched, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${base}/blog/free-tccc-practice-quiz`, lastModified: launched, changeFrequency: 'monthly', priority: 0.7 },
