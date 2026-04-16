@@ -62,7 +62,7 @@ export function Bar({ active }) {
   const tabs = [
     ["train", "/", "🎯", "Train"],
     ["ref", "/reference", "📋", "Reference"],
-    ["pfc", "/pfc", "🩺", "PFC"],
+    ["pcc", "/pcc", "🩺", "PCC"],
     ["tools", "/tools", "🔧", "Tools"],
     ["meds", "/meds", "💊", "Meds"]
   ];

@@ -43,7 +43,7 @@ export default function HomePage() {
         <h2>Clinical Tools</h2>
         <ul>
           <li><a href="/tools">Parkland Burn Calculator, GCS Calculator, Pediatric Dosing Calculator</a></li>
-          <li><a href="/pfc">PFC Casualty Card with PDF export</a></li>
+          <li><a href="/pcc/card">PCC Casualty Card with PDF export (formerly PFC Casualty Card)</a></li>
         </ul>
 
         <h2>Blog</h2>

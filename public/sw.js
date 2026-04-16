@@ -1,4 +1,4 @@
-const CACHE_NAME = 'medeor-v6';
+const CACHE_NAME = 'medeor-v7';
 const OFFLINE_URLS = [
   '/',
   '/manifest.json',
@@ -10,7 +10,8 @@ const OFFLINE_URLS = [
   '/rmh',
   '/tools',
   '/reference',
-  '/pfc',
+  '/pcc',
+  '/pcc/card',
   '/table8',
   '/blog',
   '/meds',

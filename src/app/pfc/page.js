@@ -1,6 +1,16 @@
-import PfcClient from "./PfcClient";
+import { redirect, permanentRedirect } from "next/navigation";
+
+// Legacy /pfc route retires. Permanent redirect to /pcc/card preserves
+// existing bookmarks, inbound links, and SEO equity. Using
+// permanentRedirect() emits a 308, which instructs search engines to
+// transfer ranking signals to the new URL.
+
 export const metadata = {
-  title: "PFC Casualty Card - Interactive | Medeor",
-  description: "Interactive Prolonged Field Care Casualty Card with checklist, vitals tracking, and PDF export. Based on PFC CC v25. Free, no login required.",
+  title: "PCC Casualty Card | Medeor",
+  description: "Redirecting to the PCC Casualty Card.",
+  robots: { index: false, follow: true },
 };
-export default function PfcPage() { return <PfcClient />; }
+
+export default function PfcLegacyPage() {
+  permanentRedirect("/pcc/card");
+}
