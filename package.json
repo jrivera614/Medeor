@@ -15,7 +15,7 @@
     "precommit": "npm run validate && next lint"
   },
   "dependencies": {
-    "@types/node": "^25.5.0",
+    "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@vercel/analytics": "^1.4.1",
     "html2pdf.js": "^0.14.0",
