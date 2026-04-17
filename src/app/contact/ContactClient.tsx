@@ -3,10 +3,19 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppState, S, Bar } from "../components";
 
+type ContactType = "feedback" | "bug" | "content" | "feature";
+
+interface ContactForm {
+  name: string;
+  email: string;
+  type: ContactType;
+  msg: string;
+}
+
 export default function ContactClient() {
   const router = useRouter();
   const { ref } = useAppState();
-  const [form, setForm] = useState({ name: "", email: "", type: "feedback", msg: "" });
+  const [form, setForm] = useState<ContactForm>({ name: "", email: "", type: "feedback", msg: "" });
   const [sent, setSent] = useState(false);
 
   const handleSubmit = async () => {
@@ -19,6 +28,13 @@ export default function ContactClient() {
     } catch(e) {}
     setSent(true);
   };
+
+  const typeOptions: Array<[ContactType, string]> = [
+    ["feedback", "Feedback"],
+    ["bug", "Bug Report"],
+    ["content", "Content Error"],
+    ["feature", "Feature Request"],
+  ];
 
   return (<div style={S.app}><div style={S.hdr}><button style={S.back} onClick={()=>router.back()}>←</button><div style={{fontSize:15,fontWeight:700}}>Contact & Feedback</div></div>
     <div ref={ref} style={{...S.body,padding:"0 16px 40px"}}>
@@ -43,7 +59,7 @@ export default function ContactClient() {
           <div style={{marginBottom:14}}>
             <label style={{fontSize:11,color:"#666",display:"block",marginBottom:4,textTransform:"uppercase",letterSpacing:".04em"}}>Type</label>
             <div style={{display:"flex",gap:6}}>
-              {[["feedback","Feedback"],["bug","Bug Report"],["content","Content Error"],["feature","Feature Request"]].map(([v,l])=>(
+              {typeOptions.map(([v,l])=>(
                 <button key={v} onClick={()=>setForm({...form,type:v})} style={{flex:1,background:form.type===v?"#8b5cf620":"#ffffff08",border:`1px solid ${form.type===v?"#8b5cf6":"#ffffff14"}`,borderRadius:8,padding:"8px 4px",color:form.type===v?"#c7c8ff":"#888",fontSize:11,cursor:"pointer",fontFamily:"inherit"}}>{l}</button>
               ))}
             </div>

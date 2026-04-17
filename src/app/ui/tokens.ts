@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 // Medeor design tokens
 // Central source of truth for colors, spacing, and typography.
 // To rebrand or theme the app, edit this file only.
@@ -46,7 +48,9 @@ export const tokens = {
 };
 
 // Common composed styles. Importers still get full control via props.
-export const styles = {
+// Each style object is explicitly typed as CSSProperties so TS narrows
+// string literals like "column" and "auto" to their proper union types.
+export const styles: Record<"app" | "body", CSSProperties> = {
   app: {
     fontFamily: tokens.fontFamily,
     background: tokens.bgApp,

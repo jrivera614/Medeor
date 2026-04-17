@@ -1,12 +1,15 @@
 "use client";
 import { useState } from "react";
-import { useAppState, S, Bar, Prog } from "../components";
+import { useAppState, S, Bar } from "../components";
 import { GRADE_SHEETS } from "../data";
+
+type StepResult = "go" | "nogo";
+type GradeStateMap = Record<string, Record<number, StepResult>>;
 
 export default function GradesClient() {
   const { ref } = useAppState();
-  const [gradeSheet, setGradeSheet] = useState(null);
-  const [gradeStates, setGradeStates] = useState({});
+  const [gradeSheet, setGradeSheet] = useState<number | null>(null);
+  const [gradeStates, setGradeStates] = useState<GradeStateMap>({});
 
   if (gradeSheet !== null) {
     const gs = GRADE_SHEETS[gradeSheet];
@@ -24,8 +27,8 @@ export default function GradesClient() {
           const st = states[si];
           return (<div key={si} style={{display:"flex",alignItems:"flex-start",gap:8,padding:"10px 0",borderBottom:"1px solid #ffffff08"}}>
             <div style={{display:"flex",gap:4,flexShrink:0,marginTop:2}}>
-              <button onClick={()=>{const ns={...states,[si]:"go"};setGradeStates({...gradeStates,[key]:ns})}} style={{width:28,height:28,borderRadius:6,border:"2px solid "+(st==="go"?"#10b981":"#ffffff18"),background:st==="go"?"#10b981":"transparent",color:st==="go"?"#fff":"#555",fontSize:11,fontWeight:700,cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center"}}>GO</button>
-              <button onClick={()=>{const ns={...states,[si]:"nogo"};setGradeStates({...gradeStates,[key]:ns})}} style={{width:34,height:28,borderRadius:6,border:"2px solid "+(st==="nogo"?"#ef4444":"#ffffff18"),background:st==="nogo"?"#ef4444":"transparent",color:st==="nogo"?"#fff":"#555",fontSize:9,fontWeight:700,cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center"}}>NO</button>
+              <button onClick={()=>{const ns:Record<number,StepResult>={...states,[si]:"go"};setGradeStates({...gradeStates,[key]:ns})}} style={{width:28,height:28,borderRadius:6,border:"2px solid "+(st==="go"?"#10b981":"#ffffff18"),background:st==="go"?"#10b981":"transparent",color:st==="go"?"#fff":"#555",fontSize:11,fontWeight:700,cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center"}}>GO</button>
+              <button onClick={()=>{const ns:Record<number,StepResult>={...states,[si]:"nogo"};setGradeStates({...gradeStates,[key]:ns})}} style={{width:34,height:28,borderRadius:6,border:"2px solid "+(st==="nogo"?"#ef4444":"#ffffff18"),background:st==="nogo"?"#ef4444":"transparent",color:st==="nogo"?"#fff":"#555",fontSize:9,fontWeight:700,cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center"}}>NO</button>
             </div>
             <div style={{flex:1}}>
               <div style={{fontSize:13,color:st==="go"?"#888":st==="nogo"?"#ef4444":"#ccc",lineHeight:1.5}}>{step.critical&&<span style={{fontSize:9,fontWeight:700,color:"#f59e0b",background:"#f59e0b18",padding:"1px 4px",borderRadius:3,marginRight:6}}>C</span>}{step.text}</div>

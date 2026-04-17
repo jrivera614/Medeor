@@ -2,7 +2,21 @@
 import { useRouter } from "next/navigation";
 import { useAppState, S, Bar } from "../components";
 
-export default function BlogIndex({ posts }) {
+export interface BlogPost {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  category: string;
+  readTime: string;
+  content: string;
+}
+
+interface BlogIndexProps {
+  posts: BlogPost[];
+}
+
+export default function BlogIndex({ posts }: BlogIndexProps) {
   const { ref } = useAppState();
   const router = useRouter();
 
