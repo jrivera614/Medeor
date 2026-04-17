@@ -1,10 +1,16 @@
 "use client";
+import { ReactNode } from "react";
 import { tokens } from "./tokens";
 
-// SecLabel: the small uppercase colored section header.
-// Used at the top of each view to label content groups (e.g. "PCC Medications").
+// SecLabel: small uppercase colored section header. Used at the top of each
+// view to label content groups (e.g. "PCC Medications").
 
-export function SecLabel({ children, color = tokens.brand }) {
+export interface SecLabelProps {
+  children: ReactNode;
+  color?: string;
+}
+
+export function SecLabel({ children, color = tokens.brand }: SecLabelProps) {
   return (
     <div
       style={{
@@ -21,10 +27,15 @@ export function SecLabel({ children, color = tokens.brand }) {
   );
 }
 
-// Badge: small pill label.
-// Used for phase tags, count indicators, "SOON" flags.
+// Badge: small pill label. Used for phase tags, count indicators, "SOON" flags.
 
-export function Badge({ children, color = tokens.textDim, solid = false }) {
+export interface BadgeProps {
+  children: ReactNode;
+  color?: string;
+  solid?: boolean;
+}
+
+export function Badge({ children, color = tokens.textDim, solid = false }: BadgeProps) {
   return (
     <span
       style={{
@@ -44,10 +55,16 @@ export function Badge({ children, color = tokens.textDim, solid = false }) {
   );
 }
 
-// PillTab: rounded category filter button.
-// Used in the meds page category pill bar.
+// PillTab: rounded category filter button used in the meds page pill bar.
 
-export function PillTab({ children, active, color = tokens.brand, onClick }) {
+export interface PillTabProps {
+  children: ReactNode;
+  active: boolean;
+  color?: string;
+  onClick?: () => void;
+}
+
+export function PillTab({ children, active, color = tokens.brand, onClick }: PillTabProps) {
   return (
     <button
       onClick={onClick}
@@ -70,19 +87,26 @@ export function PillTab({ children, active, color = tokens.brand, onClick }) {
   );
 }
 
-// ScreenHeader: fixed top header pattern.
-// Composes: optional back button + title block + optional action button.
-// Used by PCC hub, PCC meds page, and will replace headers in HomeClient & others.
-//
-// Props:
-//   eyebrow     - small colored label above title (e.g. "PCC", "MEDEOR")
-//   eyebrowColor- color for eyebrow text. Default brand purple.
-//   title       - main title string
-//   subtitle    - small grey subtitle
-//   onBack      - if provided, shows back arrow button
-//   action      - optional node rendered on the right (e.g. EXPORT button)
+// ScreenHeader: fixed top header pattern. Composes back button + title block
+// + optional action button. Used across hub, meds, and future content pages.
 
-export function ScreenHeader({ eyebrow, eyebrowColor = tokens.brand, title, subtitle, onBack, action }) {
+export interface ScreenHeaderProps {
+  eyebrow?: ReactNode;
+  eyebrowColor?: string;
+  title: ReactNode;
+  subtitle?: ReactNode;
+  onBack?: () => void;
+  action?: ReactNode;
+}
+
+export function ScreenHeader({
+  eyebrow,
+  eyebrowColor = tokens.brand,
+  title,
+  subtitle,
+  onBack,
+  action,
+}: ScreenHeaderProps) {
   return (
     <div
       style={{
@@ -138,7 +162,15 @@ export function ScreenHeader({ eyebrow, eyebrowColor = tokens.brand, title, subt
         )}
         <div style={{ fontSize: 16, fontWeight: 700 }}>{title}</div>
         {subtitle && (
-          <div style={{ fontSize: 10, color: tokens.textDim, marginTop: 1, textTransform: "uppercase", letterSpacing: ".04em" }}>
+          <div
+            style={{
+              fontSize: 10,
+              color: tokens.textDim,
+              marginTop: 1,
+              textTransform: "uppercase",
+              letterSpacing: ".04em",
+            }}
+          >
             {subtitle}
           </div>
         )}

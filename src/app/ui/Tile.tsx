@@ -1,22 +1,38 @@
 "use client";
+import { ReactNode } from "react";
 import { Card } from "./Card";
 import { tokens } from "./tokens";
 
-// Tile: the homepage + hub tile.
-// Composition: Card + tinted icon circle + title/subtitle + chevron.
-// Renders as a button for proper keyboard focus and screen reader semantics.
-//
-// Props:
-//   icon         - node (emoji, character, or <Icon />)
-//   title        - string
-//   subtitle     - string
-//   color        - hex accent. Tints icon bg and hover border.
-//   onClick      - handler
-//   badges       - array of { text, color } to render under subtitle
-//   checkmark    - bool. If true, green check overlay on icon (progress indicator)
-//   trailing     - optional node rendered in place of the default chevron
+// Tile: the homepage + hub tile. Composition of Card + tinted icon +
+// title/subtitle + optional trailing element. Rendered as a button for
+// keyboard focus and screen reader semantics.
 
-export function Tile({ icon, title, subtitle, color = tokens.brand, onClick, badges = [], checkmark = false, trailing }) {
+export interface TileBadge {
+  text: string;
+  color?: string;
+}
+
+export interface TileProps {
+  icon: ReactNode;
+  title: ReactNode;
+  subtitle?: ReactNode;
+  color?: string;
+  onClick?: () => void;
+  badges?: TileBadge[];
+  checkmark?: boolean;
+  trailing?: ReactNode;
+}
+
+export function Tile({
+  icon,
+  title,
+  subtitle,
+  color = tokens.brand,
+  onClick,
+  badges = [],
+  checkmark = false,
+  trailing,
+}: TileProps) {
   return (
     <Card onClick={onClick} hoverColor={color} as="button">
       <div style={{ display: "flex", alignItems: "center", gap: 11 }}>

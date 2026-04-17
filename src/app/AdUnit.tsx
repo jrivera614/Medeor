@@ -1,8 +1,24 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, CSSProperties } from 'react';
 
-export default function AdUnit({ slot, format = 'auto', responsive = true, style }) {
-  const adRef = useRef(null);
+// AdUnit: AdSense ad slot. Pushes to adsbygoogle on mount, gated to once
+// per mount to prevent double-push errors.
+
+export interface AdUnitProps {
+  slot: string;
+  format?: string;
+  responsive?: boolean;
+  style?: CSSProperties;
+}
+
+declare global {
+  interface Window {
+    adsbygoogle?: unknown[];
+  }
+}
+
+export default function AdUnit({ slot, format = 'auto', responsive = true, style }: AdUnitProps) {
+  const adRef = useRef<HTMLModElement>(null);
   const pushed = useRef(false);
 
   useEffect(() => {
