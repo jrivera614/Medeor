@@ -1,4 +1,6 @@
-export const GRADE_SHEETS = [
+import type { GradeSheet } from "./types";
+
+export const GRADE_SHEETS: GradeSheet[] = [
   {
     title: "CAT Tourniquet Application",
     tier: "ASM / CLS",

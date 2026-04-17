@@ -1,4 +1,6 @@
-export const MED_CATEGORIES = [
+import type { MedCategory, Medication } from "./types";
+
+export const MED_CATEGORIES: MedCategory[] = [
   { id: "all", label: "All", color: "#8b5cf6" },
   { id: "hemorrhage", label: "Hemorrhage/Resus", color: "#ef4444" },
   { id: "pain", label: "Pain", color: "#f59e0b" },
@@ -12,7 +14,7 @@ export const MED_CATEGORIES = [
   { id: "garrison", label: "Garrison/Sick Call", color: "#78716c" },
 ];
 
-export const MEDICATIONS = [
+export const MEDICATIONS: Medication[] = [
   // ─── HEMORRHAGE / RESUSCITATION ───
   {
     name: "Tranexamic Acid (TXA)",

@@ -1,4 +1,6 @@
-export const CHECKLISTS = [
+import type { Checklist } from "./types";
+
+export const CHECKLISTS: Checklist[] = [
   {
     title: "IFAK / JFAK Inspection",
     color: "#ef4444",

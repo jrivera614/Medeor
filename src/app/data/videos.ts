@@ -1,4 +1,6 @@
-export const VIDEOS = [
+import type { Video } from "./types";
+
+export const VIDEOS: Video[] = [
   { mod: "01", title: "TCCC Overview", color: "#ef4444", vids: [
     { name: "Introduction to Tactical Combat Casualty Care", yt: "UuTej7ALfNg", ext: true }
   ]},

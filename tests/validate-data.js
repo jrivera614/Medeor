@@ -7,6 +7,16 @@
 const fs = require("fs");
 const path = require("path");
 
+// Resolve data file path with .ts or .js extension (migration-friendly)
+function resolveData(relPath) {
+  const base = path.join(__dirname, relPath);
+  const tsPath = base.replace(/\.js$/, ".ts");
+  if (fs.existsSync(tsPath)) return tsPath;
+  if (fs.existsSync(base)) return base;
+  throw new Error(`Data file not found: ${base} or ${tsPath}`);
+}
+
+
 let passed = 0;
 let failed = 0;
 const errors = [];
@@ -24,13 +34,13 @@ function assert(condition, message) {
 // Dynamic import workaround for ES modules
 async function run() {
   // Load data files by evaluating them
-  const topicsPath = path.join(__dirname, "../src/app/data/topics.js");
-  const medsPath = path.join(__dirname, "../src/app/data/medications.js");
+  const topicsPath = resolveData("../src/app/data/topics.js");
+  const medsPath = resolveData("../src/app/data/medications.js");
   const diagramsDir = path.join(__dirname, "../public/diagrams");
 
   // Parse TOPICS from file
   const topicsSource = fs.readFileSync(topicsPath, "utf-8");
-  const topicsMatch = topicsSource.match(/export const TOPICS = (\[[\s\S]*\]);/);
+  const topicsMatch = topicsSource.match(/export const TOPICS(?:\s*:\s*\w+\[\])?\s*=\s*(\[[\s\S]*\]);/);
   if (!topicsMatch) {
     console.error("FAIL: Could not parse TOPICS from topics.js");
     process.exit(1);
@@ -39,8 +49,8 @@ async function run() {
 
   // Parse MEDICATIONS from file
   const medsSource = fs.readFileSync(medsPath, "utf-8");
-  const medsMatch = medsSource.match(/export const MEDICATIONS = (\[[\s\S]*\]);/);
-  const catsMatch = medsSource.match(/export const MED_CATEGORIES = (\[[\s\S]*?\]);/);
+  const medsMatch = medsSource.match(/export const MEDICATIONS(?:\s*:\s*\w+\[\])?\s*=\s*(\[[\s\S]*\]);/);
+  const catsMatch = medsSource.match(/export const MED_CATEGORIES(?:\s*:\s*\w+\[\])?\s*=\s*(\[[\s\S]*?\]);/);
   if (!medsMatch || !catsMatch) {
     console.error("FAIL: Could not parse MEDICATIONS from medications.js");
     process.exit(1);
