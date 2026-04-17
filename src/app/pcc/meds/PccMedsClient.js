@@ -3,11 +3,10 @@ import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useAppState, S, Bar } from "../../components";
 import { MED_CATEGORIES, MEDICATIONS } from "../../data/medications";
+import { Card, ScreenHeader, PillTab, SecLabel, Badge, styles, tokens } from "../../ui";
 
-// PCC Meds page. Filters the master medication list to PCC-phase entries
-// (phase string contains "PCC"), preserving the same card expansion UX
-// used in MedsClient.js. Keeps the "pcc" bottom nav tab active so the
-// user's mental location in the app is clear.
+// PCC Meds page. Filters the master medication list to PCC-phase entries.
+// Uses the shared UI primitives (Card, ScreenHeader, PillTab, Badge, SecLabel).
 
 export default function PccMedsClient() {
   const { ref } = useAppState();
@@ -16,15 +15,11 @@ export default function PccMedsClient() {
   const [category, setCategory] = useState("all");
   const [expanded, setExpanded] = useState(null);
 
-  // Base list: everything tagged with PCC in the phase field.
-  // Covers "PCC", "PCC/PFC", and any future combo like "TCCC/PCC".
   const pccMeds = useMemo(
     () => MEDICATIONS.filter(m => typeof m.phase === "string" && m.phase.includes("PCC")),
     []
   );
 
-  // Restrict the category pill bar to categories that actually have
-  // PCC-phase drugs in them. Avoids empty-state click-throughs.
   const activeCategories = useMemo(() => {
     const ids = new Set(pccMeds.map(m => m.category));
     return [MED_CATEGORIES[0], ...MED_CATEGORIES.filter(c => c.id !== "all" && ids.has(c.id))];
@@ -32,9 +27,7 @@ export default function PccMedsClient() {
 
   const filtered = useMemo(() => {
     let meds = pccMeds;
-    if (category !== "all") {
-      meds = meds.filter(m => m.category === category);
-    }
+    if (category !== "all") meds = meds.filter(m => m.category === category);
     if (search.trim()) {
       const q = search.toLowerCase();
       meds = meds.filter(m =>
@@ -63,66 +56,62 @@ export default function PccMedsClient() {
     const isOpen = expanded === key;
     const catInfo = getCategoryInfo(med.category);
     return (
-      <div key={key} style={{ background: "#ffffff08", border: `1px solid ${isOpen ? catInfo.color + "40" : "#ffffff0f"}`, borderRadius: 12, padding: 0, marginBottom: 8, overflow: "hidden", transition: "all .2s" }}>
-        <div onClick={() => setExpanded(isOpen ? null : key)} style={{ padding: "12px 14px", cursor: "pointer", display: "flex", alignItems: "flex-start", gap: 10 }}>
+      <Card
+        key={key}
+        pad={0}
+        style={{
+          border: `1px solid ${isOpen ? `${catInfo.color}40` : tokens.borderHair}`,
+          overflow: "hidden",
+        }}
+      >
+        <div
+          onClick={() => setExpanded(isOpen ? null : key)}
+          style={{ padding: "12px 14px", cursor: "pointer", display: "flex", alignItems: "flex-start", gap: 10 }}
+        >
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
-              <span style={{ fontSize: 14, fontWeight: 600, color: "#e8e8ed" }}>{med.name}</span>
-              <span style={{ fontSize: 8, fontWeight: 700, color: catInfo.color, background: catInfo.color + "18", padding: "1px 6px", borderRadius: 4, textTransform: "uppercase", letterSpacing: ".04em" }}>{med.phase}</span>
+              <span style={{ fontSize: 14, fontWeight: 600, color: tokens.textPrimary }}>{med.name}</span>
+              <Badge color={catInfo.color}>{med.phase}</Badge>
             </div>
-            <div style={{ fontSize: 12, color: "#aaa", lineHeight: 1.5 }}>{med.dose}</div>
-            <div style={{ fontSize: 11, color: "#666", marginTop: 2 }}>Route: {med.route}</div>
+            <div style={{ fontSize: 12, color: tokens.textSecondary, lineHeight: 1.5 }}>{med.dose}</div>
+            <div style={{ fontSize: 11, color: tokens.textDim, marginTop: 2 }}>Route: {med.route}</div>
           </div>
-          <span style={{ color: "#555", fontSize: 12, marginTop: 2, transition: "transform .2s", transform: isOpen ? "rotate(90deg)" : "none" }}>›</span>
+          <span style={{ color: tokens.textFaint, fontSize: 12, marginTop: 2, transition: "transform .2s", transform: isOpen ? "rotate(90deg)" : "none" }}>›</span>
         </div>
         {isOpen && (
-          <div style={{ padding: "0 14px 14px", borderTop: "1px solid #ffffff0a" }}>
+          <div style={{ padding: "0 14px 14px", borderTop: `1px solid ${tokens.borderHair}` }}>
             <div style={{ padding: "10px 0 0" }}>
-              <div style={{ marginBottom: 10 }}>
-                <div style={{ fontSize: 9, fontWeight: 700, color: "#10b981", textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 3 }}>Indication</div>
-                <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.5 }}>{med.indication}</div>
-              </div>
-              {med.timing && (
-                <div style={{ marginBottom: 10 }}>
-                  <div style={{ fontSize: 9, fontWeight: 700, color: "#8b5cf6", textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 3 }}>Timing</div>
-                  <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.5 }}>{med.timing}</div>
-                </div>
-              )}
-              <div style={{ marginBottom: 10 }}>
-                <div style={{ fontSize: 9, fontWeight: 700, color: "#ef4444", textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 3 }}>Warnings</div>
-                <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.5 }}>{med.warnings}</div>
-              </div>
+              <DetailRow label="Indication" color={tokens.green} value={med.indication} />
+              {med.timing && <DetailRow label="Timing" color={tokens.brand} value={med.timing} />}
+              <DetailRow label="Warnings" color={tokens.red} value={med.warnings} />
               {med.pedsPerKg && (
-                <div style={{ marginBottom: 10 }}>
-                  <div style={{ fontSize: 9, fontWeight: 700, color: "#06b6d4", textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 3 }}>Pediatric</div>
-                  <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.5 }}>{med.pedsPerKg} {med.pedsUnit}/kg {med.pedsRoute}</div>
-                </div>
+                <DetailRow label="Pediatric" color={tokens.cyan} value={`${med.pedsPerKg} ${med.pedsUnit}/kg ${med.pedsRoute}`} />
               )}
-              <div>
-                <div style={{ fontSize: 9, fontWeight: 700, color: "#f59e0b", textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 3 }}>Notes</div>
-                <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.5 }}>{med.notes}</div>
-              </div>
+              <DetailRow label="Notes" color={tokens.amber} value={med.notes} last />
             </div>
           </div>
         )}
-      </div>
+      </Card>
     );
   };
 
   return (
-    <div style={S.app}>
-      <div style={{ ...S.hdr, display: "flex", alignItems: "center", gap: 10 }}>
-        <button onClick={() => router.push("/pcc")} style={S.back} aria-label="Back to PCC hub">&#8592;</button>
-        <div>
-          <div style={{ fontSize: 11, color: "#8b5cf6", fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", marginBottom: 2 }}>PCC</div>
-          <div style={{ fontSize: 16, fontWeight: 700 }}>Medications</div>
-          <div style={{ fontSize: 10, color: "#666", marginTop: 1, textTransform: "uppercase", letterSpacing: ".04em" }}>JTS PCC CPG FY26</div>
-        </div>
-      </div>
-      <div ref={ref} style={S.body}>
-        <div style={{ background: "#f59e0b08", border: "1px solid #f59e0b18", borderRadius: 10, padding: "8px 12px", margin: "12px 0 8px" }}>
-          <div style={{ fontSize: 9, fontWeight: 700, color: "#f59e0b", textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 2 }}>Training Reference Only</div>
-          <div style={{ fontSize: 10, color: "#888", lineHeight: 1.5 }}>Verify all dosages against your unit SOPs and current references. Not a substitute for clinical judgment.</div>
+    <div style={styles.app}>
+      <ScreenHeader
+        eyebrow="PCC"
+        title="Medications"
+        subtitle="JTS PCC CPG FY26"
+        onBack={() => router.push("/pcc")}
+      />
+
+      <div ref={ref} style={styles.body}>
+        <div style={{ background: `${tokens.amber}08`, border: `1px solid ${tokens.amber}18`, borderRadius: tokens.radiusMd, padding: "8px 12px", margin: "12px 0 8px" }}>
+          <div style={{ fontSize: 9, fontWeight: 700, color: tokens.amber, textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 2 }}>
+            Training Reference Only
+          </div>
+          <div style={{ fontSize: 10, color: tokens.textMuted, lineHeight: 1.5 }}>
+            Verify all dosages against your unit SOPs and current references. Not a substitute for clinical judgment.
+          </div>
         </div>
 
         <div style={{ padding: "8px 0" }}>
@@ -137,38 +126,27 @@ export default function PccMedsClient() {
 
         <div style={{ display: "flex", gap: 6, overflowX: "auto", padding: "6px 0 12px", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}>
           {activeCategories.map(cat => (
-            <button
+            <PillTab
               key={cat.id}
+              active={category === cat.id}
+              color={cat.color}
               onClick={() => { setCategory(cat.id); setExpanded(null); }}
-              style={{
-                padding: "6px 12px",
-                borderRadius: 20,
-                border: `1px solid ${category === cat.id ? cat.color : "#ffffff14"}`,
-                background: category === cat.id ? cat.color + "18" : "transparent",
-                color: category === cat.id ? cat.color : "#888",
-                fontSize: 11,
-                fontWeight: 600,
-                cursor: "pointer",
-                fontFamily: "inherit",
-                whiteSpace: "nowrap",
-                flexShrink: 0,
-              }}
             >
               {cat.label}
-            </button>
+            </PillTab>
           ))}
         </div>
 
-        <div style={{ fontSize: 11, color: "#555", marginBottom: 8 }}>{filtered.length} medication{filtered.length !== 1 ? "s" : ""}</div>
+        <div style={{ fontSize: 11, color: tokens.textFaint, marginBottom: 8 }}>
+          {filtered.length} medication{filtered.length !== 1 ? "s" : ""}
+        </div>
 
         {category === "all" && !search.trim() && grouped ? (
           Object.entries(grouped).map(([catId, meds]) => {
             const catInfo = getCategoryInfo(catId);
             return (
               <div key={catId} style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: catInfo.color, textTransform: "uppercase", letterSpacing: ".05em", padding: "8px 0 6px", borderBottom: `1px solid ${catInfo.color}20`, marginBottom: 8 }}>
-                  {catInfo.label}
-                </div>
+                <SecLabel color={catInfo.color}>{catInfo.label}</SecLabel>
                 {meds.map((med, index) => renderCard(med, catId + index))}
               </div>
             );
@@ -178,13 +156,25 @@ export default function PccMedsClient() {
         )}
 
         {filtered.length === 0 && (
-          <div style={{ textAlign: "center", padding: "40px 0", color: "#555" }}>
+          <div style={{ textAlign: "center", padding: "40px 0", color: tokens.textFaint }}>
             <div style={{ fontSize: 14 }}>No medications found</div>
             <div style={{ fontSize: 11, marginTop: 4 }}>Try a different search or category</div>
           </div>
         )}
       </div>
+
       <Bar active="pcc" />
+    </div>
+  );
+}
+
+function DetailRow({ label, color, value, last = false }) {
+  return (
+    <div style={{ marginBottom: last ? 0 : 10 }}>
+      <div style={{ fontSize: 9, fontWeight: 700, color, textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 3 }}>
+        {label}
+      </div>
+      <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.5 }}>{value}</div>
     </div>
   );
 }
