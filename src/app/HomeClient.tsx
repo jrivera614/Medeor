@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useAppState, Bar } from "./components";
 import { TOPICS } from "./data";
 import { Tile, styles, tokens } from "./ui";
+import type { TileBadge } from "./ui";
 
 export default function HomeClient() {
   const { progress, ref } = useAppState();
@@ -48,7 +49,7 @@ export default function HomeClient() {
           const flashDone = progress[`flash_${topic.id}`];
           const hasProgress = stepsDone || quizProgress || flashDone;
 
-          const badges = [];
+          const badges: TileBadge[] = [];
           if (stepsDone) badges.push({ text: "Steps", color: tokens.green });
           if (quizProgress) badges.push({ text: `Quiz ${quizProgress.score}%`, color: tokens.green });
           if (flashDone) badges.push({ text: "Cards", color: tokens.green });

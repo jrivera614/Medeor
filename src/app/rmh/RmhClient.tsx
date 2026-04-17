@@ -2,14 +2,15 @@
 import { useState } from "react";
 import { useAppState, S, Bar } from "../components";
 import { RMH } from "../data";
+import type { RmhTopic } from "../data/types";
 
 export default function RmhClient() {
   const { expanded, setExpanded, search, setSearch, ref } = useAppState();
-  const [rmhTopic, setRmhTopic] = useState(null);
+  const [rmhTopic, setRmhTopic] = useState<RmhTopic | null>(null);
 
   if (rmhTopic) {
     const t = rmhTopic;
-    const sentences = t.content.split('. ').reduce((acc, s) => {
+    const sentences = t.content.split('. ').reduce<string[]>((acc, s) => {
       if (!acc.length) acc.push(s);
       else if (acc[acc.length-1].length < 120) acc[acc.length-1] += '. ' + s;
       else acc.push(s);
