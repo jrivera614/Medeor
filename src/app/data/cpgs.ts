@@ -1,4 +1,6 @@
-export const CPGS = [
+import type { CpgCategory } from "./types";
+
+export const CPGS: CpgCategory[] = [
   { category: "TCCC & Prehospital", color: "#ef4444", items: [
     { title: "TCCC Guidelines (Current)", url: "https://deployedmedicine.com/market/31/content/40", date: "Current" },
     { title: "En Route Care Guidelines FY26", url: "https://jts.health.mil/assets/docs/cpgs/CoERCCC%20Guidelines%20FY26.pdf", date: "FY26" },

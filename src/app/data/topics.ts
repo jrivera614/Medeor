@@ -1,4 +1,6 @@
-export const TOPICS = [
+import type { Topic } from "./types";
+
+export const TOPICS: Topic[] = [
   {
     id: "march", title: "MARCH Protocol", icon: "🩸", color: "#ef4444", subtitle: "Systematic casualty assessment & management",
     seo: { title: "MARCH Protocol Training - Free TCCC Quiz & Flashcards | Medeor", description: "Interactive MARCH protocol training with step-by-step walkthrough, 15 quiz questions with rationale, and spaced repetition flashcards. Hemorrhage, airway, respiration, circulation, hypothermia.", heading: "MARCH Protocol Training", intro: "Master the MARCH protocol -- the systematic framework for Tactical Combat Casualty Care (TCCC). This module covers all five phases: Massive Hemorrhage control, Airway management, Respiration assessment, Circulation and shock management, and Hypothermia prevention.", ssrTopics: ["Massive hemorrhage: tourniquet application, wound packing with hemostatic gauze, junctional hemorrhage control","Airway: recovery position (head back, chin away from chest), sit-up lean-forward, surgical cricothyrotomy, mandatory capnography","Respiration: tension pneumothorax recognition, vented chest seal application, needle decompression","Circulation: IV/IO access, permissive hypotension, TXA administration, fluid resuscitation priority","Hypothermia prevention: lethal triad, HPMK, ground insulation, heat packs"], keywords: "MARCH protocol, TCCC training, tourniquet application, hemorrhage control, needle decompression, combat medic, 68W, CLS training" },

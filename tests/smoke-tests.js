@@ -7,6 +7,16 @@
 const fs = require("fs");
 const path = require("path");
 
+// Resolve data file path with .ts or .js extension (migration-friendly)
+function resolveData(relPath) {
+  const base = path.join(__dirname, relPath);
+  const tsPath = base.replace(/\.js$/, ".ts");
+  if (fs.existsSync(tsPath)) return tsPath;
+  if (fs.existsSync(base)) return base;
+  throw new Error(`Data file not found: ${base} or ${tsPath}`);
+}
+
+
 let passed = 0;
 let failed = 0;
 const errors = [];
@@ -26,13 +36,13 @@ function assertApprox(actual, expected, tolerance, message) {
 }
 
 async function run() {
-  const topicsSource = fs.readFileSync(path.join(__dirname, "../src/app/data/topics.js"), "utf-8");
-  const topicsMatch = topicsSource.match(/export const TOPICS = (\[[\s\S]*\]);/);
+  const topicsSource = fs.readFileSync(resolveData("../src/app/data/topics.js"), "utf-8");
+  const topicsMatch = topicsSource.match(/export const TOPICS(?:\s*:\s*\w+\[\])?\s*=\s*(\[[\s\S]*\]);/);
   const TOPICS = eval(topicsMatch[1]);
 
-  const medsSource = fs.readFileSync(path.join(__dirname, "../src/app/data/medications.js"), "utf-8");
-  const medsMatch = medsSource.match(/export const MEDICATIONS = (\[[\s\S]*\]);/);
-  const catsMatch = medsSource.match(/export const MED_CATEGORIES = (\[[\s\S]*?\]);/);
+  const medsSource = fs.readFileSync(resolveData("../src/app/data/medications.js"), "utf-8");
+  const medsMatch = medsSource.match(/export const MEDICATIONS(?:\s*:\s*\w+\[\])?\s*=\s*(\[[\s\S]*\]);/);
+  const catsMatch = medsSource.match(/export const MED_CATEGORIES(?:\s*:\s*\w+\[\])?\s*=\s*(\[[\s\S]*?\]);/);
   const MEDICATIONS = eval(medsMatch[1]);
   const MED_CATEGORIES = eval(catsMatch[1]);
 

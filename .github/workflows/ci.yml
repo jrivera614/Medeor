@@ -7,7 +7,6 @@ on:
     branches: [main]
 
 # Cancel in-progress runs when a new commit is pushed to the same PR/branch.
-# Saves CI minutes and prevents stale builds from overwriting newer status checks.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -30,6 +29,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
+
+      - name: Typecheck
+        run: npx tsc --noEmit
 
       - name: Validate clinical data
         run: node tests/validate-data.js
