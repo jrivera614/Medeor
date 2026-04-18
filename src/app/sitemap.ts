@@ -1,4 +1,6 @@
-export default function sitemap() {
+import type { MetadataRoute } from "next";
+
+export default function sitemap(): MetadataRoute.Sitemap {
   const base = 'https://medeor.app';
   // Use actual content modification dates, not build time.
   // Update these when content actually changes.

@@ -1,14 +1,15 @@
 import './globals.css';
 import Script from 'next/script';
+import { ReactNode } from 'react';
+import type { Metadata, Viewport } from 'next';
 import ErrorBoundary from './ErrorBoundary';
 import AppWrapper from './AppWrapper';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Medeor - Free TCCC/CLS/PFC Training | Quizzes, CPGs, Videos',
   description: 'Free interactive TCCC, CLS, and Prolonged Field Care training app. MARCH protocol quizzes, flashcards, 86 JTS CPG direct PDF links, Deployed Medicine videos, Walking Blood Bank module, Parkland burn calculator, GCS calculator, and Ranger Medic Handbook reference. Built for combat medics, corpsmen, PJs, and 18Ds.',
   keywords: 'TCCC, CLS, tactical combat casualty care, combat medic training, MARCH protocol, hemorrhage control, tourniquet, NPA, needle decompression, chest seal, walking blood bank, ROLO, JTS CPG, prolonged field care, RAVINES, E-PAWS-B, Ranger Medic Handbook, military medical training, 68W, combat lifesaver, PFC nursing, HITMAN, GCS calculator, Parkland formula, Deployed Medicine',
   manifest: '/manifest.json',
-  themeColor: '#0a0a0f',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
@@ -32,17 +33,22 @@ export const metadata = {
   },
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
   viewportFit: 'cover',
+  themeColor: '#0a0a0f',
 };
 
 const GA_ID = 'G-E8LSJD2HJJ';
 
-export default function RootLayout({ children }) {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <head>

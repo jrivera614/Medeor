@@ -1,7 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-export default function ModuleError({ error, reset }) {
+interface ModuleErrorProps {
+  error: Error & { digest?: string };
+  reset: () => void;
+}
+
+export default function ModuleError({ error, reset }: ModuleErrorProps) {
   const router = useRouter();
   return (
     <div style={{ fontFamily: "'DM Sans',system-ui,sans-serif", background: "#0a0a0f", color: "#e8e8ed", minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>

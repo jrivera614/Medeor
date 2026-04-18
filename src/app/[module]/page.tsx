@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import ModuleClient from "./ModuleClient";
 import { TOPICS } from "../data";
 
-export async function generateMetadata({ params }) {
+interface ModulePageProps {
+  params: Promise<{ module: string }>;
+}
+
+export async function generateMetadata({ params }: ModulePageProps): Promise<Metadata> {
   const { module } = await params;
   const topic = TOPICS.find(t => t.id === module);
   if (!topic?.seo) return { title: "Training Module | Medeor" };
@@ -13,7 +18,7 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function ModulePage({ params }) {
+export default async function ModulePage({ params }: ModulePageProps) {
   const { module } = await params;
   const topic = TOPICS.find(t => t.id === module);
 

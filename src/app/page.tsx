@@ -1,6 +1,7 @@
 import HomeClient from "./HomeClient";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Medeor - Free TCCC/CLS/PFC Training | Quizzes, CPGs, Videos',
   description: 'Free interactive TCCC, CLS, and Prolonged Field Care training app. MARCH protocol quizzes, flashcards, 86 JTS CPG direct PDF links, Deployed Medicine videos, Walking Blood Bank module, Parkland burn calculator, GCS calculator, and Ranger Medic Handbook reference. Built for combat medics, corpsmen, PJs, and 18Ds.',
   alternates: {
