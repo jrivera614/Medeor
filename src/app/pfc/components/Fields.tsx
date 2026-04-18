@@ -1,25 +1,33 @@
 "use client";
+import { CSSProperties, ReactNode } from "react";
 
-const inp = {
+const inp: CSSProperties = {
   width: "100%", padding: "9px 12px", background: "#ffffff08",
   border: "1px solid #ffffff14", borderRadius: 10, color: "#e8e8ed",
   fontSize: 13, fontFamily: "inherit", outline: "none", boxSizing: "border-box"
 };
 
-const smInp = { ...inp, padding: "5px 8px", fontSize: 12, borderRadius: 7 };
+const smInp: CSSProperties = { ...inp, padding: "5px 8px", fontSize: 12, borderRadius: 7 };
 
-const lblStyle = {
+const lblStyle: CSSProperties = {
   fontSize: 11, color: "#666", display: "block",
   marginBottom: 3, letterSpacing: ".03em"
 };
 
-export const secStyle = {
+export const secStyle: CSSProperties = {
   fontSize: 13, fontWeight: 700, color: "#8b5cf6",
   textTransform: "uppercase", letterSpacing: ".06em",
   padding: "14px 0 8px", borderBottom: "1px solid #ffffff10", marginBottom: 10
 };
 
-export function Field({ label, value, onChange, area }) {
+export interface FieldProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  area?: boolean;
+}
+
+export function Field({ label, value, onChange, area }: FieldProps) {
   return (
     <div style={{ marginBottom: 10 }}>
       <label style={lblStyle}>{label}</label>
@@ -42,7 +50,13 @@ export function Field({ label, value, onChange, area }) {
   );
 }
 
-export function SmallField({ label, value, onChange }) {
+export interface SmallFieldProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export function SmallField({ label, value, onChange }: SmallFieldProps) {
   return (
     <div style={{ flex: "1 1 22%", minWidth: 55 }}>
       <label style={{ fontSize: 9, color: "#666" }}>{label}</label>
@@ -56,8 +70,20 @@ export function SmallField({ label, value, onChange }) {
   );
 }
 
-export function NumField({ label, value, onChange, min, max }) {
-  const warn = value && (isNaN(value) || (min !== undefined && Number(value) < min) || (max !== undefined && Number(value) > max));
+export interface NumFieldProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  min?: number;
+  max?: number;
+}
+
+export function NumField({ label, value, onChange, min, max }: NumFieldProps) {
+  const warn = Boolean(
+    value && (isNaN(Number(value)) ||
+    (min !== undefined && Number(value) < min) ||
+    (max !== undefined && Number(value) > max))
+  );
   return (
     <div style={{ flex: "1 1 22%", minWidth: 55 }}>
       <label style={{ fontSize: 9, color: warn ? "#ef4444" : "#666" }}>{label}</label>
@@ -75,7 +101,13 @@ export function NumField({ label, value, onChange, min, max }) {
   );
 }
 
-export function ReadOnlyField({ label, value, warn }) {
+export interface ReadOnlyFieldProps {
+  label: string;
+  value: string | number | null;
+  warn?: boolean;
+}
+
+export function ReadOnlyField({ label, value, warn }: ReadOnlyFieldProps) {
   return (
     <div style={{ flex: "1 1 22%", minWidth: 55 }}>
       <label style={{ fontSize: 9, color: "#666" }}>{label}</label>
@@ -89,7 +121,14 @@ export function ReadOnlyField({ label, value, warn }) {
   );
 }
 
-export function SelectorRow({ label, opts, value, onChange }) {
+export interface SelectorRowProps {
+  label: string;
+  opts: Array<[string, string]>;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export function SelectorRow({ label, opts, value, onChange }: SelectorRowProps) {
   return (
     <div style={{ marginBottom: 6 }}>
       <label style={{ fontSize: 9, color: "#666" }}>{label}</label>
@@ -114,7 +153,15 @@ export function SelectorRow({ label, opts, value, onChange }) {
   );
 }
 
-export function CheckRow({ label, checked, onToggle, time, color = "#10b981" }) {
+export interface CheckRowProps {
+  label: string;
+  checked: boolean;
+  onToggle: () => void;
+  time?: string;
+  color?: string;
+}
+
+export function CheckRow({ label, checked, onToggle, time, color = "#10b981" }: CheckRowProps) {
   return (
     <div
       onClick={onToggle}
@@ -143,7 +190,12 @@ export function CheckRow({ label, checked, onToggle, time, color = "#10b981" }) 
   );
 }
 
-export function SectionHeader({ text, right }) {
+export interface SectionHeaderProps {
+  text: ReactNode;
+  right?: ReactNode;
+}
+
+export function SectionHeader({ text, right }: SectionHeaderProps) {
   return (
     <div style={{ ...secStyle, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
       <span>{text}</span>
