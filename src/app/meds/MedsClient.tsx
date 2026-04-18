@@ -1,16 +1,17 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, ReactNode } from "react";
 import { useAppState, S, Bar } from "../components";
 import { MED_CATEGORIES, MEDICATIONS } from "../data/medications";
+import type { MedCategory, MedCategoryId, Medication } from "../data/types";
 
 export default function MedsClient() {
   const { ref } = useAppState();
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("all");
-  const [expanded, setExpanded] = useState(null);
+  const [category, setCategory] = useState<MedCategoryId>("all");
+  const [expanded, setExpanded] = useState<string | null>(null);
 
-  const filtered = useMemo(() => {
-    let meds = MEDICATIONS;
+  const filtered = useMemo<Medication[]>(() => {
+    let meds: Medication[] = MEDICATIONS;
     if (category !== "all") {
       meds = meds.filter(med => med.category === category);
     }
@@ -26,9 +27,9 @@ export default function MedsClient() {
     return meds;
   }, [search, category]);
 
-  const grouped = useMemo(() => {
+  const grouped = useMemo<Record<string, Medication[]> | null>(() => {
     if (category !== "all") return null;
-    const groups = {};
+    const groups: Record<string, Medication[]> = {};
     filtered.forEach(med => {
       if (!groups[med.category]) groups[med.category] = [];
       groups[med.category].push(med);
@@ -36,19 +37,21 @@ export default function MedsClient() {
     return groups;
   }, [filtered, category]);
 
-  const getCategoryInfo = (catId) => MED_CATEGORIES.find(c => c.id === catId);
+  const getCategoryInfo = (catId: string): MedCategory | undefined =>
+    MED_CATEGORIES.find(c => c.id === catId);
 
-  const renderCard = (med, index) => {
+  const renderCard = (med: Medication, index: string | number): ReactNode => {
     const key = med.name + index;
     const isOpen = expanded === key;
     const catInfo = getCategoryInfo(med.category);
+    const catColor = catInfo?.color || "#888";
     return (
-      <div key={key} style={{background:"#ffffff08",border:`1px solid ${isOpen ? catInfo.color + "40" : "#ffffff0f"}`,borderRadius:12,padding:0,marginBottom:8,overflow:"hidden",transition:"all .2s"}}>
+      <div key={key} style={{background:"#ffffff08",border:`1px solid ${isOpen ? catColor + "40" : "#ffffff0f"}`,borderRadius:12,padding:0,marginBottom:8,overflow:"hidden",transition:"all .2s"}}>
         <div onClick={() => setExpanded(isOpen ? null : key)} style={{padding:"12px 14px",cursor:"pointer",display:"flex",alignItems:"flex-start",gap:10}}>
           <div style={{flex:1}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:4}}>
               <span style={{fontSize:14,fontWeight:600,color:"#e8e8ed"}}>{med.name}</span>
-              <span style={{fontSize:8,fontWeight:700,color:catInfo.color,background:catInfo.color+"18",padding:"1px 6px",borderRadius:4,textTransform:"uppercase",letterSpacing:".04em"}}>{med.phase}</span>
+              <span style={{fontSize:8,fontWeight:700,color:catColor,background:catColor+"18",padding:"1px 6px",borderRadius:4,textTransform:"uppercase",letterSpacing:".04em"}}>{med.phase}</span>
             </div>
             <div style={{fontSize:12,color:"#aaa",lineHeight:1.5}}>{med.dose}</div>
             <div style={{fontSize:11,color:"#666",marginTop:2}}>Route: {med.route}</div>
@@ -141,6 +144,7 @@ export default function MedsClient() {
         {category === "all" && !search.trim() && grouped ? (
           Object.entries(grouped).map(([catId, meds]) => {
             const catInfo = getCategoryInfo(catId);
+            if (!catInfo) return null;
             return (
               <div key={catId} style={{marginBottom:16}}>
                 <div style={{fontSize:12,fontWeight:700,color:catInfo.color,textTransform:"uppercase",letterSpacing:".05em",padding:"8px 0 6px",borderBottom:`1px solid ${catInfo.color}20`,marginBottom:8}}>

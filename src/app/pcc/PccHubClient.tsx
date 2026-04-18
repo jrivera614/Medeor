@@ -2,14 +2,25 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppState, Bar } from "../components";
-import { Tile, ScreenHeader, styles, tokens } from "../ui";
+import { Tile, styles, tokens } from "../ui";
+import { ScreenHeader } from "../ui/primitives";
 
 // PCC Hub
 // Tile pattern matches HomeClient exactly via the shared <Tile> primitive.
 // Content tiles show inline "coming soon" until populated. Card tile routes
 // to /pcc/card which re-exports the existing PFC card component.
 
-const TOPICS = [
+interface PccTopic {
+  id: string;
+  icon: string;
+  title: string;
+  sub: string;
+  color: string;
+  ready: boolean;
+  route?: string;
+}
+
+const TOPICS: PccTopic[] = [
   { id: "meds",    icon: "💊", title: "Medications",        sub: "Analgesia, vasoactives, abx, paralytics, blood", color: tokens.brand,  ready: true,  route: "/pcc/meds" },
   { id: "skills",  icon: "🔧", title: "Skills & Procedures", sub: "Cric maintenance, chest tube, lines, foley",     color: tokens.indigo, ready: false },
   { id: "nursing", icon: "📋", title: "Nursing Checklist",   sub: "q1h / q4h / q8h / prn care tasks",              color: tokens.green,  ready: false },
@@ -22,10 +33,10 @@ const TOPICS = [
 export default function PccHubClient() {
   const { ref } = useAppState();
   const router = useRouter();
-  const [pending, setPending] = useState(null);
+  const [pending, setPending] = useState<string | null>(null);
 
-  const openTopic = (t) => {
-    if (t.ready) {
+  const openTopic = (t: PccTopic) => {
+    if (t.ready && t.route) {
       router.push(t.route);
       return;
     }

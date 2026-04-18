@@ -2,7 +2,15 @@
 import { useRouter } from "next/navigation";
 import { useAppState, S, Bar } from "../components";
 
-const sections = [
+interface ReferenceSection {
+  title: string;
+  desc: string;
+  icon: string;
+  color: string;
+  path: string;
+}
+
+const sections: ReferenceSection[] = [
   {
     title: "Clinical Practice Guidelines",
     desc: "86 JTS/CoTCCC CPG direct PDF links. Searchable by category.",

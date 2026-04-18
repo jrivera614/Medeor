@@ -1,9 +1,11 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { useAppState, S, Bar } from "../../components";
 import { MED_CATEGORIES, MEDICATIONS } from "../../data/medications";
-import { Card, ScreenHeader, PillTab, SecLabel, Badge, styles, tokens } from "../../ui";
+import { Card, PillTab, SecLabel, Badge, styles, tokens } from "../../ui";
+import { ScreenHeader } from "../../ui/primitives";
+import type { MedCategory, MedCategoryId, Medication } from "../../data/types";
 
 // PCC Meds page. Filters the master medication list to PCC-phase entries.
 // Uses the shared UI primitives (Card, ScreenHeader, PillTab, Badge, SecLabel).
@@ -12,20 +14,20 @@ export default function PccMedsClient() {
   const { ref } = useAppState();
   const router = useRouter();
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("all");
-  const [expanded, setExpanded] = useState(null);
+  const [category, setCategory] = useState<MedCategoryId>("all");
+  const [expanded, setExpanded] = useState<string | number | null>(null);
 
-  const pccMeds = useMemo(
+  const pccMeds = useMemo<Medication[]>(
     () => MEDICATIONS.filter(m => typeof m.phase === "string" && m.phase.includes("PCC")),
     []
   );
 
-  const activeCategories = useMemo(() => {
+  const activeCategories = useMemo<MedCategory[]>(() => {
     const ids = new Set(pccMeds.map(m => m.category));
     return [MED_CATEGORIES[0], ...MED_CATEGORIES.filter(c => c.id !== "all" && ids.has(c.id))];
   }, [pccMeds]);
 
-  const filtered = useMemo(() => {
+  const filtered = useMemo<Medication[]>(() => {
     let meds = pccMeds;
     if (category !== "all") meds = meds.filter(m => m.category === category);
     if (search.trim()) {
@@ -40,9 +42,9 @@ export default function PccMedsClient() {
     return meds;
   }, [pccMeds, search, category]);
 
-  const grouped = useMemo(() => {
+  const grouped = useMemo<Record<string, Medication[]> | null>(() => {
     if (category !== "all") return null;
-    const groups = {};
+    const groups: Record<string, Medication[]> = {};
     filtered.forEach(m => {
       if (!groups[m.category]) groups[m.category] = [];
       groups[m.category].push(m);
@@ -50,17 +52,19 @@ export default function PccMedsClient() {
     return groups;
   }, [filtered, category]);
 
-  const getCategoryInfo = (catId) => MED_CATEGORIES.find(c => c.id === catId);
+  const getCategoryInfo = (catId: string): MedCategory | undefined =>
+    MED_CATEGORIES.find(c => c.id === catId);
 
-  const renderCard = (med, key) => {
+  const renderCard = (med: Medication, key: string | number): ReactNode => {
     const isOpen = expanded === key;
     const catInfo = getCategoryInfo(med.category);
+    const catColor = catInfo?.color || tokens.textMuted;
     return (
       <Card
         key={key}
         pad={0}
         style={{
-          border: `1px solid ${isOpen ? `${catInfo.color}40` : tokens.borderHair}`,
+          border: `1px solid ${isOpen ? `${catColor}40` : tokens.borderHair}`,
           overflow: "hidden",
         }}
       >
@@ -71,7 +75,7 @@ export default function PccMedsClient() {
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
               <span style={{ fontSize: 14, fontWeight: 600, color: tokens.textPrimary }}>{med.name}</span>
-              <Badge color={catInfo.color}>{med.phase}</Badge>
+              <Badge color={catColor}>{med.phase}</Badge>
             </div>
             <div style={{ fontSize: 12, color: tokens.textSecondary, lineHeight: 1.5 }}>{med.dose}</div>
             <div style={{ fontSize: 11, color: tokens.textDim, marginTop: 2 }}>Route: {med.route}</div>
@@ -144,6 +148,7 @@ export default function PccMedsClient() {
         {category === "all" && !search.trim() && grouped ? (
           Object.entries(grouped).map(([catId, meds]) => {
             const catInfo = getCategoryInfo(catId);
+            if (!catInfo) return null;
             return (
               <div key={catId} style={{ marginBottom: 16 }}>
                 <SecLabel color={catInfo.color}>{catInfo.label}</SecLabel>
@@ -168,7 +173,14 @@ export default function PccMedsClient() {
   );
 }
 
-function DetailRow({ label, color, value, last = false }) {
+interface DetailRowProps {
+  label: string;
+  color: string;
+  value: string;
+  last?: boolean;
+}
+
+function DetailRow({ label, color, value, last = false }: DetailRowProps) {
   return (
     <div style={{ marginBottom: last ? 0 : 10 }}>
       <div style={{ fontSize: 9, fontWeight: 700, color, textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 3 }}>

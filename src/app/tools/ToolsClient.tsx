@@ -5,31 +5,65 @@ import { useAppState, S, Bar, Prog } from "../components";
 import { CHECKLISTS, GRADE_SHEETS, MEDICATIONS } from "../data";
 
 // Peds drugs derived from medications.js - single source of truth
-const PEDS_DRUGS = MEDICATIONS.filter(m => m.pedsPerKg).map(m => ({
+interface PedsDrug {
+  name: string;
+  dose: number;
+  unit: string | undefined;
+  route: string | undefined;
+}
+
+const PEDS_DRUGS: PedsDrug[] = MEDICATIONS.filter(m => m.pedsPerKg).map(m => ({
   name: m.name,
-  dose: m.pedsPerKg,
+  dose: m.pedsPerKg as number,
   unit: m.pedsUnit,
   route: m.pedsRoute,
 }));
 
+type CalcType = "parkland" | "peds" | "gcs" | null;
+type StepResult = "go" | "nogo";
+type GradeStateMap = Record<string, Record<number, StepResult>>;
+type CheckStateMap = Record<string, Record<number, boolean>>;
+type DataMsg = { type: "ok" | "err"; text: string } | null;
+
+// Each calculator returns its own result shape. Keeping this loose keeps the
+// original runtime behavior intact without shoehorning a discriminated union.
+interface CalcResult {
+  total?: string | number;
+  first8?: string;
+  rate8?: string;
+  next16?: string;
+  rate16?: string;
+  dose?: string;
+  unit?: string;
+  route?: string;
+  perkg?: number;
+  drug?: string;
+  severity?: string;
+  airway?: string;
+  e?: string;
+  v?: string;
+  m?: string;
+}
+
 export default function ToolsClient() {
   const { ref } = useAppState();
   const router = useRouter();
-  const [calcType, setCalcType] = useState(null);
-  const [calcInputs, setCalcInputs] = useState({});
-  const [toolView, setToolView] = useState(null);
-  const [checkStates, setCheckStates] = useState({});
-  const [gradeSheet, setGradeSheet] = useState(null);
-  const [gradeStates, setGradeStates] = useState({});
-  const [dataMsg, setDataMsg] = useState(null);
+  const [calcType, setCalcType] = useState<CalcType>(null);
+  const [calcInputs, setCalcInputs] = useState<Record<string, string>>({});
+  const [toolView, setToolView] = useState<number | null>(null);
+  const [checkStates, setCheckStates] = useState<CheckStateMap>({});
+  const [gradeSheet, setGradeSheet] = useState<number | null>(null);
+  const [gradeStates, setGradeStates] = useState<GradeStateMap>({});
+  const [dataMsg, setDataMsg] = useState<DataMsg>(null);
 
   const exportData = () => {
     try {
-      const data = {};
+      const data: Record<string, string> = {};
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key && key.startsWith("medeor")) {
-          data[key] = localStorage.getItem(key);
+          const val = localStorage.getItem(key);
+          if (val !== null) data[key] = val;
         }
       }
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
@@ -51,7 +85,8 @@ export default function ToolsClient() {
     input.type = "file";
     input.accept = ".json";
     input.onchange = async (e) => {
-      const file = e.target.files[0];
+      const target = e.target as HTMLInputElement;
+      const file = target.files?.[0];
       if (!file) return;
       try {
         const text = await file.text();
@@ -73,7 +108,7 @@ export default function ToolsClient() {
     const key = `gs_${gradeSheet}`;
     const states = gradeStates[key] || {};
     const criticalSteps = gs.steps.filter(s => s.critical);
-    const criticalPassed = criticalSteps.filter((s, i) => states[gs.steps.indexOf(s)] === "go").length;
+    const criticalPassed = criticalSteps.filter((s) => states[gs.steps.indexOf(s)] === "go").length;
     const criticalFailed = criticalSteps.some((s) => states[gs.steps.indexOf(s)] === "nogo");
     const allCriticalDone = criticalSteps.every((s) => states[gs.steps.indexOf(s)]);
     const result = allCriticalDone ? (criticalFailed ? "NO-GO" : "GO") : null;
@@ -84,8 +119,8 @@ export default function ToolsClient() {
           const st = states[si];
           return (<div key={si} style={{display:"flex",alignItems:"flex-start",gap:8,padding:"10px 0",borderBottom:"1px solid #ffffff08"}}>
             <div style={{display:"flex",gap:4,flexShrink:0,marginTop:2}}>
-              <button onClick={()=>{const ns={...states,[si]:"go"};setGradeStates({...gradeStates,[key]:ns})}} style={{width:28,height:28,borderRadius:6,border:`2px solid ${st==="go"?"#10b981":"#ffffff18"}`,background:st==="go"?"#10b981":"transparent",color:st==="go"?"#fff":"#555",fontSize:11,fontWeight:700,cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center"}}>GO</button>
-              <button onClick={()=>{const ns={...states,[si]:"nogo"};setGradeStates({...gradeStates,[key]:ns})}} style={{width:34,height:28,borderRadius:6,border:`2px solid ${st==="nogo"?"#ef4444":"#ffffff18"}`,background:st==="nogo"?"#ef4444":"transparent",color:st==="nogo"?"#fff":"#555",fontSize:9,fontWeight:700,cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center"}}>NO</button>
+              <button onClick={()=>{const ns:Record<number,StepResult>={...states,[si]:"go"};setGradeStates({...gradeStates,[key]:ns})}} style={{width:28,height:28,borderRadius:6,border:`2px solid ${st==="go"?"#10b981":"#ffffff18"}`,background:st==="go"?"#10b981":"transparent",color:st==="go"?"#fff":"#555",fontSize:11,fontWeight:700,cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center"}}>GO</button>
+              <button onClick={()=>{const ns:Record<number,StepResult>={...states,[si]:"nogo"};setGradeStates({...gradeStates,[key]:ns})}} style={{width:34,height:28,borderRadius:6,border:`2px solid ${st==="nogo"?"#ef4444":"#ffffff18"}`,background:st==="nogo"?"#ef4444":"transparent",color:st==="nogo"?"#fff":"#555",fontSize:9,fontWeight:700,cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center"}}>NO</button>
             </div>
             <div style={{flex:1}}>
               <div style={{fontSize:13,color:st==="go"?"#888":st==="nogo"?"#ef4444":"#ccc",lineHeight:1.5}}>{step.critical&&<span style={{fontSize:9,fontWeight:700,color:"#f59e0b",background:"#f59e0b18",padding:"1px 4px",borderRadius:3,marginRight:6}}>C</span>}{step.text}</div>
@@ -100,8 +135,8 @@ export default function ToolsClient() {
 
   // CALCULATOR VIEW
   if (calcType) {
-    let result = null;
-    let warning = null;
+    let result: CalcResult | null = null;
+    let warning: string | null = null;
     if (calcType === "parkland" && calcInputs.weight && calcInputs.tbsa) {
       const weight = parseFloat(calcInputs.weight);
       const burnPercent = parseFloat(calcInputs.tbsa);
@@ -168,7 +203,7 @@ export default function ToolsClient() {
           {result && (<div style={{background:"#8b5cf610",border:"1px solid #8b5cf625",borderRadius:12,padding:16}}>
             <div style={{fontSize:12,fontWeight:700,color:"#8b5cf6",textTransform:"uppercase",letterSpacing:".06em",marginBottom:10}}>GCS Score</div>
             <div style={{fontSize:36,fontWeight:800,color:"#fff"}}>{result.total}</div>
-            <div style={{fontSize:14,color:result.total<=8?"#ef4444":result.total<=12?"#f59e0b":"#10b981",fontWeight:600,marginTop:4}}>{result.severity}</div>
+            <div style={{fontSize:14,color:typeof result.total === "number" && result.total<=8?"#ef4444":typeof result.total === "number" && result.total<=12?"#f59e0b":"#10b981",fontWeight:600,marginTop:4}}>{result.severity}</div>
             <div style={{fontSize:12,color:"#aaa",marginTop:6}}>E{result.e} V{result.v} M{result.m} = {result.total}</div>
             <div style={{fontSize:12,color:"#888",marginTop:4}}>{result.airway}</div>
           </div>)}
@@ -188,9 +223,9 @@ export default function ToolsClient() {
       <div ref={ref} style={S.body}><div style={{padding:"12px 0"}}>
         <Prog c={checked} t={cl.items.length}/>
         <div style={{marginTop:14}}>
-          {cl.items.map((item,ii)=>(<div key={ii} onClick={()=>{const ns={...states,[ii]:!states[ii]};setCheckStates({...checkStates,[key]:ns})}} style={{display:"flex",alignItems:"flex-start",gap:10,padding:"10px 0",borderBottom:"1px solid #ffffff08",cursor:"pointer"}}>
+          {cl.items.map((item,ii)=>(<div key={ii} onClick={()=>{const ns:Record<number,boolean>={...states,[ii]:!states[ii]};setCheckStates({...checkStates,[key]:ns})}} style={{display:"flex",alignItems:"flex-start",gap:10,padding:"10px 0",borderBottom:"1px solid #ffffff08",cursor:"pointer"}}>
             <div style={{width:20,height:20,borderRadius:6,border:`2px solid ${states[ii]?cl.color:"#ffffff20"}`,background:states[ii]?cl.color:"transparent",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1,transition:"all .2s"}}>{states[ii]&&<span style={{color:"#fff",fontSize:12,fontWeight:700}}>✓</span>}</div>
-            <div style={{fontSize:13,color:states[ii]?"#666":"#ccc",lineHeight:1.5,textDecoration:states[ii]?"line-through":"none",transition:"all .2s"}}>{item}</div>
+            <div style={{fontSize:13,color:states[ii]?"#666":"#ccc",lineHeight:1.5,textDecoration:states[ii]?"line-through":"none",transition:"all .2s"}}>{typeof item === "string" ? item : item.text}</div>
           </div>))}
         </div>
         <button style={{...S.btn("#555",false),marginTop:16}} onClick={()=>setCheckStates({...checkStates,[key]:{}})}>Reset Checklist</button>
@@ -204,7 +239,7 @@ export default function ToolsClient() {
     <div ref={ref} style={S.body}>
       <div style={{background:"#f59e0b08",border:"1px solid #f59e0b18",borderRadius:10,padding:"10px 14px",margin:"12px 0 8px"}}><div style={{fontSize:10,fontWeight:700,color:"#f59e0b",textTransform:"uppercase",letterSpacing:".06em",marginBottom:3}}>Training Tool Only</div><div style={{fontSize:10,color:"#888",lineHeight:1.5}}>Medeor is a training and study aid. It is not a substitute for clinical judgment, licensed medical advice, or hands-on instruction. Dosages and protocols reflect CoTCCC/JTS CPG guidelines current as of March 2026. Always verify against your unit SOPs and current references.</div></div>
       <div style={{padding:"14px 0 8px",fontSize:12,color:"#666",fontWeight:600,textTransform:"uppercase",letterSpacing:".05em"}}>Calculators</div>
-      {[{k:"parkland",icon:"🔥",title:"Parkland Burn Calculator",desc:"4ml x kg x %TBSA fluid resuscitation"},{k:"peds",icon:"💊",title:"Pediatric Dosing",desc:"Weight-based medication calculations"},{k:"gcs",icon:"🧠",title:"GCS Calculator",desc:"Glasgow Coma Scale with severity and airway guidance"}].map(c=>(
+      {[{k:"parkland" as const,icon:"🔥",title:"Parkland Burn Calculator",desc:"4ml x kg x %TBSA fluid resuscitation"},{k:"peds" as const,icon:"💊",title:"Pediatric Dosing",desc:"Weight-based medication calculations"},{k:"gcs" as const,icon:"🧠",title:"GCS Calculator",desc:"Glasgow Coma Scale with severity and airway guidance"}].map(c=>(
         <div key={c.k} style={S.card} onClick={()=>{setCalcType(c.k);setCalcInputs({});}}>
           <div style={{display:"flex",alignItems:"center",gap:11}}><span style={{fontSize:22}}>{c.icon}</span><div style={{flex:1}}><div style={{fontSize:14,fontWeight:600}}>{c.title}</div><div style={{fontSize:11,color:"#666",marginTop:2}}>{c.desc}</div></div><span style={{color:"#444"}}>{'>'}</span></div>
         </div>
