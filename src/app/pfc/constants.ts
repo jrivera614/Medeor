@@ -1,11 +1,19 @@
-// PFC Casualty Card Constants
+// PCC Casualty Card Constants
 // Based on PFC CC v25 (8July2023) from prolongedfieldcare.org
+// Content renamed to PCC-aligned in the UI; the localStorage save key
+// retains "medeor_pfc_card" to preserve existing user data.
+
+import type {
+  Patient, Medication, VitalSet, LabDef, BurnRegion, NurseItem, GcsOption
+} from "./types";
 
 export const SAVE_KEY = "medeor_pfc_card";
 
-export const TABS = ["Info","MIST","Hx","Intv","Labs","Burns","Tx","Vitals","Vent","Nursing","PPGC"];
+export const TABS: string[] = [
+  "Info", "MIST", "Hx", "Intv", "Labs", "Burns", "Tx", "Vitals", "Vent", "Nursing", "PPGC"
+];
 
-export const TX_ITEMS = [
+export const TX_ITEMS: string[] = [
   "Send MIST Report",
   "Stop Massive Bleeding",
   "Pelvic/Feet Binder",
@@ -53,7 +61,7 @@ export const TX_ITEMS = [
   "Clear C-Spine",
 ];
 
-export const PRIORITIES = [
+export const PRIORITIES: string[] = [
   "Complete initial life saving TCCC",
   "Initiate palliative care for expectants",
   "Delineate roles and responsibilities",
@@ -75,7 +83,7 @@ export const PRIORITIES = [
   "Send lessons to prolongedfieldcare.org",
 ];
 
-export const LABS = [
+export const LABS: LabDef[] = [
   { n: "pH", r: "7.32-.41" },
   { n: "pCO2", r: "42-53" },
   { n: "pO2", r: "35-42" },
@@ -98,12 +106,12 @@ export const LABS = [
   { n: "Lact", r: "0.4-2.3" },
 ];
 
-export const VENT_FIELDS = [
+export const VENT_FIELDS: string[] = [
   "Mode", "Flow Rate", "Tidal Volume", "Vent Rate",
   "FiO2%", "PEEP", "Pplat", "Drive P", "PIP", "I:E Ratio"
 ];
 
-export const NURSE_ITEMS = [
+export const NURSE_ITEMS: NurseItem[] = [
   { cat: "GCS", detail: "Eye(4) + Verbal(5) + Motor(6) = 15" },
   { cat: "HEENT", detail: "Suction / Clean / Moisten | Eye / Nose / Mouth / Ears" },
   { cat: "Respiratory", detail: "Look / Listen / Feel | BVM / Vent / O2" },
@@ -114,7 +122,7 @@ export const NURSE_ITEMS = [
   { cat: "Extra", detail: "Battery / Power | Stock / Resupply" },
 ];
 
-export const BURN_REGIONS = [
+export const BURN_REGIONS: BurnRegion[] = [
   { id: "head", label: "Head", pct: 7 },
   { id: "neck", label: "Neck", pct: 2 },
   { id: "chest", label: "Anterior Trunk", pct: 13 },
@@ -136,44 +144,44 @@ export const BURN_REGIONS = [
   { id: "footR", label: "Foot (R)", pct: 3.5 },
 ];
 
-export const EYE_OPTS = [["4", "Spontaneous"], ["3", "To voice"], ["2", "To pain"], ["1", "None"]];
-export const VERBAL_OPTS = [["5", "Oriented"], ["4", "Confused"], ["3", "Inappropriate"], ["2", "Incomprehensible"], ["1", "None"]];
-export const MOTOR_OPTS = [["6", "Obeys"], ["5", "Localizes"], ["4", "Withdrawal"], ["3", "Flexion"], ["2", "Extension"], ["1", "None"]];
-export const AVPU_OPTS = ["Alert", "Voice", "Pain", "Unresponsive"];
+export const EYE_OPTS: GcsOption[] = [["4", "Spontaneous"], ["3", "To voice"], ["2", "To pain"], ["1", "None"]];
+export const VERBAL_OPTS: GcsOption[] = [["5", "Oriented"], ["4", "Confused"], ["3", "Inappropriate"], ["2", "Incomprehensible"], ["1", "None"]];
+export const MOTOR_OPTS: GcsOption[] = [["6", "Obeys"], ["5", "Localizes"], ["4", "Withdrawal"], ["3", "Flexion"], ["2", "Extension"], ["1", "None"]];
+export const AVPU_OPTS: string[] = ["Alert", "Voice", "Pain", "Unresponsive"];
 
 // Computed helpers
-export const calcGCS = (v) => {
+export const calcGCS = (v: VitalSet): number => {
   const e = parseInt(v.eye) || 0;
   const vb = parseInt(v.verbal) || 0;
   const m = parseInt(v.motor) || 0;
   return e + vb + m;
 };
 
-export const calcMAP = (v) => {
+export const calcMAP = (v: VitalSet): number | null => {
   const s = parseInt(v.sbp);
   const d = parseInt(v.dbp);
   return (s && d) ? Math.round(d + (s - d) / 3) : null;
 };
 
-export const calcSI = (v) => {
+export const calcSI = (v: VitalSet): string | null => {
   const h = parseInt(v.hr);
   const s = parseInt(v.sbp);
   return (h && s) ? (h / s).toFixed(2) : null;
 };
 
-export const newVitalSet = () => ({
+export const newVitalSet = (): VitalSet => ({
   time: new Date().toTimeString().slice(0, 5),
   hr: "", sbp: "", dbp: "", rr: "", spo2: "", etco2: "", temp: "",
   eye: "", verbal: "", motor: "", avpu: "", mace: "",
   pain: "", rass: "", fluidIn: "", urineOut: "", notes: ""
 });
 
-export const newMed = () => ({
+export const newMed = (): Medication => ({
   drug: "", dose: "", route: "",
   time: new Date().toTimeString().slice(0, 5)
 });
 
-export const defaultPatient = () => ({
+export const defaultPatient = (): Patient => ({
   name: "", id: "",
   date: new Date().toISOString().split("T")[0],
   time: new Date().toTimeString().slice(0, 5),
