@@ -1,7 +1,8 @@
+import type { Metadata } from "next";
 import { BLOG_POSTS } from "./posts";
 import BlogIndex from "./BlogIndex";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Blog - Medeor | TCCC Training Articles & Guides",
   description: "Free TCCC, CLS, and PFC training articles. MARCH protocol guides, tourniquet application, needle decompression, cricothyrotomy, and prolonged field care resources for combat medics.",
   alternates: { canonical: "https://medeor.app/blog" },
