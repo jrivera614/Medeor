@@ -1,13 +1,14 @@
 "use client";
-import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAppState, S, Prog } from "../components";
 import {
-  SAVE_KEY, TABS, TX_ITEMS, PRIORITIES, LABS, VENT_FIELDS,
+  TABS, TX_ITEMS, PRIORITIES, LABS, VENT_FIELDS,
   NURSE_ITEMS, BURN_REGIONS, EYE_OPTS, VERBAL_OPTS, MOTOR_OPTS, AVPU_OPTS,
   calcGCS, calcMAP, calcSI
 } from "./constants";
 import { Field, SelectorRow, secStyle, NumField } from "./components/Fields";
+import { usePfcState } from "./hooks/usePfcState";
+import { usePdfExport } from "./hooks/usePdfExport";
 
 const labelStyle = { fontSize: 11, color: "#666", display: "block", marginBottom: 3, letterSpacing: ".03em" };
 const inputStyle = { width: "100%", padding: "9px 12px", background: "#ffffff08", border: "1px solid #ffffff14", borderRadius: 10, color: "#e8e8ed", fontSize: 13, fontFamily: "inherit", outline: "none", boxSizing: "border-box" };
@@ -16,122 +17,37 @@ const smallInput = { ...inputStyle, padding: "5px 8px", fontSize: 12, borderRadi
 export default function PfcClient() {
   const { ref } = useAppState();
   const router = useRouter();
-  const [loaded, setLoaded] = useState(false);
-  const [tab, setTab] = useState(0);
-  const [patient, setPatient] = useState({ name: "", id: "", date: new Date().toISOString().split("T")[0], time: new Date().toTimeString().slice(0, 5), tz: "", pfcStart: "", wtkg: "", wtlbs: "", ht: "", ibw: "", blood: "", titer: "", triage: "", evac: "", status: "" });
-  const [mist, setMist] = useState({ m: "", i: "", s: "", t: "", time: "", to: "" });
-  const [history, setHistory] = useState({ allergies: "", meds: "", past: "", oral: "", events: "" });
-  const [tourniquets, setTourniquets] = useState({ t1on: "", t1c: "", t2on: "", t2c: "", t3on: "", t3c: "", t4on: "", t4c: "", txa: "", ca: "" });
-  const [meds, setMeds] = useState([]);
-  const [labResults, setLabResults] = useState(() => Object.fromEntries(LABS.map(l => [l.n, ""])));
-  const [burns, setBurns] = useState(() => Object.fromEntries(BURN_REGIONS.map(r => [r.id, false])));
-  const [burnDepth, setBurnDepth] = useState(() => Object.fromEntries(BURN_REGIONS.map(r => [r.id, ""])));
-  const [checks, setChecks] = useState(() => Object.fromEntries(TX_ITEMS.map(item => [item, false])));
-  const [checkTimes, setCheckTimes] = useState(() => Object.fromEntries(TX_ITEMS.map(item => [item, ""])));
-  const [priorities, setPriorities] = useState(() => Object.fromEntries(PRIORITIES.map(p => [p, false])));
-  const [vitals, setVitals] = useState([]);
-  const [vent, setVent] = useState(() => Object.fromEntries(VENT_FIELDS.map(f => [f, ""])));
-  const [carePlan, setCarePlan] = useState({ problems: "", plans: "", goals: "", concerns: "", notes: "" });
 
-  const PFC_VERSION = 2;
+  const state = usePfcState();
+  const {
+    tab, setTab,
+    patient, setPatient,
+    mist, setMist,
+    history, setHistory,
+    tourniquets, setTourniquets,
+    meds, setMeds,
+    labResults, setLabResults,
+    burns, setBurns,
+    burnDepth, setBurnDepth,
+    checks,
+    checkTimes,
+    priorities, setPriorities,
+    vitals, setVitals,
+    vent, setVent,
+    carePlan, setCarePlan,
+    treatmentsDone, prioritiesDone, tbsa,
+    toggleTreatment, addMed, updateMed, addVital, updateVital,
+  } = state;
 
-  // Load from localStorage (keys match original save format for backward compat)
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(SAVE_KEY);
-      if (raw) {
-        const saved = JSON.parse(raw);
-        if (saved.tab !== undefined) setTab(saved.tab);
-        if (saved.pt) setPatient(prev => ({ ...prev, ...saved.pt }));
-        if (saved.mist) setMist(saved.mist);
-        if (saved.hx) setHistory(saved.hx);
-        if (saved.tq) setTourniquets(saved.tq);
-        if (saved.meds) setMeds(saved.meds);
-        if (saved.labR) setLabResults(saved.labR);
-        if (saved.burns) setBurns(saved.burns);
-        if (saved.burnD) setBurnDepth(saved.burnD);
-        if (saved.checks) setChecks(saved.checks);
-        if (saved.checkT) setCheckTimes(saved.checkT);
-        if (saved.prio) setPriorities(saved.prio);
-        if (saved.vent) setVent(saved.vent);
-        if (saved.ppgc) setCarePlan(prev => ({ ...prev, ...saved.ppgc }));
-        if (saved.vitals) {
-          const migrated = saved.vitals.map(v => {
-            if (!v.sbp && v.bp) {
-              return { ...v, sbp: "", dbp: "", eye: "", verbal: "", motor: "", avpu: "", mace: "", rass: "", fluidIn: "", urineOut: "" };
-            }
-            return v;
-          });
-          setVitals(migrated);
-        }
-      }
-    } catch (e) {}
-    setLoaded(true);
-  }, []);
-
-  // Save to localStorage (keys preserved for backward compat)
-  useEffect(() => {
-    if (!loaded) return;
-    try {
-      localStorage.setItem(SAVE_KEY, JSON.stringify({
-        v: PFC_VERSION, tab,
-        pt: patient, mist, hx: history, tq: tourniquets, meds,
-        labR: labResults, burns, burnD: burnDepth, checks, checkT: checkTimes,
-        prio: priorities, vitals, vent, ppgc: carePlan
-      }));
-    } catch (e) {}
-  }, [loaded, tab, patient, mist, history, tourniquets, meds, labResults, burns, burnDepth, checks, checkTimes, priorities, vitals, vent, carePlan]);
-
+  // Local updateField helper - maintained for the legacy inline renderTab cases.
+  // Will be removed in PR 6c when the tab switch is split into components.
   const updateField = setter => (key, value) => setter(prev => ({ ...prev, [key]: value }));
-  const treatmentsDone = Object.values(checks).filter(Boolean).length;
-  const prioritiesDone = Object.values(priorities).filter(Boolean).length;
-  const toggleTreatment = (item) => {
-    const newState = !checks[item];
-    setChecks(prev => ({ ...prev, [item]: newState }));
-    if (newState) setCheckTimes(prev => ({ ...prev, [item]: new Date().toTimeString().slice(0, 5) }));
-  };
-  const addMed = () => setMeds(prev => [...prev, { drug: "", dose: "", route: "", time: new Date().toTimeString().slice(0, 5) }]);
-  const updateMed = (index, key, value) => setMeds(prev => prev.map((med, i) => i === index ? { ...med, [key]: value } : med));
-  const addVital = () => setVitals(prev => [...prev, { time: new Date().toTimeString().slice(0, 5), hr: "", sbp: "", dbp: "", rr: "", spo2: "", etco2: "", temp: "", eye: "", verbal: "", motor: "", avpu: "", mace: "", pain: "", rass: "", fluidIn: "", urineOut: "", notes: "" }]);
-  const updateVital = (index, key, value) => setVitals(prev => prev.map((vital, i) => i === index ? { ...vital, [key]: value } : vital));
-  const tbsa = BURN_REGIONS.reduce((sum, region) => sum + (burns[region.id] ? region.pct : 0), 0);
 
-  const esc = (str) => String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
-
-  const exportPDF = () => {
-    const pdfWindow = window.open("", "_blank");
-    if (!pdfWindow) { alert("Popup blocked. Please allow popups for medeor.app to export PDFs."); return; }
-    const pdfHeading = (title) => `<div style="background:#111;color:#fff;padding:4px 8px;font-size:12px;font-weight:700;letter-spacing:1px;margin:14px 0 6px">${esc(title)}</div>`;
-    const pdfField = (label, value) => `<div style="display:inline-block;margin:2px 8px 2px 0"><span style="font-size:9px;color:#888;text-transform:uppercase">${esc(label)}</span><div style="font-size:12px;border-bottom:1px solid #ccc;min-width:60px;padding:1px 0">${esc(value) || " — "}</div></div>`;
-    const pdfCheckbox = (label, done, time) => `<div style="display:flex;align-items:center;gap:4px;padding:2px 0;font-size:11px;${done ? "color:#2e7d32" : ""}"><span style="display:inline-block;width:11px;height:11px;border:1px solid ${done ? "#2e7d32" : "#999"};${done ? "background:#2e7d32;color:#fff;" : ""}font-size:9px;text-align:center;line-height:11px">${done ? "\u2713" : ""}</span>${esc(label)}${time ? ` <span style="color:#999;font-size:9px">(${esc(time)})</span>` : ""}</div>`;
-    const tdStyle = `style="border:1px solid #ddd;padding:3px 6px;font-size:10px"`;
-    const thStyle = `style="border:1px solid #ddd;padding:3px 6px;font-size:10px;background:#f0f0f0;font-weight:600;text-align:left"`;
-    pdfWindow.document.write(`<!DOCTYPE html><html><head><title>PCC Card - ${esc(patient.name) || "Patient"}</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,sans-serif;font-size:11px;padding:12px;max-width:960px;margin:0 auto}table{width:100%;border-collapse:collapse}.cols{display:flex;gap:8px}.cols>div{flex:1}@media print{body{padding:6px}}</style></head><body>`);
-    pdfWindow.document.write(`<div style="text-align:center;font-size:15px;font-weight:800;border-bottom:2px solid #000;padding-bottom:4px;margin-bottom:8px">PROLONGED CASUALTY CARE CARD</div>`);
-    pdfWindow.document.write(`<div style="text-align:right;font-size:8px;color:#999;margin-top:-6px;margin-bottom:6px">Generated ${new Date().toLocaleString()} | Based on JTS PCC CPG FY26</div>`);
-    pdfWindow.document.write(pdfHeading("PATIENT INFO"));
-    [["Name", patient.name], ["BR#", patient.id], ["Date", patient.date], ["Time", patient.time], ["TZ", patient.tz], ["PFC Start", patient.pfcStart], ["Wt kg", patient.wtkg], ["Wt lbs", patient.wtlbs], ["Ht", patient.ht], ["IBW", patient.ibw], ["Blood", patient.blood], ["Titer", patient.titer], ["Triage", patient.triage], ["EVAC", patient.evac], ["Status", patient.status]].forEach(([label, value]) => pdfWindow.document.write(pdfField(label, value)));
-    pdfWindow.document.write(pdfHeading("M.I.S.T. REPORT"));
-    [["Mechanism", mist.m], ["Injuries", mist.i], ["Signs/Symptoms", mist.s], ["Treatment", mist.t], ["Report Time", mist.time], ["Reported To", mist.to]].forEach(([label, value]) => pdfWindow.document.write(`<div style="margin-bottom:4px"><span style="font-size:9px;color:#888">${esc(label)}</span><div style="font-size:11px;border-bottom:1px solid #eee;min-height:14px">${esc(value)}</div></div>`));
-    pdfWindow.document.write(pdfHeading("MEDICAL HISTORY"));
-    [["Allergies", history.allergies], ["Medications", history.meds], ["Past Hx", history.past], ["Last Oral Intake", history.oral], ["Events", history.events]].forEach(([label, value]) => pdfWindow.document.write(`<div style="margin-bottom:4px"><span style="font-size:9px;color:#888">${esc(label)}</span><div style="font-size:11px;border-bottom:1px solid #eee;min-height:14px">${esc(value)}</div></div>`));
-    pdfWindow.document.write(pdfHeading("INTERVENTIONS"));
-    [["TQ1 On", tourniquets.t1on], ["TQ1 Conv", tourniquets.t1c], ["TQ2 On", tourniquets.t2on], ["TQ2 Conv", tourniquets.t2c], ["TQ3 On", tourniquets.t3on], ["TQ3 Conv", tourniquets.t3c], ["TQ4 On", tourniquets.t4on], ["TQ4 Conv", tourniquets.t4c], ["TXA 2g", tourniquets.txa], ["Ca 1g", tourniquets.ca]].forEach(([label, value]) => pdfWindow.document.write(pdfField(label, value)));
-    if (meds.length) { pdfWindow.document.write(`<div style="margin-top:8px;font-size:11px;font-weight:700">Medications</div><table><tr><th ${thStyle}>Drug</th><th ${thStyle}>Dose</th><th ${thStyle}>Route</th><th ${thStyle}>Time</th></tr>`); meds.forEach(med => pdfWindow.document.write(`<tr><td ${tdStyle}>${esc(med.drug)}</td><td ${tdStyle}>${esc(med.dose)}</td><td ${tdStyle}>${esc(med.route)}</td><td ${tdStyle}>${esc(med.time)}</td></tr>`)); pdfWindow.document.write(`</table>`); }
-    pdfWindow.document.write(pdfHeading("LAB VALUES"));
-    pdfWindow.document.write(`<table><tr><th ${thStyle}>Test</th><th ${thStyle}>Ref</th><th ${thStyle}>Result</th></tr>`); LABS.forEach(lab => pdfWindow.document.write(`<tr><td ${tdStyle}>${esc(lab.n)}</td><td ${tdStyle}>${esc(lab.r)}</td><td ${tdStyle} style="font-weight:600">${esc(labResults[lab.n])}</td></tr>`)); pdfWindow.document.write(`</table>`);
-    if (tbsa > 0) { pdfWindow.document.write(pdfHeading(`BURNS (TBSA: ${tbsa}%)`)); BURN_REGIONS.filter(r => burns[r.id]).forEach(r => pdfWindow.document.write(`<div style="font-size:11px;padding:2px 0">${esc(r.label)}: ${r.pct}% ${burnDepth[r.id] ? `(${esc(burnDepth[r.id])})` : ""}</div>`)); if (patient.wtkg) { const fluid = 4 * parseFloat(patient.wtkg) * tbsa; pdfWindow.document.write(`<div style="margin-top:4px;font-size:11px;font-weight:700">Parkland: ${fluid.toFixed(0)}ml/24hr | First 8hr: ${(fluid / 2).toFixed(0)}ml (${(fluid / 2 / 8).toFixed(0)}ml/hr)</div>`); } }
-    pdfWindow.document.write(pdfHeading(`TREATMENT (${treatmentsDone}/${TX_ITEMS.length})`)); pdfWindow.document.write(`<div class="cols"><div>`); const half = Math.ceil(TX_ITEMS.length / 2); TX_ITEMS.forEach((item, i) => { if (i === half) pdfWindow.document.write(`</div><div>`); pdfWindow.document.write(pdfCheckbox(item, checks[item], checkTimes[item])); }); pdfWindow.document.write(`</div></div>`);
-    pdfWindow.document.write(pdfHeading(`PRIORITIES (${prioritiesDone}/${PRIORITIES.length})`)); pdfWindow.document.write(`<div class="cols"><div>`); const prioHalf = Math.ceil(PRIORITIES.length / 2); PRIORITIES.forEach((pItem, i) => { if (i === prioHalf) pdfWindow.document.write(`</div><div>`); pdfWindow.document.write(pdfCheckbox(pItem, priorities[pItem], "")); }); pdfWindow.document.write(`</div></div>`);
-    if (vitals.length) { pdfWindow.document.write(pdfHeading("VITAL SIGNS")); pdfWindow.document.write(`<table><tr><th ${thStyle}>Time</th><th ${thStyle}>HR</th><th ${thStyle}>BP</th><th ${thStyle}>MAP</th><th ${thStyle}>SI</th><th ${thStyle}>RR</th><th ${thStyle}>SpO2</th><th ${thStyle}>ETCO2</th><th ${thStyle}>Temp</th><th ${thStyle}>GCS</th><th ${thStyle}>AVPU</th><th ${thStyle}>Pain</th><th ${thStyle}>RASS</th><th ${thStyle}>In</th><th ${thStyle}>UOP</th></tr>`); vitals.forEach(v => { const gcs = calcGCS(v); const map = calcMAP(v); const si = calcSI(v); pdfWindow.document.write(`<tr><td ${tdStyle}>${esc(v.time)}</td><td ${tdStyle}>${esc(v.hr)}</td><td ${tdStyle}>${esc(v.sbp)}/${esc(v.dbp)}</td><td ${tdStyle}>${map || ""}</td><td ${tdStyle}>${si || ""}</td><td ${tdStyle}>${esc(v.rr)}</td><td ${tdStyle}>${esc(v.spo2)}</td><td ${tdStyle}>${esc(v.etco2)}</td><td ${tdStyle}>${esc(v.temp)}</td><td ${tdStyle}>${gcs || ""}</td><td ${tdStyle}>${esc(v.avpu)}</td><td ${tdStyle}>${esc(v.pain)}</td><td ${tdStyle}>${esc(v.rass)}</td><td ${tdStyle}>${esc(v.fluidIn)}</td><td ${tdStyle}>${esc(v.urineOut)}</td></tr>`); }); pdfWindow.document.write(`</table>`); vitals.forEach((v, i) => { if (v.notes) pdfWindow.document.write(`<div style="font-size:10px"><b>Set ${i + 1}:</b> ${esc(v.notes)}</div>`); }); }
-    pdfWindow.document.write(pdfHeading("VENTILATOR")); VENT_FIELDS.forEach(vf => pdfWindow.document.write(pdfField(vf, vent[vf])));
-    pdfWindow.document.write(pdfHeading("PPGC")); pdfWindow.document.write(`<div class="cols">`); [["Problems", carePlan.problems], ["Plans", carePlan.plans], ["Goals", carePlan.goals], ["Concerns", carePlan.concerns]].forEach(([label, value]) => pdfWindow.document.write(`<div style="border:1px solid #ddd;padding:6px;min-height:50px"><div style="font-weight:700;font-size:10px">${esc(label)}</div><div style="font-size:11px;white-space:pre-wrap">${esc(value)}</div></div>`)); pdfWindow.document.write(`</div>`);
-    if (carePlan.notes) pdfWindow.document.write(`<div style="margin-top:8px;border:1px solid #ddd;padding:6px"><div style="font-weight:700;font-size:10px">Assessment Notes</div><div style="font-size:11px;white-space:pre-wrap">${esc(carePlan.notes)}</div></div>`);
-    pdfWindow.document.write(`<div style="text-align:center;margin-top:12px;font-size:8px;color:#aaa">Based on JTS PCC CPG FY26 | jts.health.mil | medeor.app</div>`);
-    pdfWindow.document.write(`<div style="text-align:center;font-size:7px;color:#bbb;margin-top:4px">FOR OFFICIAL USE ONLY. Use Battle Roster # for patient identification. Do not include SSN or full name in unsecured systems. All data stored locally on device only.</div>`);
-    pdfWindow.document.write(`<script src="/html2pdf.min.js"><\/script><script>window.onload=function(){html2pdf().set({margin:[8,8,8,8],filename:"PFC_Card_${esc((patient.name || "Patient").replace(/[^a-zA-Z0-9]/g, "_"))}_${patient.date || new Date().toISOString().split("T")[0]}.pdf",image:{type:"jpeg",quality:0.98},html2canvas:{scale:2},jsPDF:{unit:"mm",format:"letter",orientation:"portrait"}}).from(document.body).save()};<\/script></body></html>`);
-    pdfWindow.document.close();
-  };
+  const exportPDF = usePdfExport({
+    patient, mist, history, tourniquets, meds, labResults,
+    burns, burnDepth, checks, checkTimes, priorities, vitals, vent, carePlan,
+    treatmentsDone, prioritiesDone, tbsa,
+  });
 
   const renderTab = () => { switch (tab) {
     case 0: return <><div style={secStyle}>Patient Information</div><Field label="Name" value={patient.name} onChange={v => updateField(setPatient)("name", v)}/><div style={{display:"flex",flexWrap:"wrap",gap:8}}><div style={{flex:"1 1 48%"}}><Field label="Battle Roster # (AB1234)" value={patient.id} onChange={v => updateField(setPatient)("id", v)}/></div><div style={{flex:"1 1 24%"}}><Field label="Date" value={patient.date} onChange={v => updateField(setPatient)("date", v)}/></div><div style={{flex:"1 1 24%"}}><Field label="Time" value={patient.time} onChange={v => updateField(setPatient)("time", v)}/></div></div><div style={{display:"flex",flexWrap:"wrap",gap:8}}>{[["Time Zone","tz"],["PFC Start Time","pfcStart"]].map(([label, key]) => <div key={key} style={{flex:"1 1 30%",minWidth:80}}><Field label={label} value={patient[key]} onChange={v => updateField(setPatient)(key, v)}/></div>)}<div style={{flex:"1 1 30%",minWidth:80}}><Field label="Wt kg" value={patient.wtkg} onChange={v => { const kg = v.replace(/[^0-9.]/g, ""); setPatient(prev => ({...prev, wtkg: kg, wtlbs: kg && !isNaN(parseFloat(kg)) ? (parseFloat(kg) * 2.205).toFixed(1) : ""})); }}/></div><div style={{flex:"1 1 30%",minWidth:80}}><Field label="Wt lbs" value={patient.wtlbs} onChange={v => { const lbs = v.replace(/[^0-9.]/g, ""); setPatient(prev => ({...prev, wtlbs: lbs, wtkg: lbs && !isNaN(parseFloat(lbs)) ? (parseFloat(lbs) / 2.205).toFixed(1) : ""})); }}/></div>{[["Height","ht"],["Ideal Body Wt","ibw"]].map(([label, key]) => <div key={key} style={{flex:"1 1 30%",minWidth:80}}><Field label={label} value={patient[key]} onChange={v => updateField(setPatient)(key, v)}/></div>)}</div><div style={{display:"flex",flexWrap:"wrap",gap:8}}>{[["Blood Type","blood"],["Titer","titer"],["Triage","triage"],["EVAC","evac"]].map(([label, key]) => <div key={key} style={{flex:"1 1 22%"}}><Field label={label} value={patient[key]} onChange={v => updateField(setPatient)(key, v)}/></div>)}</div><label style={labelStyle}>Status</label><div style={{display:"flex",gap:8,marginBottom:10}}>{["Stable","Unstable"].map(status => <button key={status} onClick={() => updateField(setPatient)("status", status)} style={{flex:1,padding:10,borderRadius:10,border:`2px solid ${patient.status===status?(status==="Stable"?"#10b981":"#ef4444"):"#ffffff14"}`,background:patient.status===status?(status==="Stable"?"#10b98118":"#ef444418"):"transparent",color:patient.status===status?(status==="Stable"?"#10b981":"#ef4444"):"#666",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:"inherit"}}>{status}</button>)}</div></>;
