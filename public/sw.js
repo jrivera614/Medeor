@@ -1,4 +1,4 @@
-const CACHE_NAME = 'medeor-v7';
+const CACHE_NAME = 'medeor-v8';
 const OFFLINE_URLS = [
   '/',
   '/manifest.json',
@@ -42,7 +42,7 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
-  if (!url.origin.includes(self.location.origin)) return;
+  if (url.origin !== self.location.origin) return;
 
   if (event.request.headers.get('accept')?.includes('text/html')) {
     event.respondWith(
