@@ -3,6 +3,7 @@ import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import {
   SAVE_KEY, LABS, BURN_REGIONS, TX_ITEMS, PRIORITIES, VENT_FIELDS,
 } from "../constants";
+import { safeStorage } from "../../lib/safeStorage";
 import type {
   Patient, Mist, History, Tourniquets, Medication, VitalSet, CarePlan,
   LabResults, BurnStates, BurnDepths, TreatmentChecks, TreatmentTimes,
@@ -146,9 +147,9 @@ export function usePfcState(): PfcState {
 
   // Load from localStorage (keys match original save format for backward compat)
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(SAVE_KEY);
-      if (raw) {
+    const raw = safeStorage.get(SAVE_KEY);
+    if (raw) {
+      try {
         const saved = JSON.parse(raw);
         if (saved.tab !== undefined) setTab(saved.tab);
         if (saved.pt) setPatient(prev => ({ ...prev, ...saved.pt }));
@@ -173,22 +174,22 @@ export function usePfcState(): PfcState {
           });
           setVitals(migrated);
         }
+      } catch (e) {
+        console.warn("usePfcState: failed to parse saved PFC card, starting fresh:", e);
       }
-    } catch (e) {}
+    }
     setLoaded(true);
   }, []);
 
   // Save to localStorage (keys preserved for backward compat)
   useEffect(() => {
     if (!loaded) return;
-    try {
-      localStorage.setItem(SAVE_KEY, JSON.stringify({
-        v: PFC_VERSION, tab,
-        pt: patient, mist, hx: history, tq: tourniquets, meds,
-        labR: labResults, burns, burnD: burnDepth, checks, checkT: checkTimes,
-        prio: priorities, vitals, vent, ppgc: carePlan,
-      }));
-    } catch (e) {}
+    safeStorage.setJSON(SAVE_KEY, {
+      v: PFC_VERSION, tab,
+      pt: patient, mist, hx: history, tq: tourniquets, meds,
+      labR: labResults, burns, burnD: burnDepth, checks, checkT: checkTimes,
+      prio: priorities, vitals, vent, ppgc: carePlan,
+    });
   }, [loaded, tab, patient, mist, history, tourniquets, meds, labResults, burns, burnDepth, checks, checkTimes, priorities, vitals, vent, carePlan]);
 
   // Derived values

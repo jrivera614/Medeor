@@ -25,7 +25,9 @@ export default function ContactClient() {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: form.name, email: form.email, type: form.type, message: form.msg })
       });
-    } catch(e) {}
+    } catch (e) {
+      console.warn("Contact form submission failed:", e);
+    }
     setSent(true);
   };
 
