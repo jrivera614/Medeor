@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback, useRef, CSSProperties, RefObject } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { safeStorage } from "./lib/safeStorage";
 
 // ─── Shared app state hook ───
 
@@ -43,12 +44,11 @@ export function useAppState(): AppState {
   }, []);
 
   const saveProgress = useCallback((key: string, data: Record<string, any>) => {
-    try {
-      const p = JSON.parse(localStorage.getItem("medeor_progress") || "{}");
-      p[key] = { ...data, ts: Date.now() };
-      localStorage.setItem("medeor_progress", JSON.stringify(p));
+    const p = safeStorage.getJSON<Record<string, ProgressData>>("medeor_progress", {}) || {};
+    p[key] = { ...data, ts: Date.now() };
+    if (safeStorage.setJSON("medeor_progress", p)) {
       setProgress(p);
-    } catch (e) {}
+    }
   }, []);
 
   useEffect(() => {
@@ -56,10 +56,8 @@ export function useAppState(): AppState {
   }, [pathname]);
 
   useEffect(() => {
-    try {
-      const p = JSON.parse(localStorage.getItem("medeor_progress") || "{}");
-      setProgress(p);
-    } catch (e) {}
+    const p = safeStorage.getJSON<Record<string, ProgressData>>("medeor_progress", {});
+    if (p) setProgress(p);
   }, []);
 
   return { fade, setFade, expanded, setExpanded, search, setSearch, progress, setProgress, checkStates, setCheckStates, ref, router, pathname, tr, saveProgress };

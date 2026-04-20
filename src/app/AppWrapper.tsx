@@ -2,6 +2,7 @@
 import { useState, useEffect, ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { S } from "./components";
+import { safeStorage } from "./lib/safeStorage";
 
 // AppWrapper: site-wide overlay. Handles cookie consent banner, email
 // capture banner (60s after consent), Vercel analytics mount, service
@@ -36,17 +37,17 @@ export default function AppWrapper({ children }: AppWrapperProps) {
   });
 
   useEffect(() => {
-    try {
-      const s = localStorage.getItem("medeor_cookie_consent");
-      if (s === "accepted") setCookieConsent(true);
-      else if (s === "declined") setCookieConsent(false);
-    } catch (e) {}
-    try {
-      const d = localStorage.getItem("medeor_email_dismissed");
-      if (d) setEmailCapture((p) => ({ ...p, dismissed: true }));
-    } catch (e) {}
+    const s = safeStorage.get("medeor_cookie_consent");
+    if (s === "accepted") setCookieConsent(true);
+    else if (s === "declined") setCookieConsent(false);
+
+    const d = safeStorage.get("medeor_email_dismissed");
+    if (d) setEmailCapture((p) => ({ ...p, dismissed: true }));
+
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(() => {});
+      navigator.serviceWorker.register("/sw.js").catch((e) => {
+        console.warn("Service worker registration failed:", e);
+      });
     }
   }, []);
 
@@ -62,9 +63,7 @@ export default function AppWrapper({ children }: AppWrapperProps) {
 
   const handleCookieConsent = (accepted: boolean) => {
     setCookieConsent(accepted);
-    try {
-      localStorage.setItem("medeor_cookie_consent", accepted ? "accepted" : "declined");
-    } catch (e) {}
+    safeStorage.set("medeor_cookie_consent", accepted ? "accepted" : "declined");
     if (typeof window !== "undefined" && window.gtag) {
       window.gtag("consent", "update", { analytics_storage: accepted ? "granted" : "denied" });
     }
@@ -118,9 +117,7 @@ export default function AppWrapper({ children }: AppWrapperProps) {
                   });
                   if (!res.ok) throw new Error("Submit failed");
                   setEmailCapture({ show: false, email: "", sent: true, dismissed: true, submitting: false, error: null });
-                  try {
-                    localStorage.setItem("medeor_email_dismissed", "1");
-                  } catch (e) {}
+                  safeStorage.set("medeor_email_dismissed", "1");
                 } catch (e) {
                   setEmailCapture((p) => ({ ...p, submitting: false, error: "Failed to subscribe. Please try again." }));
                 }
@@ -133,9 +130,7 @@ export default function AppWrapper({ children }: AppWrapperProps) {
           <button
             onClick={() => {
               setEmailCapture((p) => ({ ...p, show: false, dismissed: true }));
-              try {
-                localStorage.setItem("medeor_email_dismissed", "1");
-              } catch (e) {}
+              safeStorage.set("medeor_email_dismissed", "1");
             }}
             style={{ background: "none", border: "none", color: "#555", fontSize: 10, cursor: "pointer", fontFamily: "inherit", padding: "8px 0 0", width: "100%", textAlign: "center" }}
           >
