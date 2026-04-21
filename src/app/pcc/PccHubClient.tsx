@@ -22,7 +22,7 @@ interface PccTopic {
 
 const TOPICS: PccTopic[] = [
   { id: "meds",    icon: "💊", title: "Medications",        sub: "Analgesia, vasoactives, abx, paralytics, blood", color: tokens.brand,  ready: true,  route: "/pcc/meds" },
-  { id: "skills",  icon: "🔧", title: "Skills & Procedures", sub: "Cric maintenance, chest tube, lines, foley",     color: tokens.indigo, ready: false },
+  { id: "skills",  icon: "🔧", title: "Skills & Procedures", sub: "Foley, NG/OG, whole blood, lines, cric care",      color: tokens.indigo, ready: true,  route: "/pcc/skills" },
   { id: "nursing", icon: "📋", title: "Nursing Checklist",   sub: "q1h / q4h / q8h / prn care tasks",              color: tokens.green,  ready: false },
   { id: "vent",    icon: "🫁", title: "Vent Management",     sub: "SAVe II, EMV+ 731, ARDS strategies",            color: tokens.cyan,   ready: false },
   { id: "trouble", icon: "⚠️", title: "Troubleshooting",     sub: "Alarms, deterioration, equipment failure",      color: tokens.amber,  ready: false },
