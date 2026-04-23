@@ -11,7 +11,6 @@ export const PCC_PROCEDURE_CATEGORIES: PccProcedureCategory[] = [
   { id: "blood",   label: "Blood",     color: "#ef4444" },
   { id: "gi",      label: "GI",        color: "#f59e0b" },
   { id: "gu",      label: "GU",        color: "#10b981" },
-  { id: "wound",   label: "Wound",     color: "#ec4899" },
 ];
 
 export const PCC_PROCEDURES: PccProcedure[] = [
@@ -188,32 +187,6 @@ export const PCC_PROCEDURES: PccProcedure[] = [
     pccNotes: "Removal criteria: output less than 200 mL in 24 hours, no air leak for 24 hours, lung expanded on clinical exam (or imaging if available), clinical improvement. Removal technique: have casualty take deep breath and perform Valsalva or exhale fully, remove tube swiftly, immediately cover with petroleum gauze and dry dressing, close skin with single interrupted suture or Steri-Strips. Monitor for recurrence for 4-6 hours post-removal. Consult telemedicine for removal decisions.",
     documentation: "SF600: hourly output volume and character (sanguinous, serosanguinous, serous), air leak presence, valve status, dressing changes, any position changes of tube, removal time and method if removed.",
     references: ["JTS Thoracic Trauma CPG", "JTS Tube Thoracostomy CPG"],
-  },
-  {
-    id: "suturing",
-    name: "Suturing and Wound Closure",
-    category: "wound",
-    indications: "Wound edge approximation for lacerations suitable for primary closure (face within 24 hours, trunk within 12 hours), delayed primary closure of clean granulating combat wounds at day 3-5, scalp lacerations, closure of escharotomy or fasciotomy incisions when safe.",
-    contraindications: "Grossly contaminated wounds (leave open), bites without thorough irrigation, wounds with devitalized tissue present, signs of infection, combat wounds without debridement or telemedicine approval for closure.",
-    equipment: "Needle driver, Adson forceps with teeth, suture scissors, lidocaine 1 percent (with epinephrine for most wounds, not for end arteries: digits, penis, nose tip, ear), 25 G and 22 G needles for infiltration, suture material (3-0 or 4-0 nylon or polypropylene for skin, 3-0 or 4-0 Vicryl for deep layers), sterile saline for irrigation (1-3 L), chlorhexidine or povidone-iodine, sterile drapes, gauze.",
-    steps: [
-      "Assess wound: depth, foreign body, contamination, neurovascular status distal to wound, tendon involvement.",
-      "Anesthetize. Infiltrate 1 percent lidocaine into wound edges, use 25 G needle, inject slowly to reduce pain.",
-      "Irrigate thoroughly. Minimum 1-3 L sterile saline under pressure from 30-60 mL syringe with splash guard.",
-      "Debride any devitalized tissue. Remove foreign bodies.",
-      "Explore wound for depth, tendon involvement, joint violation.",
-      "Drape and prep. Plan closure: deep layer first (absorbable), then skin.",
-      "Skin closure: mount needle 2/3 from tip in needle driver. Enter skin at 90 degrees 3-5 mm from edge.",
-      "Bite depth should equal bite width. Evert edges (not inverted). Exit opposite side at same depth and distance.",
-      "Tie surgeon's knot: double throw first, then 3-4 single throws alternating direction. Leave tails 3-5 mm.",
-      "Space sutures evenly, approximately equal to bite width (5 mm apart for skin).",
-      "Apply topical antibiotic and dry dressing.",
-    ],
-    confirmation: "Edges well-approximated without gaps or tension, edges slightly everted, no bleeding through closure, distal neurovascular function intact.",
-    complications: "Infection (drain sutures and leave open), dehiscence, ischemia from tight sutures, scarring, retained foreign body, needlestick to provider.",
-    pccNotes: "For combat wounds, delayed primary closure at day 3-5 is the standard, not immediate. Leave a small gap (1-2 cm) for drainage even at DPC. Remove skin sutures at: face 5 days, scalp and trunk 7-10 days, extremities 10-14 days, over joints 14 days. Signs to remove early and let wound open: erythema spreading, discharge, fever, increasing pain. Telemedicine consult for any questionable closure decision.",
-    documentation: "SF600: wound description, mechanism, irrigation volume, anesthetic used and dose, suture type and size, number of sutures, tetanus status and prophylaxis, antibiotic given, planned removal date.",
-    references: ["JTS Acute Traumatic Wound Management CPG", "JTS Infection Prevention in Combat Wounds CPG"],
   },
   {
     id: "arterial-draw",

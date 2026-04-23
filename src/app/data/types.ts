@@ -199,8 +199,7 @@ export type PccProcedureCategoryId =
   | "access"
   | "blood"
   | "gi"
-  | "gu"
-  | "wound";
+  | "gu";
 
 export interface PccProcedureCategory {
   id: PccProcedureCategoryId;
@@ -212,6 +211,41 @@ export interface PccProcedure {
   id: string;
   name: string;
   category: Exclude<PccProcedureCategoryId, "all">;
+  indications: string;
+  contraindications: string;
+  equipment: string;
+  steps: string[];
+  confirmation: string;
+  complications: string;
+  pccNotes: string;
+  documentation: string;
+  references: string[];
+}
+
+// ─── PCC WOUND CARE ───
+// Ongoing wound management content for the /pcc/wound page.
+// Separate from pccProcedures to keep the skills tab focused on
+// access/airway/GI/GU reference and let wound care carry its own workflow.
+
+export type PccWoundCareCategoryId =
+  | "all"
+  | "acute"
+  | "infection"
+  | "burns"
+  | "dressings"
+  | "amputation"
+  | "closure";
+
+export interface PccWoundCareCategory {
+  id: PccWoundCareCategoryId;
+  label: string;
+  color: string;
+}
+
+export interface PccWoundCareEntry {
+  id: string;
+  name: string;
+  category: Exclude<PccWoundCareCategoryId, "all">;
   indications: string;
   contraindications: string;
   equipment: string;
