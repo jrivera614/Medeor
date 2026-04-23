@@ -34,6 +34,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // PCC
     { url: `${base}/pcc`, lastModified: updated, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${base}/pcc/meds`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/pcc/skills`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/pcc/wound`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/pcc/card`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
 
     // Blog

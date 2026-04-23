@@ -186,3 +186,73 @@ export interface Medication {
   pedsUnit?: string;
   pedsRoute?: string;
 }
+
+// ─── PCC PROCEDURES ───
+// Reference-layer procedures for the /pcc/skills page. Day-to-day skills
+// used during prolonged casualty care. Surgical procedures covered in the
+// pfc-procedures training topic (finger thoracostomy, escharotomy, etc.)
+// are intentionally not duplicated here.
+
+export type PccProcedureCategoryId =
+  | "all"
+  | "airway"
+  | "access"
+  | "blood"
+  | "gi"
+  | "gu";
+
+export interface PccProcedureCategory {
+  id: PccProcedureCategoryId;
+  label: string;
+  color: string;
+}
+
+export interface PccProcedure {
+  id: string;
+  name: string;
+  category: Exclude<PccProcedureCategoryId, "all">;
+  indications: string;
+  contraindications: string;
+  equipment: string;
+  steps: string[];
+  confirmation: string;
+  complications: string;
+  pccNotes: string;
+  documentation: string;
+  references: string[];
+}
+
+// ─── PCC WOUND CARE ───
+// Ongoing wound management content for the /pcc/wound page.
+// Separate from pccProcedures to keep the skills tab focused on
+// access/airway/GI/GU reference and let wound care carry its own workflow.
+
+export type PccWoundCareCategoryId =
+  | "all"
+  | "acute"
+  | "infection"
+  | "burns"
+  | "dressings"
+  | "amputation"
+  | "closure";
+
+export interface PccWoundCareCategory {
+  id: PccWoundCareCategoryId;
+  label: string;
+  color: string;
+}
+
+export interface PccWoundCareEntry {
+  id: string;
+  name: string;
+  category: Exclude<PccWoundCareCategoryId, "all">;
+  indications: string;
+  contraindications: string;
+  equipment: string;
+  steps: string[];
+  confirmation: string;
+  complications: string;
+  pccNotes: string;
+  documentation: string;
+  references: string[];
+}
