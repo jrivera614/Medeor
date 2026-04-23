@@ -256,3 +256,33 @@ export interface PccWoundCareEntry {
   documentation: string;
   references: string[];
 }
+
+// ─── PCC CPGS (curated) ───
+// Curated list of JTS CPGs most relevant to prolonged casualty care,
+// each paired with a short "why this matters in PCC" blurb so the medic
+// understands why to open it before they tap the link.
+
+export type PccCpgCategoryId =
+  | "all"
+  | "resuscitation"
+  | "airway"
+  | "wound"
+  | "neuro"
+  | "burns"
+  | "environmental"
+  | "ops";
+
+export interface PccCpgCategory {
+  id: PccCpgCategoryId;
+  label: string;
+  color: string;
+}
+
+export interface PccCpg {
+  id: string;
+  title: string;
+  category: Exclude<PccCpgCategoryId, "all">;
+  url: string;
+  date: string;
+  pccRelevance: string;
+}

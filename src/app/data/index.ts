@@ -11,3 +11,4 @@ export { RMH } from "./rmh";
 export { MED_CATEGORIES, MEDICATIONS } from "./medications";
 export { PCC_PROCEDURE_CATEGORIES, PCC_PROCEDURES } from "./pccProcedures";
 export { PCC_WOUND_CARE_CATEGORIES, PCC_WOUND_CARE } from "./pccWoundCare";
+export { PCC_CPG_CATEGORIES, PCC_CPGS } from "./pccCpgs";

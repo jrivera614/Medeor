@@ -27,7 +27,7 @@ const TOPICS: PccTopic[] = [
   { id: "nursing", icon: "📋", title: "Nursing Checklist",   sub: "q1h / q4h / q8h / prn care tasks",              color: tokens.green,  ready: false },
   { id: "vent",    icon: "🫁", title: "Vent Management",     sub: "SAVe II, EMV+ 731, ARDS strategies",            color: tokens.cyan,   ready: false },
   { id: "trouble", icon: "⚠️", title: "Troubleshooting",     sub: "Alarms, deterioration, equipment failure",      color: tokens.amber,  ready: false },
-  { id: "cpgs",    icon: "📑", title: "JTS CPGs",            sub: "PCC-specific clinical practice guidelines",     color: tokens.blue,   ready: false },
+  { id: "cpgs",    icon: "📑", title: "JTS CPGs",            sub: "Curated PCC-relevant clinical practice guidelines", color: tokens.blue,   ready: true,  route: "/pcc/cpgs" },
   { id: "card",    icon: "🩺", title: "PCC Casualty Card",   sub: "Fillable card, PDF export",                     color: tokens.red,    ready: true,  route: "/pcc/card" },
 ];
 
