@@ -238,6 +238,10 @@ export default function ToolsClient() {
   return (<div style={S.app}><div style={S.hdr}><div><div style={{fontSize:16,fontWeight:700}}>Tools</div><div style={{fontSize:10,color:"#666",marginTop:1,textTransform:"uppercase",letterSpacing:".04em"}}>Calculators, Checklists & Gear</div></div></div>
     <div ref={ref} style={S.body}>
       <div style={{background:"#f59e0b08",border:"1px solid #f59e0b18",borderRadius:10,padding:"10px 14px",margin:"12px 0 8px"}}><div style={{fontSize:10,fontWeight:700,color:"#f59e0b",textTransform:"uppercase",letterSpacing:".06em",marginBottom:3}}>Training Tool Only</div><div style={{fontSize:10,color:"#888",lineHeight:1.5}}>Medeor is a training and study aid. It is not a substitute for clinical judgment, licensed medical advice, or hands-on instruction. Dosages and protocols reflect CoTCCC/JTS CPG guidelines current as of March 2026. Always verify against your unit SOPs and current references.</div></div>
+   <div style={{padding:"14px 0 8px",fontSize:12,color:"#666",fontWeight:600,textTransform:"uppercase",letterSpacing:".05em"}}>Documentation</div>
+      <div style={S.card} onClick={()=>router.push("/tools/documentation")}>
+        <div style={{display:"flex",alignItems:"center",gap:11}}><span style={{fontSize:22}}>{"\u{1F4DD}"}</span><div style={{flex:1}}><div style={{fontSize:14,fontWeight:600}}>Patient Charting</div><div style={{fontSize:11,color:"#666",marginTop:2}}>SF 600 and other medical documentation forms, offline-first</div></div><span style={{color:"#444"}}>{'>'}</span></div>
+      </div>
       <div style={{padding:"14px 0 8px",fontSize:12,color:"#666",fontWeight:600,textTransform:"uppercase",letterSpacing:".05em"}}>Calculators</div>
       {[{k:"parkland" as const,icon:"🔥",title:"Parkland Burn Calculator",desc:"4ml x kg x %TBSA fluid resuscitation"},{k:"peds" as const,icon:"💊",title:"Pediatric Dosing",desc:"Weight-based medication calculations"},{k:"gcs" as const,icon:"🧠",title:"GCS Calculator",desc:"Glasgow Coma Scale with severity and airway guidance"}].map(c=>(
         <div key={c.k} style={S.card} onClick={()=>{setCalcType(c.k);setCalcInputs({});}}>
