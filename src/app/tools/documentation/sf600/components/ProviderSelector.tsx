@@ -105,7 +105,7 @@ export function ProviderSelector({ provider, onChange }: ProviderSelectorProps) 
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="RIVERA, J. SGT"
+          placeholder="EVIL, MD"
           style={inp}
           autoFocus
         />
@@ -116,7 +116,7 @@ export function ProviderSelector({ provider, onChange }: ProviderSelectorProps) 
           type="text"
           value={unit}
           onChange={(e) => setUnit(e.target.value)}
-          placeholder="JTF Marianas"
+          placeholder="Mini-Me Memorial Clinic"
           style={inp}
         />
       </div>
