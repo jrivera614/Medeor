@@ -1,11 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useAppState, S, Bar } from "../components";
+import { FileText, Film, ClipboardCheck, BookMarked, PenLine, type LucideIcon } from "lucide-react";
 
 interface ReferenceSection {
   title: string;
   desc: string;
-  icon: string;
+  icon: LucideIcon;
   color: string;
   path: string;
 }
@@ -14,35 +15,35 @@ const sections: ReferenceSection[] = [
   {
     title: "Clinical Practice Guidelines",
     desc: "86 JTS/CoTCCC CPG direct PDF links. Searchable by category.",
-    icon: "📋",
+    icon: FileText,
     color: "#6366f1",
     path: "/cpgs"
   },
   {
     title: "Skills Video Library",
     desc: "31 Deployed Medicine TCCC training videos organized by module.",
-    icon: "🎬",
+    icon: Film,
     color: "#ef4444",
     path: "/videos"
   },
   {
     title: "Table VIII Grade Sheets",
     desc: "Skills evaluation sheets with GO/NO-GO grading. Critical tasks marked.",
-    icon: "📊",
+    icon: ClipboardCheck,
     color: "#f59e0b",
     path: "/table8"
   },
   {
     title: "Ranger Medic Handbook",
     desc: "Quick reference sections from the 75th Ranger Regiment RMH.",
-    icon: "📕",
+    icon: BookMarked,
     color: "#10b981",
     path: "/rmh"
   },
   {
     title: "Blog",
     desc: "TCCC articles, training guides, and clinical breakdowns.",
-    icon: "📝",
+    icon: PenLine,
     color: "#78716c",
     path: "/blog"
   },
@@ -76,7 +77,7 @@ export default function ReferenceClient() {
                   display: "flex", alignItems: "center", justifyContent: "center",
                   borderRadius: 11, background: `${s.color}14`
                 }}>
-                  {s.icon}
+                  <s.icon size={22} strokeWidth={1.75} color={s.color} />
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 14, fontWeight: 600 }}>{s.title}</div>
