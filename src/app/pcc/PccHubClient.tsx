@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
+import { Pill, Scissors, Cross, ListChecks, AirVent, AlertTriangle, Files, ClipboardPlus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAppState, Bar } from "../components";
 import { Tile, styles, tokens } from "../ui";
@@ -12,7 +13,7 @@ import { ScreenHeader } from "../ui/primitives";
 
 interface PccTopic {
   id: string;
-  icon: string;
+  icon: ReactNode;
   title: string;
   sub: string;
   color: string;
@@ -21,14 +22,14 @@ interface PccTopic {
 }
 
 const TOPICS: PccTopic[] = [
-  { id: "meds",    icon: "💊", title: "Medications",        sub: "Analgesia, vasoactives, abx, paralytics, blood", color: tokens.brand,  ready: true,  route: "/pcc/meds" },
-  { id: "skills",  icon: "🔧", title: "Skills & Procedures", sub: "Foley, NG/OG, whole blood, lines, cric care",      color: tokens.indigo, ready: true,  route: "/pcc/skills" },
-  { id: "wound",   icon: "🩹", title: "Wound Care",           sub: "Debridement, infection, burns, dressings, closure", color: tokens.pink,   ready: true,  route: "/pcc/wound" },
-  { id: "nursing", icon: "📋", title: "Nursing Checklist",   sub: "q1h / q4h / q8h / prn care tasks",              color: tokens.green,  ready: false },
-  { id: "vent",    icon: "🫁", title: "Vent Management",     sub: "SAVe II, EMV+ 731, ARDS strategies",            color: tokens.cyan,   ready: false },
-  { id: "trouble", icon: "⚠️", title: "Troubleshooting",     sub: "Alarms, deterioration, equipment failure",      color: tokens.amber,  ready: false },
-  { id: "cpgs",    icon: "📑", title: "JTS CPGs",            sub: "Curated PCC-relevant clinical practice guidelines", color: tokens.blue,   ready: true,  route: "/pcc/cpgs" },
-  { id: "card",    icon: "🩺", title: "PCC Casualty Card",   sub: "Fillable card, PDF export",                     color: tokens.red,    ready: true,  route: "/pcc/card" },
+  { id: "meds",    icon: <Pill size={22} strokeWidth={1.75} color={tokens.brand} />,  title: "Medications",        sub: "Analgesia, vasoactives, abx, paralytics, blood", color: tokens.brand,  ready: true,  route: "/pcc/meds" },
+  { id: "skills",  icon: <Scissors size={22} strokeWidth={1.75} color={tokens.indigo} />, title: "Skills & Procedures", sub: "Foley, NG/OG, whole blood, lines, cric care",      color: tokens.indigo, ready: true,  route: "/pcc/skills" },
+  { id: "wound",   icon: <Cross size={22} strokeWidth={1.75} color={tokens.pink} />,   title: "Wound Care",           sub: "Debridement, infection, burns, dressings, closure", color: tokens.pink,   ready: true,  route: "/pcc/wound" },
+  { id: "nursing", icon: <ListChecks size={22} strokeWidth={1.75} color={tokens.green} />, title: "Nursing Checklist",   sub: "q1h / q4h / q8h / prn care tasks",              color: tokens.green,  ready: false },
+  { id: "vent",    icon: <AirVent size={22} strokeWidth={1.75} color={tokens.cyan} />, title: "Vent Management",     sub: "SAVe II, EMV+ 731, ARDS strategies",            color: tokens.cyan,   ready: false },
+  { id: "trouble", icon: <AlertTriangle size={22} strokeWidth={1.75} color={tokens.amber} />, title: "Troubleshooting",     sub: "Alarms, deterioration, equipment failure",      color: tokens.amber,  ready: false },
+  { id: "cpgs",    icon: <Files size={22} strokeWidth={1.75} color={tokens.blue} />,   title: "JTS CPGs",            sub: "Curated PCC-relevant clinical practice guidelines", color: tokens.blue,   ready: true,  route: "/pcc/cpgs" },
+  { id: "card",    icon: <ClipboardPlus size={22} strokeWidth={1.75} color={tokens.red} />, title: "PCC Casualty Card",   sub: "Fillable card, PDF export",                     color: tokens.red,    ready: true,  route: "/pcc/card" },
 ];
 
 export default function PccHubClient() {
