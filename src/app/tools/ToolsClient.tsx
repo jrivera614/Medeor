@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppState, S, Bar, Prog } from "../components";
 import { CHECKLISTS, GRADE_SHEETS, MEDICATIONS } from "../data";
+import { Flame, Baby, Brain, PenLine } from "lucide-react";
 
 // Peds drugs derived from medications.js - single source of truth
 interface PedsDrug {
@@ -240,13 +241,10 @@ export default function ToolsClient() {
       <div style={{background:"#f59e0b08",border:"1px solid #f59e0b18",borderRadius:10,padding:"10px 14px",margin:"12px 0 8px"}}><div style={{fontSize:10,fontWeight:700,color:"#f59e0b",textTransform:"uppercase",letterSpacing:".06em",marginBottom:3}}>Training Tool Only</div><div style={{fontSize:10,color:"#888",lineHeight:1.5}}>Medeor is a training and study aid. It is not a substitute for clinical judgment, licensed medical advice, or hands-on instruction. Dosages and protocols reflect CoTCCC/JTS CPG guidelines current as of March 2026. Always verify against your unit SOPs and current references.</div></div>
    <div style={{padding:"14px 0 8px",fontSize:12,color:"#666",fontWeight:600,textTransform:"uppercase",letterSpacing:".05em"}}>Documentation</div>
       <div style={S.card} onClick={()=>router.push("/tools/documentation")}>
-        <div style={{display:"flex",alignItems:"center",gap:11}}><span style={{fontSize:22}}>{"\u{1F4DD}"}</span><div style={{flex:1}}><div style={{fontSize:14,fontWeight:600}}>Patient Charting</div><div style={{fontSize:11,color:"#666",marginTop:2}}>SF 600 and other medical documentation forms, offline-first</div></div><span style={{color:"#444"}}>{'>'}</span></div>
-      </div>
+<div style={{display:"flex",alignItems:"center",gap:11}}><PenLine size={22} strokeWidth={1.75} color="#888" /><div style={{flex:1}}><div style={{fontSize:14,fontWeight:600}}>Patient Charting</div><div style={{fontSize:11,color:"#666",marginTop:2}}>SF 600 and other medical documentation forms, offline-first</div></div><span style={{color:"#444"}}>{'>'}</span></div>      </div>
       <div style={{padding:"14px 0 8px",fontSize:12,color:"#666",fontWeight:600,textTransform:"uppercase",letterSpacing:".05em"}}>Calculators</div>
-      {[{k:"parkland" as const,icon:"🔥",title:"Parkland Burn Calculator",desc:"4ml x kg x %TBSA fluid resuscitation"},{k:"peds" as const,icon:"💊",title:"Pediatric Dosing",desc:"Weight-based medication calculations"},{k:"gcs" as const,icon:"🧠",title:"GCS Calculator",desc:"Glasgow Coma Scale with severity and airway guidance"}].map(c=>(
-        <div key={c.k} style={S.card} onClick={()=>{setCalcType(c.k);setCalcInputs({});}}>
-          <div style={{display:"flex",alignItems:"center",gap:11}}><span style={{fontSize:22}}>{c.icon}</span><div style={{flex:1}}><div style={{fontSize:14,fontWeight:600}}>{c.title}</div><div style={{fontSize:11,color:"#666",marginTop:2}}>{c.desc}</div></div><span style={{color:"#444"}}>{'>'}</span></div>
-        </div>
+{[{k:"parkland" as const,Icon:Flame,color:"#f97316",title:"Parkland Burn Calculator",desc:"4ml x kg x %TBSA fluid resuscitation"},{k:"peds" as const,Icon:Baby,color:"#ec4899",title:"Pediatric Dosing",desc:"Weight-based medication calculations"},{k:"gcs" as const,Icon:Brain,color:"#8b5cf6",title:"GCS Calculator",desc:"Glasgow Coma Scale with severity and airway guidance"}].map(c=>(        <div key={c.k} style={S.card} onClick={()=>{setCalcType(c.k);setCalcInputs({});}}>
+<div style={{display:"flex",alignItems:"center",gap:11}}><c.Icon size={22} strokeWidth={1.75} color={c.color} /><div style={{flex:1}}><div style={{fontSize:14,fontWeight:600}}>{c.title}</div><div style={{fontSize:11,color:"#666",marginTop:2}}>{c.desc}</div></div><span style={{color:"#444"}}>{'>'}</span></div>        </div>
       ))}
       <div style={{padding:"18px 0 8px",fontSize:12,color:"#666",fontWeight:600,textTransform:"uppercase",letterSpacing:".05em"}}>Checklists</div>
       {CHECKLISTS.map((cl,ci)=>(
