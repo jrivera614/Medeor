@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { useParams, useRouter, notFound } from "next/navigation";
 import { useAppState, S, Bar, Prog } from "../components";
 import { TOPICS } from "../data";
+import { BookOpen, CircleCheck, Layers, Timer, Trophy, ClipboardList } from "lucide-react";
 
 type ModuleView = "menu" | "steps" | "quiz" | "flashcards" | "scenarios" | "scen-play";
 
@@ -86,8 +87,8 @@ export default function ModulePage() {
 
   // TOPIC MENU
   if (view === "menu") {
-    const modes = isScenarioModule ? [{ key:"scenarios",label:"Tactical Scenarios",desc:`${topic.scenarios!.length} scenarios`,icon:"⏱️" }]
-      : [{ key:"steps",label:"Step-by-Step",desc:`${topic.steps!.length} steps`,icon:"📖" },{ key:"quiz",label:"Quiz",desc:`${topic.quiz!.length} questions`,icon:"✅" },{ key:"flashcards",label:"Flashcards",desc:`${topic.flashcards!.length} cards`,icon:"🃏" }];
+    const modes = isScenarioModule ? [{ key:"scenarios",label:"Tactical Scenarios",desc:`${topic.scenarios!.length} scenarios`,Icon:Timer }]
+      : [{ key:"steps",label:"Step-by-Step",desc:`${topic.steps!.length} steps`,Icon:BookOpen },{ key:"quiz",label:"Quiz",desc:`${topic.quiz!.length} questions`,Icon:CircleCheck },{ key:"flashcards",label:"Flashcards",desc:`${topic.flashcards!.length} cards`,Icon:Layers }];;
     const quizProgress = progress[`quiz_${topic.id}`];
     return (<div style={S.app}><div style={S.hdr}><button style={S.back} onClick={()=>router.push("/")}>←</button><div><div style={{fontSize:15,fontWeight:700}}>{topic.icon} {topic.title}</div><div style={{fontSize:11,color:"#666"}}>{topic.subtitle}</div></div></div>
       <div ref={ref} style={bodyStyle}><div style={{padding:"16px 0"}}>
@@ -97,7 +98,7 @@ export default function ModulePage() {
           else if(mode.key==="quiz") navigate("quiz",()=>setQuizState({index:0,answers:[],done:false,selected:null}));
           else if(mode.key==="flashcards") navigate("flashcards",()=>{setFlashState({index:0,flipped:false});setMissedCards([]);setSpacedMode(false);});
           else if(mode.key==="scenarios") navigate("scenarios");
-        }}><span style={{fontSize:20}}>{mode.icon}</span><div style={{flex:1}}><div style={{fontSize:13,fontWeight:600}}>{mode.label}</div><div style={{fontSize:11,color:"#666",marginTop:1}}>{mode.desc}</div></div><span style={{color:"#444"}}>›</span></div>))}
+        }}><mode.Icon size={20} strokeWidth={1.75} color={topic.color} /><div style={{flex:1}}><div style={{fontSize:13,fontWeight:600}}>{mode.label}</div><div style={{fontSize:11,color:"#666",marginTop:1}}>{mode.desc}</div></div><span style={{color:"#444"}}>›</span></div>))}
       </div></div><Bar active="train"/></div>);
   }
 
@@ -200,7 +201,7 @@ export default function ModulePage() {
     if (scenarioState.done) {
       const correctDecisions = scenarioState.history.filter(entry => entry.ok).length;
       return (<div style={S.app}><div style={S.hdr}><button style={S.back} onClick={()=>navigate("scenarios")}>←</button><div style={{fontSize:14,fontWeight:600}}>Complete</div></div>
-        <div ref={ref} style={bodyStyle}><div style={{textAlign:"center",padding:"32px 0 20px"}}><div style={{fontSize:40}}>{correctDecisions===scenario.decisions.length?"🏆":"📋"}</div><div style={{fontSize:18,fontWeight:700,marginTop:10}}>{scenario.title}</div><div style={{fontSize:13,color:"#888",marginTop:6}}>{correctDecisions}/{scenario.decisions.length} optimal</div></div>
+        <div ref={ref} style={bodyStyle}><div style={{textAlign:"center",padding:"32px 0 20px"}}><div style={{display:"flex",justifyContent:"center"}}>{correctDecisions===scenario.decisions.length?<Trophy size={40} strokeWidth={1.75} color="#fbbf24" />:<ClipboardList size={40} strokeWidth={1.75} color="#888" />}</div><div style={{fontSize:18,fontWeight:700,marginTop:10}}>{scenario.title}</div><div style={{fontSize:13,color:"#888",marginTop:6}}>{correctDecisions}/{scenario.decisions.length} optimal</div></div>
           {scenarioState.history.map((entry,idx)=>(<div key={idx} style={{background:entry.ok?"#10b9810f":"#ef44440f",border:`1px solid ${entry.ok?"#10b98120":"#ef444420"}`,borderRadius:10,padding:12,marginBottom:8}}><div style={{fontSize:12,fontWeight:600,color:entry.ok?"#10b981":"#ef4444",marginBottom:4}}>Decision {idx+1}: {entry.ok?"Correct":"Suboptimal"}</div><div style={{fontSize:11,color:"#aaa",lineHeight:1.5}}>{entry.result}</div></div>))}
           <div style={{display:"flex",gap:8,marginTop:12}}><button style={S.btn("#555",false)} onClick={()=>navigate("scen-play",()=>setScenarioState({scenarioIndex:scenarioState.scenarioIndex,decisionIndex:0,selected:null,history:[],done:false}))}>Retry</button><button style={S.btn(topic.color,true)} onClick={()=>navigate("scenarios")}>All Scenarios</button></div>
         </div><Bar active="train"/></div>);
