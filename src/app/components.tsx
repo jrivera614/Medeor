@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback, useRef, CSSProperties, RefObject } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { Target, BookOpen, Stethoscope, Wrench, Pill, type LucideIcon } from "lucide-react";
 import { safeStorage } from "./lib/safeStorage";
 
 // ─── Shared app state hook ───
@@ -62,8 +63,7 @@ export function useAppState(): AppState {
 
   return { fade, setFade, expanded, setExpanded, search, setSearch, progress, setProgress, checkStates, setCheckStates, ref, router, pathname, tr, saveProgress };
 }
-
-// ─── Shared style bag ───
+  // ─── Shared style bag ───
 // The S export contains both static CSSProperties entries (app, hdr, back, body, card, input)
 // and dynamic style builder functions (btn, opt, tabBtn). Consumers import subsets via
 // destructuring, so the shape must be preserved exactly.
@@ -95,10 +95,9 @@ export const S: StyleBag = {
     else if (sel && !rev) { bg = "#6366f120"; bd = "#6366f1"; cl = "#c7c8ff"; }
     return { background: bg, border: `1.5px solid ${bd}`, color: cl, padding: "12px 13px", borderRadius: 10, fontSize: 13, cursor: rev ? "default" : "pointer", width: "100%", textAlign: "left", fontFamily: "inherit", lineHeight: 1.5 };
   },
-  tabBtn: a => ({ flex: 1, padding: "10px 0 8px", background: "none", border: "none", color: a ? "#8b5cf6" : "#555", fontSize: 10, fontWeight: 600, cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: 2, fontFamily: "inherit" })
+  tabBtn: a => ({ flex: 1, padding: "10px 0 8px", background: "none", border: "none", color: a ? "#8b5cf6" : "#555", fontSize: 10, fontWeight: 600, cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: 4, fontFamily: "inherit" })
 };
-
-// ─── Shared components ───
+  // ─── Shared components ───
 
 export interface ProgProps {
   c: number;
@@ -121,12 +120,12 @@ export interface BarProps {
 
 export function Bar({ active }: BarProps) {
   const router = useRouter();
-  const tabs: Array<[BarTab, string, string, string]> = [
-    ["train", "/", "🎯", "Train"],
-    ["ref", "/reference", "📋", "Reference"],
-    ["pcc", "/pcc", "🩺", "PCC"],
-    ["tools", "/tools", "🔧", "Tools"],
-    ["meds", "/meds", "💊", "Meds"]
+  const tabs: Array<[BarTab, string, LucideIcon, string]> = [
+    ["train", "/", Target, "Train"],
+    ["ref", "/reference", BookOpen, "Reference"],
+    ["pcc", "/pcc", Stethoscope, "PCC"],
+    ["tools", "/tools", Wrench, "Tools"],
+    ["meds", "/meds", Pill, "Meds"]
   ];
 
   return (
@@ -141,9 +140,9 @@ export function Bar({ active }: BarProps) {
         <span style={{ fontSize: 10, color: "#333", padding: "2px 6px" }}>© 2026 Medeor</span>
       </div>
       <div style={{ display: "flex", background: "rgba(10,10,15,.97)", borderTop: "1px solid #ffffff0f" }}>
-        {tabs.map(([k, path, ic, lb]) => (
+        {tabs.map(([k, path, Icon, lb]) => (
           <button key={k} style={S.tabBtn(active === k)} onClick={() => router.push(path)}>
-            <span style={{ fontSize: 14 }}>{ic}</span>{lb}
+            <Icon size={18} strokeWidth={1.75} />{lb}
           </button>
         ))}
       </div>
