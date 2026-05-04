@@ -5,7 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Use actual content modification dates, not build time.
   // Update these when content actually changes.
   const launched = '2026-03-23';
-  const updated = '2026-03-27';
+  const updated = '2026-05-04';
 
   return [
     // Core
@@ -49,5 +49,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/blog/prolonged-field-care-guide`, lastModified: launched, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/blog/tccc-changes-2024-2025-airway-antibiotics`, lastModified: updated, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/blog/tccc-practice-test-2026`, lastModified: updated, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/blog/tccc-2026-guidelines-update`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
   ];
 }
