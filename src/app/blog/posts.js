@@ -24,7 +24,7 @@ Airway and respiration questions cover NPA insertion, surgical cricothyrotomy in
 
 Most TCCC quizzes give you a score and move on. That's fine for validation but terrible for learning. We include a detailed rationale with every single question. If you get it wrong, you know exactly what you missed and why. If you get it right, the rationale reinforces the underlying principle so it sticks.
 
-For example, one question asks about TXA administration. The correct answer is to give it as soon as possible after wounding. The rationale explains that TXA inhibits fibrinolysis to stabilize clots and that earlier administration provides the greatest survival benefit. The 3-hour restriction has been removed from current guidelines. That's the kind of context that transforms rote memorization into actual clinical understanding.
+For example, one question asks about TXA administration. The correct answer is to give it as soon as possible after wounding, but not later than 3 hours after injury, per the 01 May 2026 TCCC Guidelines. The rationale explains that TXA inhibits fibrinolysis to stabilize clots and that earlier administration provides the greatest survival benefit. That's the kind of context that transforms rote memorization into actual clinical understanding.
 
 ## How to use it
 
@@ -53,7 +53,7 @@ In Tactical Field Care (TFC), you slow down and get systematic. Full blood sweep
 
 For junctional hemorrhage that you can't tourniquet, you're packing with hemostatic gauze (Combat Gauze, ChitoGauze, or Celox). Pack to the deepest point of the wound, use the entire roll, and hold direct pressure for a minimum of 3 minutes. Time it. Don't lift to check early.
 
-TXA goes in as soon as possible after wounding. 2 grams slow IV/IO push. The 3-hour restriction has been removed from current guidelines. Earlier administration provides the greatest survival benefit. Also now indicated for significant TBI.
+TXA goes in as soon as possible after wounding, but not later than 3 hours after injury. 2 grams slow IV/IO push as a single dose. Per the 01 May 2026 TCCC Guidelines, the indications are an anticipated need for blood products OR significant TBI OR altered mental status from blast or blunt trauma. Earlier administration provides the greatest survival benefit.
 
 ## A - Airway
 
@@ -85,7 +85,7 @@ Field pulse check: if you can feel a radial pulse, systolic BP is roughly 80+. F
 
 Establish vascular access: 16-18 gauge IV in the antecubital fossa, two attempts max, then go to IO. EZ-IO in the proximal tibia. For conscious patients, give 40mg lidocaine IO before flushing.
 
-Fluid resuscitation follows permissive hypotension: target SBP of 80-90 (exception: TBI needs SBP over 90 for cerebral perfusion). Fluid preference in order: low-titer O whole blood, 1:1:1 components, plasma plus RBCs 1:1, plasma alone, crystalloid as last resort. Never normal saline. Plasma-Lyte or Lactated Ringer's.
+Fluid resuscitation per the 01 May 2026 TCCC Guidelines: continue resuscitation until palpable radial pulse, improved mental status, or systolic BP of 100 mmHg. The older permissive hypotension target of SBP 80-90 has been replaced. Fluid preference in order: cold-stored low-titer O whole blood, pre-screened low-titer O fresh whole blood, 1:1:1 components, plasma plus RBCs 1:1, plasma or RBCs alone. Crystalloid is no longer in the 2026 hemorrhagic shock fluid hierarchy.
 
 ## H - Hypothermia / Head Injury
 
@@ -93,7 +93,7 @@ Every trauma casualty is at risk for hypothermia, which is part of the lethal tr
 
 Minimize exposure during assessment. Remove all wet clothing. Insulate from the ground (this is the single most critical step). Wrap in an HPMK or whatever you have. Cover the head. Chemical heat packs to axillae and groin. Warm IV fluids if possible. Shield from wind and rain. Start early. Don't wait until the patient is cold.
 
-For head injury: AVPU for rapid assessment, GCS when time permits. Maintain SBP over 90 and SpO2 over 90%. Do not hyperventilate unless signs of herniation are present. Head up 30 degrees. Seizure prophylaxis with Keppra 1500mg IV.
+For head injury per the 01 May 2026 TCCC Guidelines: AVPU is the primary mental status tool, documented on the DD 1380. Moderate or severe TBI is defined as unable to follow simple instructions (thumbs up, two fingers, blink) beyond 10 minutes post-injury with suspected head injury and no alternative cause. Maintain SBP greater than 100 mmHg or normal radial pulse, SpO2 at or above 92%, and EtCO2 35-45 if you have monitoring. Hyperventilation is not in the 2026 algorithm. Head up 30 degrees if not in shock and tactically feasible. If hemorrhagic shock is also present, hemorrhagic shock resuscitation takes precedence. Penetrating TBI is not automatically expectant in 2026.
 
 ## Practice the protocol
 
@@ -337,7 +337,7 @@ Update your CWMP contents. Replace moxifloxacin with cefadroxil. Replace ertapen
 
 ## TXA Update
 
-The TXA dosing protocol was previously updated to a single 2g IV/IO slow push (replacing the old 1g + 1g infusion protocol). The 3-hour administration window has also been removed. Current guidance is to administer TXA as soon as possible after wounding. Earlier administration provides the greatest survival benefit. TXA is also now indicated for significant traumatic brain injury.
+The TXA dosing protocol was updated to a single 2g IV/IO slow push, replacing the old 1g + 1g infusion protocol. The 3-hour administration window remains in effect per the 01 May 2026 TCCC Guidelines: administer TXA as soon as possible after wounding but not later than 3 hours after injury. Indications: anticipated need for blood products OR significant TBI OR altered mental status from blast or blunt trauma. Earlier administration provides the greatest survival benefit.
 
 ## Train on current guidelines
 
@@ -428,17 +428,17 @@ Both entry and exit wounds. Always check the back.
 **22. Radial pulse present means SBP is approximately:**
 80+ mmHg. Femoral = 70+. Carotid only = 60+.
 
-**23. Permissive hypotension target SBP:**
-80-90 mmHg. Exception: TBI patients need SBP greater than 90 for cerebral perfusion.
+**23. Resuscitation endpoint per 01 May 2026 TCCC Guidelines:**
+Palpable radial pulse, improved mental status, OR systolic BP of 100 mmHg. Same target for TBI casualties. The older permissive hypotension SBP 80-90 has been replaced.
 
-**24. Fluid resuscitation preference order:**
-Whole blood, then 1:1:1 components, then plasma + RBC, then plasma alone, then crystalloid (LR or Plasma-Lyte). Never normal saline. Never Hextend.
+**24. Fluid resuscitation preference order per 2026 TCCC Guidelines:**
+Cold-stored low-titer O whole blood, pre-screened low-titer O fresh whole blood, 1:1:1 components, plasma plus RBCs 1:1, plasma or RBCs alone. Crystalloid is no longer in the 2026 hemorrhagic shock fluid hierarchy.
 
-**25. Calcium chloride 1g IV is given after every:**
-4 units of blood products. Citrate in stored blood binds calcium, impairing cardiac function and coagulation.
+**25. Calcium 1g IV/IO is given:**
+After the FIRST transfused blood product per 01 May 2026 TCCC Guidelines. 30ml of 10% calcium gluconate or 10ml of 10% calcium chloride. Citrate in stored blood binds ionized calcium, impairing cardiac function and coagulation. The older "every 4 units" threshold has been replaced.
 
-**26. TXA dose and timing:**
-2g IV/IO slow push, given as soon as possible after wounding. The 3-hour restriction has been removed. Earlier is better. Also indicated for significant TBI.
+**26. TXA dose and timing per 2026 TCCC Guidelines:**
+2g IV/IO slow push as a single dose. ASAP after wounding but NOT later than 3 hours after injury. Indications: anticipated need for blood products OR significant TBI OR altered mental status from blast or blunt trauma.
 
 ## Antibiotics (Updated for Change 25-1)
 
@@ -465,25 +465,25 @@ Hypothermia, acidosis, and coagulopathy. Each worsens the others.
 **33. The single most important hypothermia prevention step:**
 Insulate from the ground. Ground conduction is the fastest route of heat loss.
 
-**34. GCS score that requires a definitive airway:**
-8 or less.
+**34. Mental status standard per 2026 TCCC Guidelines:**
+AVPU on the DD 1380 is the TCCC standard, including prior to ketamine administration. Moderate or severe TBI is defined as unable to follow simple instructions (thumbs up, two fingers, blink) beyond 10 minutes post-injury with suspected head injury and no alternative cause.
 
-**35. Herniation treatment:**
-3% hypertonic saline 250ml IV push, hyperventilate to EtCO2 30-35 (only for herniation), head up 30 degrees, immediate MEDEVAC.
+**35. Herniation treatment per 2026 TCCC Guidelines:**
+250ml of 3% or 5% hypertonic saline OR 30ml of 23.4% hypertonic saline IV/IO over at least 10 minutes, followed by saline flush. Repeat in 20 minutes if no response, max 2 doses. Head up 30 degrees if not in shock and tactically feasible. Immediate MEDEVAC. Hyperventilation is not in the 2026 herniation algorithm.
 
 **36. Seizure prophylaxis for TBI:**
 Levetiracetam (Keppra) 1500mg IV.
 
 ## Pain Management
 
-**37. Preferred analgesic for hemodynamically unstable patients:**
-Ketamine. Does not cause respiratory depression or hypotension at analgesic doses. 20-30mg IV slow push or 50-100mg IM/IN.
+**37. Preferred analgesic for hemodynamically unstable patients per 2026 TCCC Guidelines:**
+Ketamine. Fixed dosing: 100mg IM, OR 50mg IN, OR 25mg (or 0.2-0.3 mg/kg) IV/IO over 1 minute. Repeat q30 min PRN. Esketamine 14 or 28mg IN is also an option in 2026. AVPU on DD 1380 prior to administration. TBI and eye injury do NOT preclude use.
 
-**38. CWMP contains:**
-Acetaminophen 650mg and Meloxicam 15mg PO. For mild to moderate pain in stable patients.
+**38. CWMP contents per 2026 TCCC Guidelines:**
+Acetaminophen 1000-1300mg PO every 8 hours, Meloxicam 15mg PO once daily, and Suzetrigine 100mg PO once (loading) then 50mg PO every 12 hours. Suzetrigine is a NaV1.8 blocker, not an opioid, no respiratory depression. For the casualty who can stay in the fight.
 
-**39. OTFC dose:**
-800mcg lozenge placed between cheek and gum. Do not chew. Monitor respiratory rate.
+**39. OTFC status per 2026 TCCC Guidelines:**
+Not in the 01 May 2026 analgesia algorithm. The "casualty can stay in the fight" track uses CWMP (acetaminophen + meloxicam + suzetrigine). The "cannot stay in the fight" track uses ketamine or esketamine. OTFC may remain in some legacy stocks; verify unit SOP and command guidance before using.
 
 ## PFC and Shock
 
@@ -526,6 +526,133 @@ Acute hemolytic reaction from ABO mismatch. Stop transfusion immediately, NS bol
 
 These 50 questions cover the core TCCC domains tested on certification exams. If you want to practice interactively with scoring and detailed rationales for every answer, the free quiz modules at medeor.app cover all of these topics and more. No login, works on your phone, works offline.
 
-All content reflects current CoTCCC guidelines as of March 2026, including Change 24-1 (airway management overhaul) and Change 25-1 (antibiotic replacement).`,
+All content reflects the 01 May 2026 TCCC Guidelines, including Change 24-1 (airway management), Change 25-1 (antibiotic replacement), the 2026 TBI section update, and the new CWMP including suzetrigine.`,
+  },
+  {
+    slug: "tccc-2026-guidelines-update",
+    title: "TCCC Guidelines 01 May 2026: What Changed and What It Means for Your Kit",
+    description: "Working medic's breakdown of the 01 May 2026 TCCC Guidelines. Suzetrigine in the CWMP, the new TBI definition, TXA for blast and blunt trauma, and what to update in your protocols.",
+    date: "2026-05-04",
+    category: "Clinical",
+    readTime: "10 min",
+    content: `The Committee on Tactical Combat Casualty Care published the 01 May 2026 TCCC Guidelines this month. If you trained off the 25 January 2024 version and have not been tracking the JSOM working group papers, this is the post for you.
+
+Skip the 200-page comparison. Here is what actually changed, in the order it matters at the point of injury.
+
+## TL;DR
+
+The headline updates are airway management (Change 24-1, now fully integrated), antibiotics (Change 25-1, now fully integrated), and a substantial rewrite of the TBI section. The new additions in 2026 are suzetrigine in the Combat Wound Medication Pack, esketamine intranasal as an analgesia option, a formal scope-of-practice limit on tourniquet conversion at the ASM/CLS level, and a new framing on penetrating brain injury that pulls those casualties out of the expectant pile.
+
+TXA still has the 3-hour window. The dose is now a single 2g push. Significant TBI or altered mental status from blast or blunt trauma is now its own standalone indication for TXA, separate from the transfusion-likely criteria.
+
+## Airway: Recovery Position Is the Default
+
+If you trained on the 2021 guidelines, this is the biggest reflex change. The extraglottic airway is gone from Tactical Field Care. It is not in the 2026 algorithm at all.
+
+For the unconscious casualty without traumatic obstruction, the default is now the recovery position with the head tilted back and chin away from the chest. For the conscious casualty with maxillofacial trauma, sitting up and leaning forward is preserved.
+
+The nasopharyngeal airway moved to the Respiration/Breathing section. It is reserved for the casualty with impaired ventilation and uncorrectable hypoxia (SpO2 below 90%, or below 92% with moderate/severe TBI), paired with a 1000ml resuscitator bag-valve-mask.
+
+If you still get to a surgical airway, capnography confirms placement. Continuous EtCO2 and SpO2 monitoring after.
+
+## TBI: The 10-Minute Rule
+
+The new operational definition of moderate or severe TBI is clean and field-usable: a casualty unable to follow simple instructions (thumbs up, two fingers, blink) beyond 10 minutes post-injury, with suspected head injury and no alternative cause. If the cause of an abnormal neuro exam is unclear, treat for hemorrhagic shock first.
+
+Targets in the 2026 guidelines: SpO2 at or above 92% with supplemental oxygen if available, systolic BP greater than 100 mmHg or normal radial pulse if no measurement capability, EtCO2 35-45 if the casualty is ventilated and you have monitoring, and 10 breaths per minute (one breath every 6 seconds) if you are ventilating without EtCO2.
+
+Hemorrhagic shock resuscitation takes precedence over TBI resuscitation. If there is no hemorrhage, give 1-2 units of plasma. Plasma is not indicated for mild TBI or concussion.
+
+Evacuate to neurosurgical capability as soon as possible. Outcomes improve with surgical intervention within 5 hours of injury.
+
+## TBI: Herniation Treatment
+
+If you see asymmetric or fixed/dilated pupils or posturing, treat for herniation. The 2026 protocol gives you three concentration options: 250ml of 3% or 5% hypertonic saline IV/IO over at least 10 minutes, OR 30ml of 23.4% hypertonic saline IV/IO over at least 10 minutes. Saline flush after. Repeat in 20 minutes if no response, max 2 doses. Do not use prophylactically. Hypertonic saline is not a resuscitative fluid.
+
+Hyperventilation is not in the 2026 herniation algorithm. Maintain EtCO2 35-45 even with herniation signs.
+
+## Penetrating Brain Injury Is Not Automatically Expectant
+
+This one matters. The 2026 guidelines explicitly state that penetrating TBI and open skull fractures are not automatically expectant casualties.
+
+Apply a surface dressing to keep contaminants out. If actively bleeding, hemostatic gauze on the surface with gentle pressure. Do not pack material into the wound cavity. Do not attempt to close with staples or sutures. Gentle low-pressure irrigation with saline or potable water is acceptable. Antibiotics per the antibiotics section.
+
+If you trained anywhere that taught these casualties as expectant, you need to retrain.
+
+## TXA: Single 2g Dose, Two Indication Tracks
+
+The 2026 protocol for tranexamic acid has two indication tracks. Track one: the casualty will likely need a blood transfusion (hemorrhagic shock, one or more major amputations, penetrating torso trauma, or evidence of severe bleeding). Track two: the casualty has signs or symptoms of significant TBI, or altered mental status associated with blast or blunt trauma.
+
+If either track is met, administer 2g TXA via slow IV or IO push as soon as possible but not later than 3 hours after injury.
+
+What changed: it is one 2g dose, not the old 1g loading dose followed by 1g infusion. The TBI/blast indication is its own track. The 3-hour window is preserved.
+
+## Antibiotics: Cefadroxil Oral, Ceftriaxone Parenteral
+
+This is Change 25-1 fully integrated. Oral: cefadroxil 1g once daily (preferred), or cephalexin 500mg every 6 hours (alternative). Parenteral: ceftriaxone 2g IV/IO/IM once daily.
+
+Moxifloxacin and ertapenem are out. If your kit still has them, swap them. Reconstitute ceftriaxone with normal saline, not lactated Ringer's. Ceftriaxone precipitates with calcium-containing solutions.
+
+For penetrating eye trauma specifically, the 2026 guidelines call ceftriaxone 2g IV/IM or cefadroxil 1g orally as soon as possible. Cover the eye with a rigid eye shield, NOT a pressure patch. Perform a rapid field test of visual acuity and document.
+
+## CWMP: Suzetrigine Is In
+
+The Combat Wound Medication Pack for the casualty who can stay in the fight is now three drugs: acetaminophen 1000-1300mg PO every 8 hours (e.g., two 650mg extended-release caplets), meloxicam 15mg PO once daily, and suzetrigine 100mg PO once (two 50mg tablets) then 50mg PO every 12 hours.
+
+Suzetrigine is the new NaV1.8 blocker. It is not an opioid, not an NSAID, and does not depress respiratory drive or mentation. For the medic, the practical implication is a CWMP that gives meaningful analgesia without the operational tradeoffs of opioids.
+
+## Analgesia: Esketamine IN Added
+
+For the casualty who cannot stay in the fight, the medic-administered options now include ketamine 100mg IM, or ketamine 50mg IN, or ketamine 25mg (or 0.2-0.3 mg/kg) IV/IO over 1 minute, or esketamine 14 or 28mg IN x 1 with repeat q30 min PRN.
+
+Endpoints for analgesia are reduction of pain or development of nystagmus.
+
+TBI and eye injury do not preclude ketamine. AVPU mental status documentation on the DD 1380 before administration. No benzodiazepines with ketamine or esketamine. Disarm the casualty and consider disconnecting communications equipment.
+
+OTFC is not listed in the 2026 analgesia algorithm. Verify your unit SOP and command guidance before using legacy stocks.
+
+## Tourniquet Conversion: New Scope-of-Practice Limit
+
+The conversion criteria are unchanged: not in shock, able to monitor the wound closely, not on an amputated extremity. Convert in less than 2 hours when possible. Do not remove a tourniquet that has been in place more than 6 hours unless you have close monitoring and lab capability.
+
+The new language: TCCC ASM/CLS trained personnel should not attempt tourniquet conversion beyond 2 hours post-application unless directed by TCCC CMC/CPP personnel or other advanced medical personnel. In the absence of medical oversight, maintain the tourniquet and continue monitoring until the casualty reaches a higher level of care.
+
+This is a clean scope-of-practice line. If you train ASM or CLS, build this into your conversion drills.
+
+## Resuscitation Endpoint: SBP 100, Not 80-90
+
+The 2026 resuscitation endpoint is palpable radial pulse, improved mental status, OR systolic BP of 100 mmHg. The older "permissive hypotension SBP 80-90" target has been replaced. Same target applies for TBI casualties.
+
+Fluid hierarchy for hemorrhagic shock: cold-stored low-titer O whole blood, pre-screened low-titer O fresh whole blood, plasma + RBCs + platelets in 1:1:1, plasma + RBCs in 1:1, plasma or RBCs alone. Crystalloid is not in the 2026 hemorrhagic shock fluid hierarchy.
+
+## Calcium After First Blood Product
+
+If you transfuse blood products, administer 1g of calcium (30ml of 10% calcium gluconate or 10ml of 10% calcium chloride) IV/IO after the first transfused product. The older "every 4 units" threshold has been replaced. Citrate binds ionized calcium in stored blood and the casualty in shock cannot afford that hit.
+
+## Burns: Trauma Casualty With Burns
+
+The framing reset: assess and treat as a trauma casualty with burns, not a burn casualty with injuries. Practical implications: hemorrhagic shock resuscitation takes precedence over burn shock, oral fluids are now an option for burns up to 30% TBSA if the casualty is conscious and able to swallow, all TCCC interventions can be performed on or through burned skin, and antibiotics are not indicated solely for burns but follow the antibiotics section if there are penetrating wounds.
+
+USAISR Rule of Ten still applies for burns greater than 20% TBSA: %TBSA x 10 ml/hr for adults 40-80 kg, plus 100 ml/hr for every 10 kg above 80 kg. Lactated Ringer's, normal saline, or Hextend (no more than 1000ml of Hextend).
+
+## Refractory Shock: Look at the Chest First
+
+There is now a dedicated refractory shock section. If a casualty in shock is not responding to fluid resuscitation, consider untreated tension pneumothorax. Thoracic trauma, persistent respiratory distress, absent breath sounds, and SpO2 below 90% support the diagnosis. Repeat NDC or move to finger thoracostomy or chest tube at the 5th ICS in the AAL, depending on your skills, experience, and authorizations. Decompress the opposite side if mechanism and findings suggest it.
+
+## Action Items for Unit Leaders
+
+Update CWMP loadouts to include suzetrigine. Move acetaminophen and meloxicam dosing to current spec. Pull ertapenem and moxifloxacin. Stock ceftriaxone 2g and cefadroxil 1g. Confirm normal saline for ceftriaxone reconstitution. Pull EGAs from TFC IFAKs. Confirm 1000ml BVM and properly sized NPAs are present.
+
+Update training materials on TBI: 10-minute simple instructions definition, SBP greater than 100, SpO2 at or above 92%, 5-hour neurosurgical evacuation goal. Build in the TXA TBI/blast indication track. Confirm the single 2g dose and the 3-hour window. Train tourniquet conversion to the new ASM/CLS scope-of-practice limit. Retrain on penetrating TBI as non-expectant. Add esketamine IN to your analgesia decision tree if your formulary supports it. Build calcium administration into transfusion drills.
+
+## Action Items for Individual Medics
+
+Read the document. It is 14 pages including the committee roster. Drill the recovery position with the chin tilted back, away from the chest. Drill the 10-minute neuro check (thumbs up, two fingers, blink). Memorize the TXA decision: transfusion-likely OR significant TBI/altered mental status from blast/blunt, single 2g dose, within 3 hours. Practice ceftriaxone reconstitution with normal saline only.
+
+## Updates Across Medeor
+
+The training modules at medeor.app, including the MARCH, E-PAWS-B, hemorrhage, airway, RAVINES, and shock content, have been updated to reflect the 01 May 2026 TCCC Guidelines. Quizzes, flashcards, and step-by-step content all reference the current doctrine. The medications page now includes suzetrigine and esketamine entries with full dosing and warnings.
+
+Train hard. Stay current. The casualty does not care what edition you trained on.`,
   },
 ];
