@@ -38,7 +38,12 @@ function assertApprox(actual, expected, tolerance, message) {
 async function run() {
   const topicsSource = fs.readFileSync(resolveData("../src/app/data/topics.js"), "utf-8");
   const topicsMatch = topicsSource.match(/export const TOPICS(?:\s*:\s*\w+\[\])?\s*=\s*(\[[\s\S]*\]);/);
-  const TOPICS = eval(topicsMatch[1]);
+  // Stub Lucide icon identifiers so eval() can resolve them.
+     // Validation only checks topic.icon truthiness, not its actual value.
+     const ListOrdered = "Icon", RefreshCw = "Icon", Mountain = "Icon", Droplets = "Icon",
+           Wind = "Icon", HeartPulse = "Icon", Timer = "Icon", Pill = "Icon",
+           Zap = "Icon", Hourglass = "Icon", Scissors = "Icon";
+     const TOPICS = eval(topicsMatch[1]);
 
   const medsSource = fs.readFileSync(resolveData("../src/app/data/medications.js"), "utf-8");
   const medsMatch = medsSource.match(/export const MEDICATIONS(?:\s*:\s*\w+\[\])?\s*=\s*(\[[\s\S]*\]);/);

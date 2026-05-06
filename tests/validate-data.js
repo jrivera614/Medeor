@@ -45,6 +45,11 @@ async function run() {
     console.error("FAIL: Could not parse TOPICS from topics.js");
     process.exit(1);
   }
+  // Stub Lucide icon identifiers so eval() can resolve them.
+  // Validation only checks topic.icon truthiness, not its actual value.
+  const ListOrdered = "Icon", RefreshCw = "Icon", Mountain = "Icon", Droplets = "Icon",
+        Wind = "Icon", HeartPulse = "Icon", Timer = "Icon", Pill = "Icon",
+        Zap = "Icon", Hourglass = "Icon", Scissors = "Icon";
   const TOPICS = eval(topicsMatch[1]);
 
   // Parse MEDICATIONS from file

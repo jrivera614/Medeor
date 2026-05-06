@@ -2,7 +2,7 @@
 // Central source of truth for the shape of every data file under src/app/data/.
 // Types derived from the actual data, not from guesses.
 // Optional fields used generously - relaxed mode, and nullable fields exist in real data.
-
+import type { LucideIcon } from "lucide-react";
 // ─── TOPICS ───
 
 export interface SeoMetadata {
@@ -56,7 +56,7 @@ export interface TopicScenario {
 export interface Topic {
   id: string;
   title: string;
-  icon: string;
+  icon: LucideIcon;
   color: string;
   subtitle: string;
   seo?: SeoMetadata;
