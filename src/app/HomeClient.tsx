@@ -57,7 +57,7 @@ export default function HomeClient() {
           return (
             <Tile
               key={topic.id}
-              icon={topic.icon}
+              icon={<topic.icon size={22} strokeWidth={1.75} color={topic.color} />}
               title={topic.title}
               subtitle={topic.subtitle}
               color={topic.color}
