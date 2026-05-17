@@ -175,6 +175,46 @@ describe("EntryForm save flow", () => {
     vi.useRealTimers();
   });
 
+  // Regression: the autosave debounce must fire on field edits ONLY. The
+  // parent (SF600Client) rebuilds its onSave callback after every save; if the
+  // autosave effect keys off that callback's identity, each save re-arms the
+  // debounce and the form saves on an endless 600ms loop - the "page keeps
+  // refreshing" bug. A single edit must produce exactly one save.
+  it("autosaves exactly once per edit even when onSave identity churns", async () => {
+    vi.useFakeTimers();
+    let saveCount = 0;
+    const makeOnSave = () =>
+      vi.fn(async (d: { id?: string }) => {
+        saveCount++;
+        return d.id || "loop-entry-1";
+      });
+
+    const patient = mkPatient();
+    const provider = mkProvider();
+    const { rerender } = render(
+      <EntryForm patient={patient} provider={provider} onSave={makeOnSave()} onDone={() => {}} />
+    );
+
+    const textarea = screen.getByPlaceholderText(/chief complaint/i);
+    fireEvent.change(textarea, { target: { value: "S: single edit" } });
+
+    // Advance across ten debounce windows, handing EntryForm a fresh onSave
+    // each time - exactly what the parent does after a setEntries cascade.
+    for (let i = 0; i < 10; i++) {
+      await act(async () => {
+        vi.advanceTimersByTime(700);
+        await Promise.resolve();
+        await Promise.resolve();
+      });
+      rerender(
+        <EntryForm patient={patient} provider={provider} onSave={makeOnSave()} onDone={() => {}} />
+      );
+    }
+
+    expect(saveCount).toBe(1);
+    vi.useRealTimers();
+  });
+
   it("does NOT autosave when no fields are filled (new entry)", async () => {
     vi.useFakeTimers();
     const onSave = vi.fn(async () => "x");
