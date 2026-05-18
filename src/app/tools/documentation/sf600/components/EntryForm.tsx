@@ -152,18 +152,29 @@ export function EntryForm({ patient, provider, existing, onSave, onDone }: Entry
     await performSave(draft);
   }, [buildDraft, performSave]);
 
+  // triggerSave is rebuilt whenever its deps change - including onSave, whose
+  // identity is tied to the parent's entries array. A save mutates that array,
+  // so if the autosave effect depended on triggerSave it would re-run after
+  // every save, re-arm the debounce, and the form would save on a 600ms loop
+  // forever. Hold the latest triggerSave in a ref and keep it OUT of the
+  // effect deps - autosave must fire on field edits only.
+  const triggerSaveRef = useRef(triggerSave);
+  useEffect(() => {
+    triggerSaveRef.current = triggerSave;
+  });
+
   // Autosave: any change to a watched field schedules a debounced save.
   useEffect(() => {
     if (!hydrated.current) return;
     setSaveState((prev) => (prev === "saving" ? prev : "dirty"));
     if (debounceTimer.current) clearTimeout(debounceTimer.current);
     debounceTimer.current = setTimeout(() => {
-      void triggerSave();
+      void triggerSaveRef.current();
     }, AUTOSAVE_DEBOUNCE_MS);
     return () => {
       if (debounceTimer.current) clearTimeout(debounceTimer.current);
     };
-  }, [date, narrative, org, hr, sbp, dbp, rr, spo2, temp, pain, triggerSave]);
+  }, [date, narrative, org, hr, sbp, dbp, rr, spo2, temp, pain]);
 
   // Manual retry from the error banner. Builds a fresh draft from the current
   // form state, so any text the medic typed AFTER seeing the error is included

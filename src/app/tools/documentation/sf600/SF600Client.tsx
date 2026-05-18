@@ -157,9 +157,14 @@ export default function SF600Client() {
   // so EntryForm can show its retry UX.
   const saveEntry = useCallback(async (draft: EntryDraft): Promise<string> => {
     const now = Date.now();
-    const isNew = !draft.id;
     const id = draft.id || uuid();
-    const existing = isNew ? null : entries.find((e) => e.id === id);
+    const db = getDb();
+    // createdAt must survive edits. Read it from IndexedDB (the source of
+    // truth) rather than the in-memory entries array. Depending on `entries`
+    // here would recreate this callback on every save, and EntryForm's
+    // autosave would see the new onSave identity as a reason to save again.
+    // Keep the dep array empty so this callback is stable for the form's life.
+    const existing = draft.id ? await db.entries.get(id) : undefined;
     const persisted: Entry = {
       id,
       patientId: draft.patientId,
@@ -177,13 +182,13 @@ export default function SF600Client() {
       createdAt: existing?.createdAt ?? now,
       updatedAt: now,
     };
-    await getDb().entries.put(persisted);
+    await db.entries.put(persisted);
     setEntries((prev) => {
       const without = prev.filter((e) => e.id !== id);
       return [persisted, ...without];
     });
     return id;
-  }, [entries]);
+  }, []);
 
   const deleteEntry = useCallback(async (id: string) => {
     if (!confirm("Delete this entry?")) return;
