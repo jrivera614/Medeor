@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { mergePure } from "../sync";
+import { mergePure, parseBundle } from "../sync";
 import type { Patient, Entry, Bundle } from "../types";
 
 // Tests for the pure merge function. Operates on plain arrays so we don't
@@ -169,5 +169,71 @@ describe("mergePure - mixed patient + entry bundles", () => {
     expect(report.updated).toBe(0);
     expect(report.unchanged).toBe(0);
     expect(report.conflicts.length).toBe(0);
+  });
+});
+
+// ─── parseBundle resilience ──────────────────────────────────────────────────
+// These cover the import-resilience fixes: medics in the field reported that
+// JSON bundles arriving via AirDrop / Mail / Messages sometimes fail to import
+// because of an invisible UTF-8 BOM or leading whitespace. parseBundle now
+// strips both before JSON.parse, and surfaces a preview of the file contents
+// on parse failure so the medic can tell at a glance what they actually loaded.
+
+describe("parseBundle - resilience", () => {
+  const validBundle: Bundle = {
+    schemaVersion: 1,
+    exportedAt: 1000,
+    patients: [],
+    entries: [],
+  };
+
+  it("strips a leading UTF-8 BOM before parsing", () => {
+    const json = "\uFEFF" + JSON.stringify(validBundle);
+    expect(() => parseBundle(json)).not.toThrow();
+    const result = parseBundle(json);
+    expect(result.schemaVersion).toBe(1);
+  });
+
+  it("trims surrounding whitespace before parsing", () => {
+    const json = "\n\n   " + JSON.stringify(validBundle) + "\n\n";
+    expect(() => parseBundle(json)).not.toThrow();
+  });
+
+  it("handles BOM + whitespace together", () => {
+    const json = "\uFEFF  \n" + JSON.stringify(validBundle) + "  ";
+    expect(() => parseBundle(json)).not.toThrow();
+  });
+
+  it("rejects an empty file with a clear message", () => {
+    expect(() => parseBundle("")).toThrow(/empty/i);
+    expect(() => parseBundle("   \n\n")).toThrow(/empty/i);
+  });
+
+  it("rejects a BOM-only file as empty (not as malformed JSON)", () => {
+    expect(() => parseBundle("\uFEFF")).toThrow(/empty/i);
+  });
+
+  it("includes a preview of the file in the parse error", () => {
+    // Simulates loading an AppleDouble sidecar by mistake: not JSON.
+    const notJson = "Mac OS X        \x02\x00\x00\x00";
+    try {
+      parseBundle(notJson);
+      throw new Error("expected parseBundle to throw");
+    } catch (e) {
+      const msg = (e as Error).message;
+      expect(msg).toMatch(/not valid JSON/i);
+      // The medic should see what was actually loaded so they can tell a real
+      // bundle (starts with "{") from a sidecar (looks like garbage).
+      expect(msg).toMatch(/File starts with:/);
+    }
+  });
+
+  it("rejects valid JSON that isn't a bundle", () => {
+    expect(() => parseBundle('{"foo": "bar"}')).toThrow(/missing required fields|wrong schema/i);
+  });
+
+  it("rejects a bundle with the wrong schema version", () => {
+    expect(() => parseBundle(JSON.stringify({ ...validBundle, schemaVersion: 99 })))
+      .toThrow(/missing required fields|wrong schema/i);
   });
 });

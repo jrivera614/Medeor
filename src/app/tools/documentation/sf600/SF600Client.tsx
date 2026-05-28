@@ -56,6 +56,7 @@ export default function SF600Client() {
   const [loadError, setLoadError] = useState<string | null>(null);
 
   const [mergeReport, setMergeReport] = useState<MergeReport | null>(null);
+  const [pasteOpen, setPasteOpen] = useState(false);
   const [toast, setToast] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
 
   // ─── Initial load ──────────────────────────────────────────────────────────
@@ -228,28 +229,40 @@ export default function SF600Client() {
   }, [provider, showToast]);
 
   // ─── Sync: import bundle ───────────────────────────────────────────────────
+  // importText is the common path: parse, merge, refresh, report. Used by both
+  // the file picker and the paste-JSON fallback so both surfaces give identical
+  // error handling and identical conflict reports.
+  const importText = useCallback(async (text: string) => {
+    try {
+      const bundle = parseBundle(text);
+      const report = await mergeBundle(bundle);
+      // Reload from DB after merge so in-memory state matches truth.
+      const fresh = await loadAllData();
+      setPatients(fresh.patients);
+      setEntries(fresh.entries);
+      setMergeReport(report);
+    } catch (e) {
+      showToast("err", `Import failed: ${(e as Error).message}`);
+    }
+  }, [showToast]);
+
   const importBundle = useCallback(() => {
     const input = document.createElement("input");
     input.type = "file";
-    input.accept = ".json,application/json";
+    // Deliberately no `accept` filter. iOS hides files with a leading dot from
+    // the file picker when an extension filter is set, and AirDrop / Mail /
+    // Messages transports sometimes deliver bundles with a leading dot (or as
+    // AppleDouble `._foo.json` sidecars sitting next to the real file). The
+    // parser already validates the content, so accepting any file here is safe
+    // and lets the medic actually see the bundle they were sent.
     input.onchange = async (ev) => {
       const file = (ev.target as HTMLInputElement).files?.[0];
       if (!file) return;
-      try {
-        const text = await file.text();
-        const bundle = parseBundle(text);
-        const report = await mergeBundle(bundle);
-        // Reload from DB after merge so in-memory state matches truth.
-        const fresh = await loadAllData();
-        setPatients(fresh.patients);
-        setEntries(fresh.entries);
-        setMergeReport(report);
-      } catch (e) {
-        showToast("err", `Import failed: ${(e as Error).message}`);
-      }
+      const text = await file.text();
+      await importText(text);
     };
     input.click();
-  }, [showToast]);
+  }, [importText]);
 
   // ─── Derived ───────────────────────────────────────────────────────────────
   const currentPatient = useMemo(() => {
@@ -342,6 +355,7 @@ export default function SF600Client() {
             onNewPatient={() => setView({ kind: "newPatient" })}
             onExportBundle={exportBundle}
             onImportBundle={importBundle}
+            onPasteImport={() => setPasteOpen(true)}
           />
         ) : view.kind === "newPatient" ? (
           <PatientForm
@@ -386,6 +400,16 @@ export default function SF600Client() {
         )}
       </div>
 
+      {pasteOpen && (
+        <PasteImportModal
+          onSubmit={async (text) => {
+            setPasteOpen(false);
+            await importText(text);
+          }}
+          onCancel={() => setPasteOpen(false)}
+        />
+      )}
+
       {toast && (
         <div style={{
           position: "fixed", bottom: 24, left: "50%",
@@ -423,12 +447,13 @@ interface ListViewProps {
   onNewPatient: () => void;
   onExportBundle: () => void;
   onImportBundle: () => void;
+  onPasteImport: () => void;
 }
 
 function ListView({
   provider, patients, entries,
   onProviderChange, onSelectPatient, onNewPatient,
-  onExportBundle, onImportBundle,
+  onExportBundle, onImportBundle, onPasteImport,
 }: ListViewProps) {
   return (
     <>
@@ -468,7 +493,7 @@ function ListView({
       <div style={{ fontSize: 11, color: tokens.textSecondary, lineHeight: 1.5, marginBottom: 10 }}>
         Export a JSON bundle to share with another medic, or import one they sent you. Last-write-wins by timestamp; conflicts will be reported after import.
       </div>
-      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+      <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
         <button
           onClick={onExportBundle}
           style={syncBtn}
@@ -482,6 +507,23 @@ function ListView({
           Import Bundle
         </button>
       </div>
+      {/* Fallback for when the file picker can't see the bundle (e.g. when
+          AirDrop or Mail delivers the file with a leading dot prefix that
+          hides it from iOS Files). Medic can long-press the attachment in
+          their messaging app, Copy, and paste here. */}
+      <button
+        onClick={onPasteImport}
+        style={{
+          ...syncBtn,
+          width: "100%",
+          marginBottom: 16,
+          fontSize: 11,
+          color: tokens.textMuted,
+          borderStyle: "dashed",
+        }}
+      >
+        Paste JSON instead
+      </button>
     </>
   );
 }
@@ -516,6 +558,149 @@ function NotFoundMsg({ onBack }: { onBack: () => void }) {
       >
         Back to list
       </button>
+    </div>
+  );
+}
+
+// ─── PasteImportModal ────────────────────────────────────────────────────────
+// Fallback for when the file picker can't deliver a bundle. iOS sometimes
+// renames AirDrop / Mail / Messages attachments in ways that hide them from
+// Files (leading dot), or transports add an AppleDouble sidecar that confuses
+// the picker. The medic long-presses the attachment, taps Copy, opens this
+// modal, and pastes. Same parser, same merge, same conflict report - this is
+// strictly a transport workaround.
+
+interface PasteImportModalProps {
+  onSubmit: (text: string) => Promise<void> | void;
+  onCancel: () => void;
+}
+
+function PasteImportModal({ onSubmit, onCancel }: PasteImportModalProps) {
+  const [text, setText] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  const handleImport = async () => {
+    if (!text.trim()) return;
+    setBusy(true);
+    try {
+      await onSubmit(text);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div
+      onClick={(e) => { if (e.target === e.currentTarget) onCancel(); }}
+      style={{
+        position: "fixed", inset: 0,
+        background: "rgba(0,0,0,0.6)",
+        display: "flex",
+        alignItems: "flex-end",
+        justifyContent: "center",
+        padding: 16,
+        zIndex: 60,
+      }}
+    >
+      <div
+        style={{
+          background: tokens.bgApp,
+          border: `1px solid ${tokens.borderSoft}`,
+          borderRadius: "14px 14px 8px 8px",
+          width: "100%",
+          maxWidth: 460,
+          padding: "16px 16px 20px",
+          maxHeight: "88vh",
+          overflowY: "auto",
+        }}
+      >
+        <div style={{
+          width: 36, height: 4,
+          background: tokens.borderSoft,
+          borderRadius: 2,
+          margin: "0 auto 14px",
+        }} />
+        <div style={{
+          fontSize: 13, fontWeight: 700,
+          color: tokens.brand,
+          textTransform: "uppercase", letterSpacing: ".06em",
+          marginBottom: 4,
+        }}>
+          Paste Bundle JSON
+        </div>
+        <div style={{
+          fontSize: 11, color: tokens.textMuted,
+          marginBottom: 14, lineHeight: 1.5,
+        }}>
+          Use this when the file picker can&apos;t see your bundle. In your
+          messaging app, long-press the attachment, tap Copy, then paste here.
+        </div>
+
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder='{"schemaVersion":1,"exportedAt":...}'
+          spellCheck={false}
+          autoCorrect="off"
+          autoCapitalize="off"
+          style={{
+            width: "100%",
+            minHeight: 160,
+            padding: "10px 12px",
+            background: tokens.bgCard,
+            border: `1px solid ${tokens.borderSoft}`,
+            borderRadius: tokens.radiusMd,
+            color: tokens.textPrimary,
+            fontSize: 11,
+            fontFamily: "'Menlo', ui-monospace, monospace",
+            lineHeight: 1.5,
+            resize: "vertical",
+            outline: "none",
+            boxSizing: "border-box",
+          }}
+        />
+
+        <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
+          <button
+            onClick={handleImport}
+            disabled={busy || !text.trim()}
+            style={{
+              flex: 1,
+              padding: "10px 14px",
+              background: busy || !text.trim() ? tokens.bgMuted : tokens.brand,
+              border: "none",
+              color: busy || !text.trim() ? tokens.textGhost : "#fff",
+              borderRadius: tokens.radiusMd,
+              fontSize: 12, fontWeight: 700,
+              letterSpacing: ".04em",
+              textTransform: "uppercase",
+              cursor: busy || !text.trim() ? "default" : "pointer",
+              fontFamily: "inherit",
+            }}
+          >
+            {busy ? "Importing..." : "Import"}
+          </button>
+          <button
+            onClick={onCancel}
+            disabled={busy}
+            style={{
+              flex: 1,
+              padding: "10px 14px",
+              background: "transparent",
+              border: `1px solid ${tokens.borderSoft}`,
+              color: tokens.textSecondary,
+              borderRadius: tokens.radiusMd,
+              fontSize: 12, fontWeight: 700,
+              letterSpacing: ".04em",
+              textTransform: "uppercase",
+              cursor: busy ? "default" : "pointer",
+              fontFamily: "inherit",
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
