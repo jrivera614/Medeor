@@ -50,6 +50,8 @@ const BLACK = rgb(0, 0, 0);
 const GRAY = rgb(0.4, 0.4, 0.4);
 const HEADER_FILL = rgb(0.92, 0.92, 0.92);
 const VITALS_BLUE = rgb(0.15, 0.15, 0.5);
+const ADDENDUM_PURPLE = rgb(0.29, 0.18, 0.55); // matches Medeor brand at print-friendly contrast
+const DIVIDER_GRAY = rgb(0.55, 0.55, 0.55);
 const FOOTER_GRAY = rgb(0.5, 0.5, 0.5);
 
 interface PageState {
@@ -202,48 +204,81 @@ export async function exportSF600Pdf(patient: Patient, entries: Entry[]): Promis
     drawTableHeader();
   }
 
-  function drawEntry(e: Entry) {
-    // Build narrative lines: vitals summary on its own line first, then wrapped
-    // narrative body.
-    const narrLines: string[] = [];
-    const vs = vitalsSummary(e);
-    if (vs) narrLines.push(`[VITALS] ${vs}`);
-    const bodyLines = wrapText(
-      e.narrative || "",
-      font,
-      D.bodyFontSize,
-      NARR_W - 2 * D.cellPadX,
-    );
-    narrLines.push(...bodyLines);
+  // Renderable item types for the narrative and sign columns. Each item
+  // takes exactly one bodyLineHeight (narrative) or signLineHeight (sign)
+  // worth of vertical space, so total row height is just items.length * lh.
+  //
+  // This typed-item approach keeps the row-height math identical to the
+  // pre-addenda version while letting us render dividers and brand-colored
+  // addendum labels inline without a separate pass.
+  type NarrItem =
+    | { kind: "text"; text: string; bold?: boolean; color?: ReturnType<typeof rgb> }
+    | { kind: "rule" };
+  type SigItem =
+    | { kind: "text"; text: string; color?: ReturnType<typeof rgb> }
+    | { kind: "rule" };
 
-    // Wrap the date and signature columns too. Date rarely needs it but
-    // signatures with long unit affiliations definitely do.
+  function drawEntry(e: Entry) {
+    // ─── Build narrative column items ─────────────────────────────────────────
+    const narrItems: NarrItem[] = [];
+
+    const vs = vitalsSummary(e);
+    if (vs) narrItems.push({ kind: "text", text: `[VITALS] ${vs}`, bold: true, color: VITALS_BLUE });
+
+    for (const line of wrapText(e.narrative || "", font, D.bodyFontSize, NARR_W - 2 * D.cellPadX)) {
+      narrItems.push({ kind: "text", text: line });
+    }
+
+    // Addenda: chronological order by signedAt. Each contributes a divider,
+    // a brand-colored label line, then wrapped body lines.
+    const addenda = (e.addenda ?? []).slice().sort((a, b) => a.signedAt - b.signedAt);
+    for (const a of addenda) {
+      narrItems.push({ kind: "rule" });
+      narrItems.push({
+        kind: "text",
+        text: `ADDENDUM \u00b7 ${fmtDateMil(new Date(a.signedAt).toISOString())}`,
+        bold: true,
+        color: ADDENDUM_PURPLE,
+      });
+      for (const line of wrapText(a.text || "", font, D.bodyFontSize, NARR_W - 2 * D.cellPadX)) {
+        narrItems.push({ kind: "text", text: line });
+      }
+    }
+
+    // ─── Build sign column items ──────────────────────────────────────────────
+    const sigItems: SigItem[] = [];
+    for (const line of wrapText(e.signedBy || "", font, D.signFontSize, D.signColWidth - 2 * D.cellPadX)) {
+      sigItems.push({ kind: "text", text: line });
+    }
+    if (e.treatingOrganization) {
+      for (const line of wrapText(e.treatingOrganization, font, D.signFontSize, D.signColWidth - 2 * D.cellPadX)) {
+        sigItems.push({ kind: "text", text: line, color: GRAY });
+      }
+    }
+    for (const a of addenda) {
+      sigItems.push({ kind: "rule" });
+      for (const line of wrapText(a.signedBy || "", font, D.signFontSize, D.signColWidth - 2 * D.cellPadX)) {
+        sigItems.push({ kind: "text", text: line });
+      }
+      if (a.signedUnit) {
+        for (const line of wrapText(a.signedUnit, font, D.signFontSize, D.signColWidth - 2 * D.cellPadX)) {
+          sigItems.push({ kind: "text", text: line, color: GRAY });
+        }
+      }
+    }
+
+    // ─── Date column ──────────────────────────────────────────────────────────
     const dateLines = wrapText(
       fmtDateMil(e.date),
       font,
       D.bodyFontSize,
       D.dateColWidth - 2 * D.cellPadX,
     );
-    const sigLines: string[] = [];
-    sigLines.push(...wrapText(
-      e.signedBy || "",
-      font,
-      D.signFontSize,
-      D.signColWidth - 2 * D.cellPadX,
-    ));
-    if (e.treatingOrganization) {
-      sigLines.push(...wrapText(
-        e.treatingOrganization,
-        font,
-        D.signFontSize,
-        D.signColWidth - 2 * D.cellPadX,
-      ));
-    }
 
-    // Entry row height = max of all three columns' wrapped heights.
+    // ─── Row height: max of all three columns ────────────────────────────────
     const dateH = Math.max(dateLines.length, 1) * D.bodyLineHeight;
-    const narrH = Math.max(narrLines.length, 1) * D.bodyLineHeight;
-    const sigH = Math.max(sigLines.length, 1) * D.signLineHeight;
+    const narrH = Math.max(narrItems.length, 1) * D.bodyLineHeight;
+    const sigH = Math.max(sigItems.length, 1) * D.signLineHeight;
     const entryH = Math.max(
       dateH + D.cellPadY,
       narrH + D.cellPadY,
@@ -280,25 +315,70 @@ export async function exportSF600Pdf(patient: Patient, entries: Entry[]): Promis
       font, D.bodyFontSize, D.bodyLineHeight,
     );
 
-    // Column 2: vitals (bold blue) + narrative
+    // Column 2: narrative + addenda
     let narrY = top - 12;
-    narrLines.forEach((line, i) => {
-      const isVitals = i === 0 && line.startsWith("[VITALS]");
-      state.page.drawText(line, {
-        x: NARR_X + D.cellPadX, y: narrY,
-        size: D.bodyFontSize,
-        font: isVitals ? fontBold : font,
-        color: isVitals ? VITALS_BLUE : BLACK,
-      });
+    const narrInnerX = NARR_X + D.cellPadX;
+    for (const item of narrItems) {
+      if (item.kind === "rule") {
+        // Dashed divider in the middle of the line slot. pdf-lib drawLine
+        // doesn't support dashes natively in this version, so we approximate
+        // with a series of short segments.
+        const dashY = narrY + 2;
+        const dashStart = narrInnerX;
+        const dashEnd = NARR_X + NARR_W - D.cellPadX;
+        const dashLen = 3;
+        const gapLen = 2;
+        let x = dashStart;
+        while (x < dashEnd) {
+          state.page.drawLine({
+            start: { x, y: dashY },
+            end: { x: Math.min(x + dashLen, dashEnd), y: dashY },
+            thickness: 0.4,
+            color: DIVIDER_GRAY,
+          });
+          x += dashLen + gapLen;
+        }
+      } else {
+        state.page.drawText(item.text, {
+          x: narrInnerX, y: narrY,
+          size: D.bodyFontSize,
+          font: item.bold ? fontBold : font,
+          color: item.color ?? BLACK,
+        });
+      }
       narrY -= D.bodyLineHeight;
-    });
+    }
 
-    // Column 3: signature + treating org
-    drawWrappedText(
-      state.page, sigLines,
-      SIGN_X + D.cellPadX, top - 12,
-      font, D.signFontSize, D.signLineHeight,
-    );
+    // Column 3: signatures (primary + addenda, stacked with dividers)
+    let sigY = top - 12;
+    const sigInnerX = SIGN_X + D.cellPadX;
+    for (const item of sigItems) {
+      if (item.kind === "rule") {
+        const dashY = sigY + 2;
+        const dashStart = sigInnerX;
+        const dashEnd = D.pageWidth - D.margin - D.cellPadX;
+        const dashLen = 3;
+        const gapLen = 2;
+        let x = dashStart;
+        while (x < dashEnd) {
+          state.page.drawLine({
+            start: { x, y: dashY },
+            end: { x: Math.min(x + dashLen, dashEnd), y: dashY },
+            thickness: 0.4,
+            color: DIVIDER_GRAY,
+          });
+          x += dashLen + gapLen;
+        }
+      } else {
+        state.page.drawText(item.text, {
+          x: sigInnerX, y: sigY,
+          size: D.signFontSize,
+          font,
+          color: item.color ?? BLACK,
+        });
+      }
+      sigY -= D.signLineHeight;
+    }
 
     state.y = bot;
   }

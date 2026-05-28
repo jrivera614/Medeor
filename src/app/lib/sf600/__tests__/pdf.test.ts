@@ -154,6 +154,54 @@ describe("exportSF600Pdf", () => {
     expect(reloaded.getPageCount()).toBe(1);
   });
 
+  it("renders an entry with addenda and re-parses cleanly", async () => {
+    // Smoke test for the addenda PDF rendering path: stacked signatures in
+    // the SIGN column, addendum blocks with dashed dividers in the narrative
+    // column. We can't pixel-check, but we verify the layout math doesn't
+    // throw and the result is a valid PDF.
+    const p = makePatient();
+    const baseTs = new Date("2026-04-25T14:30").getTime();
+    const e = makeEntry(p.id, {
+      addenda: [
+        {
+          id: "ad-1", text: "Reviewed entry. Concur with plan. Recheck in 24 hr.",
+          signedBy: "RIVERA, MD", signedUnit: "JTF Marianas SMO",
+          signedAt: baseTs, createdAt: baseTs, updatedAt: baseTs,
+        },
+        {
+          id: "ad-2", text: "48 hr follow-up: no recurrence. Closed.",
+          signedBy: "SMITH, PA-C",
+          signedAt: baseTs + 1000 * 60 * 60 * 48,
+          createdAt: baseTs + 1000 * 60 * 60 * 48,
+          updatedAt: baseTs + 1000 * 60 * 60 * 48,
+        },
+      ],
+    });
+    const bytes = await exportSF600Pdf(p, [e]);
+    const reloaded = await PDFDocument.load(bytes);
+    expect(reloaded.getPageCount()).toBeGreaterThanOrEqual(1);
+  });
+
+  it("renders an entry with many long addenda across pages", async () => {
+    // Stress: ten addenda with substantial bodies should still produce a
+    // valid PDF and may paginate. We're proving the row-height math handles
+    // tall narrative columns and that page break logic still fires.
+    const p = makePatient();
+    const baseTs = Date.now();
+    const longBody = "Reviewed entry in detail. " + "Patient remains stable. ".repeat(10);
+    const addenda = Array.from({ length: 10 }, (_, i) => ({
+      id: `ad-${i}`, text: `${longBody} (addendum ${i + 1})`,
+      signedBy: i % 2 ? "RIVERA, MD" : "SMITH, PA-C",
+      signedAt: baseTs + i * 1000,
+      createdAt: baseTs + i * 1000,
+      updatedAt: baseTs + i * 1000,
+    }));
+    const e = makeEntry(p.id, { addenda });
+    const bytes = await exportSF600Pdf(p, [e]);
+    const reloaded = await PDFDocument.load(bytes);
+    expect(reloaded.getPageCount()).toBeGreaterThanOrEqual(1);
+  });
+
   it("writes a sample PDF to /tmp for visual inspection", async () => {
     // Generate a realistic single-patient document and persist it so a human
     // can open and look at the output. Skipped silently if /tmp isn't writable.

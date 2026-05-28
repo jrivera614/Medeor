@@ -39,8 +39,37 @@ export interface Entry {
   temp?: string;
   pain?: string;
 
+  // Addenda: optional append-only chain of signed amendments to this entry.
+  // Used for supervisor review (concur, dissent, late entries) and for the
+  // original author's own late additions. Each addendum carries its own typed
+  // signature and timestamp. The original entry remains editable by its
+  // signer; addenda are immutable once signed. See EntryAddendum below.
+  addenda?: EntryAddendum[];
+
   createdAt: number;
   updatedAt: number;
+}
+
+// EntryAddendum: a signed amendment to an Entry. Free-text + typed signature.
+// Render order in UI and PDF is chronological by signedAt.
+//
+// This is the same level of attestation as the primary entry's signedBy
+// field - typed name, no cryptographic identity. The clinical value is in
+// the documented chain of review, not in proving who typed it. If real
+// identity is needed later, a PIN or passkey can layer on without changing
+// this shape.
+//
+// LWW on sync: addenda are merged by id (union) when both sides have the
+// parent entry. Per-addendum conflicts (same id, different content) resolve
+// by addendum.updatedAt. See sync.ts unionAddenda for details.
+export interface EntryAddendum {
+  id: string;            // uuid v4, generated at creation
+  text: string;          // the addendum body, free text
+  signedBy: string;      // typed name captured at sign time
+  signedUnit?: string;   // optional unit / clinic
+  signedAt: number;      // epoch ms when signed - drives display order
+  createdAt: number;
+  updatedAt: number;     // drives LWW for individual addendum
 }
 
 export interface Provider {

@@ -113,7 +113,10 @@ describe("Component smoke renders", () => {
         onDelete={() => {}}
         onNewEntry={() => {}}
         onEditEntry={() => {}}
+        provider={null}
         onDeleteEntry={() => {}}
+        onAddAddendum={async () => {}}
+        onDeleteAddendum={async () => {}}
         onExportPdf={async () => {}}
       />
     );
@@ -132,7 +135,10 @@ describe("Component smoke renders", () => {
         onDelete={() => {}}
         onNewEntry={() => {}}
         onEditEntry={() => {}}
+        provider={null}
         onDeleteEntry={() => {}}
+        onAddAddendum={async () => {}}
+        onDeleteAddendum={async () => {}}
         onExportPdf={async () => {}}
       />
     );
