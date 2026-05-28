@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ScreenHeader, tokens, styles } from "@/app/ui";
 import { safeStorage } from "@/app/lib/safeStorage";
-import type { Patient, Entry, Provider, MergeReport } from "@/app/lib/sf600/types";
+import type { Patient, Entry, EntryAddendum, Provider, MergeReport } from "@/app/lib/sf600/types";
 import { getDb, loadAllData } from "@/app/lib/sf600/db";
 import { uuid } from "@/app/lib/sf600/format";
 import { buildBundle, parseBundle, mergeBundle } from "@/app/lib/sf600/sync";
@@ -201,6 +201,70 @@ export default function SF600Client() {
     }
   }, [showToast]);
 
+  // ─── Addendum mutations ────────────────────────────────────────────────────
+  // Addenda are append-only signed amendments on an entry. The original entry
+  // remains editable by its signer; addenda are immutable once added (no edit
+  // path - to amend an addendum, add another one). Delete is available with
+  // a confirm.
+  //
+  // Why bump the parent entry's updatedAt: the entry is the unit of LWW sync.
+  // Adding or removing an addendum is a meaningful change to the chart, so
+  // the parent's updatedAt advances. Per-addendum updatedAt is used only for
+  // resolving the rare same-id conflict during merge.
+  const addAddendum = useCallback(async (
+    entryId: string,
+    draft: { text: string; signedBy: string; signedUnit?: string },
+  ) => {
+    const db = getDb();
+    const existing = await db.entries.get(entryId);
+    if (!existing) {
+      showToast("err", "Entry not found.");
+      return;
+    }
+    const now = Date.now();
+    const addendum: EntryAddendum = {
+      id: uuid(),
+      text: draft.text,
+      signedBy: draft.signedBy,
+      signedUnit: draft.signedUnit,
+      signedAt: now,
+      createdAt: now,
+      updatedAt: now,
+    };
+    const updated = {
+      ...existing,
+      addenda: [...(existing.addenda || []), addendum],
+      updatedAt: now,
+    };
+    try {
+      await db.entries.put(updated);
+      setEntries((prev) => prev.map((e) => (e.id === entryId ? updated : e)));
+    } catch (e) {
+      showToast("err", `Add addendum failed: ${(e as Error).message}`);
+      throw e;
+    }
+  }, [showToast]);
+
+  const deleteAddendum = useCallback(async (entryId: string, addendumId: string) => {
+    if (!confirm("Delete this addendum? This cannot be undone.")) return;
+    const db = getDb();
+    const existing = await db.entries.get(entryId);
+    if (!existing) return;
+    const filtered = (existing.addenda || []).filter((a) => a.id !== addendumId);
+    const now = Date.now();
+    const updated = {
+      ...existing,
+      addenda: filtered.length > 0 ? filtered : undefined,
+      updatedAt: now,
+    };
+    try {
+      await db.entries.put(updated);
+      setEntries((prev) => prev.map((e) => (e.id === entryId ? updated : e)));
+    } catch (e) {
+      showToast("err", `Delete addendum failed: ${(e as Error).message}`);
+    }
+  }, [showToast]);
+
   // ─── PDF export ────────────────────────────────────────────────────────────
   const exportPatientPdf = useCallback(async (patientId: string) => {
     const p = patients.find((pp) => pp.id === patientId);
@@ -367,6 +431,7 @@ export default function SF600Client() {
             <PatientDetail
               patient={currentPatient}
               entries={currentPatientEntries}
+              provider={provider}
               onEditInfo={(d) => updatePatient(currentPatient.id, d)}
               onDelete={() => deletePatient(currentPatient.id)}
               onNewEntry={() => {
@@ -379,6 +444,8 @@ export default function SF600Client() {
               }}
               onEditEntry={(id) => setView({ kind: "entry", patientId: currentPatient.id, entryId: id })}
               onDeleteEntry={deleteEntry}
+              onAddAddendum={addAddendum}
+              onDeleteAddendum={deleteAddendum}
               onExportPdf={() => exportPatientPdf(currentPatient.id)}
             />
           ) : (

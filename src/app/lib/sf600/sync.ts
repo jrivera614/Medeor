@@ -18,8 +18,67 @@
 // vitals from one entry attached to a narrative from another. LWW is the
 // honest minimum: explicit, auditable, surfaces conflicts to the human.
 
-import type { Bundle, Patient, Entry, ConflictItem, MergeReport } from "./types";
+import type { Bundle, Patient, Entry, EntryAddendum, ConflictItem, MergeReport } from "./types";
 import { getDb } from "./db";
+
+// unionAddenda: merge two addenda arrays from the same entry by id.
+//
+// Used by the entry-merge step when an entry exists on both local and incoming
+// sides. Without this, the LWW entry-replace would silently drop addenda that
+// only existed on the loser. With this, both sides' addenda survive the merge.
+//
+// Per-addendum LWW: when the same addendum id exists on both sides (rare,
+// since each device generates fresh uuids - this can really only happen if a
+// bundle is exported, the receiver edits the addendum, and the original
+// signer also edited it before the next sync), the higher updatedAt wins.
+//
+// Returns a new array sorted by signedAt ascending (display order).
+export function unionAddenda(
+  local: EntryAddendum[] | undefined,
+  incoming: EntryAddendum[] | undefined,
+): EntryAddendum[] {
+  const localArr = local ?? [];
+  const incomingArr = incoming ?? [];
+  if (localArr.length === 0 && incomingArr.length === 0) return [];
+
+  const byId = new Map<string, EntryAddendum>();
+  for (const a of localArr) byId.set(a.id, a);
+  for (const a of incomingArr) {
+    const existing = byId.get(a.id);
+    if (!existing || a.updatedAt > existing.updatedAt) byId.set(a.id, a);
+  }
+  return Array.from(byId.values()).sort((a, b) => a.signedAt - b.signedAt);
+}
+
+// addendaEqual: shallow-by-id comparison used to decide whether the merged
+// addenda list differs from a side's existing list. Compares length first,
+// then per-id updatedAt. Sufficient for merge decisions because addenda are
+// immutable post-sign: same id + same updatedAt means same content.
+function addendaEqual(
+  a: EntryAddendum[] | undefined,
+  b: EntryAddendum[] | undefined,
+): boolean {
+  const aa = a ?? [];
+  const bb = b ?? [];
+  if (aa.length !== bb.length) return false;
+  const aMap = new Map(aa.map((x) => [x.id, x.updatedAt]));
+  for (const x of bb) {
+    if (aMap.get(x.id) !== x.updatedAt) return false;
+  }
+  return true;
+}
+
+// applyMergedAddenda: returns a copy of `entry` with the merged addenda
+// applied. Omits the addenda field entirely when empty so we don't persist
+// meaningless `addenda: []` on entries that have none.
+function applyMergedAddenda(entry: Entry, merged: EntryAddendum[]): Entry {
+  if (merged.length === 0) {
+    const { addenda: _drop, ...rest } = entry;
+    void _drop;
+    return rest;
+  }
+  return { ...entry, addenda: merged };
+}
 
 // Build a Bundle from current database state. Caller is responsible for the
 // download mechanics - this just produces the JSON string and a suggested name.
@@ -170,6 +229,12 @@ export async function mergeBundle(incoming: Bundle): Promise<MergeReport> {
         added++;
         continue;
       }
+      // Both sides have this entry id. Compute the merged addenda union up
+      // front so it survives whichever side wins LWW on parent fields.
+      // Without this, an addendum that only existed on the LWW loser would
+      // be silently dropped.
+      const mergedAddenda = unionAddenda(localE.addenda, incomingE.addenda);
+
       if (incomingE.updatedAt > localE.updatedAt) {
         conflicts.push({
           kind: "entry",
@@ -179,7 +244,7 @@ export async function mergeBundle(incoming: Bundle): Promise<MergeReport> {
           incomingUpdatedAt: incomingE.updatedAt,
           winner: "incoming",
         });
-        await db.entries.put(incomingE);
+        await db.entries.put(applyMergedAddenda(incomingE, mergedAddenda));
         updated++;
       } else if (incomingE.updatedAt < localE.updatedAt) {
         conflicts.push({
@@ -190,9 +255,25 @@ export async function mergeBundle(incoming: Bundle): Promise<MergeReport> {
           incomingUpdatedAt: incomingE.updatedAt,
           winner: "local",
         });
-        unchanged++;
+        // Local wins on parent fields, but incoming may have addenda we
+        // don't. If so, write local with the merged addenda; updatedAt
+        // stays at local's value (we're only appending, not changing parent).
+        if (!addendaEqual(localE.addenda, mergedAddenda)) {
+          await db.entries.put(applyMergedAddenda(localE, mergedAddenda));
+          updated++;
+        } else {
+          unchanged++;
+        }
       } else {
-        unchanged++;
+        // Equal updatedAt - same state in LWW terms. Parent fields don't
+        // change, but addenda could still diverge in edge cases (manual
+        // import of an older bundle). Merge addenda silently, no conflict.
+        if (!addendaEqual(localE.addenda, mergedAddenda)) {
+          await db.entries.put(applyMergedAddenda(localE, mergedAddenda));
+          updated++;
+        } else {
+          unchanged++;
+        }
       }
     }
   });
@@ -252,6 +333,10 @@ export function mergePure(
       added++;
       continue;
     }
+    // Both sides have this entry. Union addenda regardless of which side
+    // wins parent LWW so neither's addenda are silently dropped.
+    const mergedAddenda = unionAddenda(localE.addenda, incomingE.addenda);
+
     if (incomingE.updatedAt > localE.updatedAt) {
       conflicts.push({
         kind: "entry", id: incomingE.id,
@@ -260,7 +345,7 @@ export function mergePure(
         incomingUpdatedAt: incomingE.updatedAt,
         winner: "incoming",
       });
-      entryMap.set(incomingE.id, incomingE);
+      entryMap.set(incomingE.id, applyMergedAddenda(incomingE, mergedAddenda));
       updated++;
     } else if (incomingE.updatedAt < localE.updatedAt) {
       conflicts.push({
@@ -270,9 +355,19 @@ export function mergePure(
         incomingUpdatedAt: incomingE.updatedAt,
         winner: "local",
       });
-      unchanged++;
+      if (!addendaEqual(localE.addenda, mergedAddenda)) {
+        entryMap.set(localE.id, applyMergedAddenda(localE, mergedAddenda));
+        updated++;
+      } else {
+        unchanged++;
+      }
     } else {
-      unchanged++;
+      if (!addendaEqual(localE.addenda, mergedAddenda)) {
+        entryMap.set(localE.id, applyMergedAddenda(localE, mergedAddenda));
+        updated++;
+      } else {
+        unchanged++;
+      }
     }
   }
 

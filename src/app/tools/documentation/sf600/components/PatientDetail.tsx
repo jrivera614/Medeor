@@ -1,14 +1,16 @@
 "use client";
 import { useMemo, useState } from "react";
 import { tokens } from "@/app/ui";
-import type { Patient, Entry } from "@/app/lib/sf600/types";
+import type { Patient, Entry, Provider } from "@/app/lib/sf600/types";
 import { fmtDate } from "@/app/lib/sf600/format";
 import { vitalsSummary } from "@/app/lib/sf600/vitals";
 import { PatientForm, type PatientDraft } from "./PatientForm";
+import { AddendumForm, type AddendumDraft } from "./AddendumForm";
 
 // PatientDetail: shows patient summary (read-only collapsed view), all
 // entries for the patient, and actions for new entry / edit info / delete /
-// export PDF.
+// export PDF. Each entry can carry an append-only chain of addenda - signed
+// amendments from supervisors or late entries by the original author.
 
 const secStyle = {
   fontSize: 13, fontWeight: 700, color: tokens.brand,
@@ -21,23 +23,30 @@ const secStyle = {
 export interface PatientDetailProps {
   patient: Patient;
   entries: Entry[];
+  provider: Provider | null;
 
   onEditInfo: (draft: PatientDraft) => Promise<void> | void;
   onDelete: () => void;
   onNewEntry: () => void;
   onEditEntry: (id: string) => void;
   onDeleteEntry: (id: string) => Promise<void> | void;
+  onAddAddendum: (entryId: string, draft: AddendumDraft) => Promise<void> | void;
+  onDeleteAddendum: (entryId: string, addendumId: string) => Promise<void> | void;
   onExportPdf: () => Promise<void> | void;
 }
 
 export function PatientDetail({
-  patient, entries,
+  patient, entries, provider,
   onEditInfo, onDelete, onNewEntry,
-  onEditEntry, onDeleteEntry, onExportPdf,
+  onEditEntry, onDeleteEntry,
+  onAddAddendum, onDeleteAddendum,
+  onExportPdf,
 }: PatientDetailProps) {
   const [editing, setEditing] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
+  // entryId of the entry currently having an addendum added. null = none.
+  const [addingToEntry, setAddingToEntry] = useState<string | null>(null);
 
   const sorted = useMemo(
     () => [...entries].sort((a, b) => b.date.localeCompare(a.date)),
@@ -169,24 +178,53 @@ export function PatientDetail({
       ) : (
         sorted.map((e) => {
           const vs = vitalsSummary(e);
+          const addenda = e.addenda ?? [];
+          const hasAddenda = addenda.length > 0;
           return (
             <div
               key={e.id}
               style={{
                 background: tokens.bgCard,
-                border: `1px solid ${tokens.borderSoft}`,
+                // Subtle accent border on entries with addenda so the chain
+                // is visible at a glance from the patient list scroll.
+                border: hasAddenda
+                  ? `1px solid ${tokens.brand}40`
+                  : `1px solid ${tokens.borderSoft}`,
                 borderRadius: tokens.radiusMd,
                 padding: 12, marginBottom: 8,
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                <div style={{ fontSize: 10, color: tokens.textMuted, fontFamily: "monospace" }}>
-                  {fmtDate(e.date)}
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <div style={{ fontSize: 10, color: tokens.textMuted, fontFamily: "monospace" }}>
+                    {fmtDate(e.date)}
+                  </div>
+                  {hasAddenda && (
+                    <span style={{
+                      fontSize: 9, fontWeight: 700,
+                      color: tokens.brand,
+                      background: `${tokens.brand}10`,
+                      border: `1px solid ${tokens.brand}40`,
+                      padding: "2px 6px",
+                      borderRadius: 10,
+                      letterSpacing: ".06em",
+                      fontFamily: "monospace",
+                    }}>
+                      {addenda.length} CS
+                    </span>
+                  )}
                 </div>
                 <div style={{ display: "flex", gap: 12 }}>
                   <button
                     onClick={() => onEditEntry(e.id)}
                     style={inlineBtn(tokens.textSecondary)}
+                    // Editing the original entry after addenda exist is allowed
+                    // (medic may need to fix a typo), but we surface a soft
+                    // warning via title so the medic at least sees the chain
+                    // before they pop into the editor.
+                    title={hasAddenda
+                      ? `This entry has ${addenda.length} addend${addenda.length === 1 ? "um" : "a"}. Editing may invalidate the review chain.`
+                      : undefined}
                   >
                     Edit
                   </button>
@@ -225,9 +263,118 @@ export function PatientDetail({
               }}>
                 {e.signedBy}{e.treatingOrganization ? ` \u00b7 ${e.treatingOrganization}` : ""}
               </div>
+
+              {/* Addenda chain. Append-only, immutable post-sign. Each renders
+                  inside the entry as a nested block with a brand-colored left
+                  edge so the chain is visually distinct from the original. */}
+              {addenda.map((a, i) => (
+                <div
+                  key={a.id}
+                  style={{
+                    marginTop: 10,
+                    padding: "8px 12px",
+                    background: `${tokens.brand}08`,
+                    borderLeft: `2px solid ${tokens.brand}`,
+                    borderRadius: `0 ${tokens.radiusSm}px ${tokens.radiusSm}px 0`,
+                  }}
+                >
+                  <div style={{
+                    display: "flex", justifyContent: "space-between",
+                    alignItems: "center", marginBottom: 4,
+                  }}>
+                    <span style={{
+                      fontSize: 9, fontWeight: 700,
+                      color: tokens.brand,
+                      textTransform: "uppercase", letterSpacing: ".08em",
+                    }}>
+                      Addendum {i + 1}
+                    </span>
+                    <span style={{
+                      fontSize: 9, color: tokens.textDim,
+                      fontFamily: "monospace",
+                    }}>
+                      {fmtDate(new Date(a.signedAt).toISOString())}
+                    </span>
+                  </div>
+                  <div style={{
+                    fontSize: 12, color: tokens.textPrimary,
+                    whiteSpace: "pre-wrap", lineHeight: 1.5,
+                    fontFamily: "'Menlo', ui-monospace, monospace",
+                    marginBottom: 4,
+                  }}>
+                    {a.text}
+                  </div>
+                  <div style={{
+                    display: "flex", justifyContent: "space-between",
+                    alignItems: "center",
+                    fontSize: 10, color: tokens.textMuted,
+                    borderTop: `1px solid ${tokens.brand}20`,
+                    paddingTop: 4,
+                  }}>
+                    <span>
+                      {a.signedBy}{a.signedUnit ? ` \u00b7 ${a.signedUnit}` : ""}
+                    </span>
+                    <button
+                      onClick={() => onDeleteAddendum(e.id, a.id)}
+                      style={{
+                        ...inlineBtn(tokens.red),
+                        fontSize: 9,
+                        opacity: 0.7,
+                      }}
+                      title="Delete this addendum"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+
+              {/* Add-addendum button. Disabled until a provider is selected
+                  since the addendum signature defaults to the active provider.
+                  Anyone with the chart can add an addendum - no self-block,
+                  since the original author legitimately needs to add late
+                  entries to their own notes. */}
+              <button
+                onClick={() => setAddingToEntry(e.id)}
+                disabled={!provider}
+                style={{
+                  width: "100%",
+                  padding: "7px",
+                  marginTop: 10,
+                  background: "transparent",
+                  border: `1px dashed ${provider ? `${tokens.brand}66` : tokens.borderSoft}`,
+                  borderRadius: tokens.radiusSm,
+                  color: provider ? tokens.brand : tokens.textGhost,
+                  fontSize: 11, fontWeight: 700,
+                  letterSpacing: ".04em",
+                  cursor: provider ? "pointer" : "default",
+                  textTransform: "uppercase",
+                  fontFamily: "inherit",
+                }}
+                title={provider ? undefined : "Set an active provider first"}
+              >
+                + Add Addendum
+              </button>
             </div>
           );
         })
+      )}
+
+      {/* Add-addendum modal. Reuses the same provider as the entry-level
+          default but the medic can edit name/unit on the fly so a second
+          medic on the same device can sign without first changing the global
+          provider. */}
+      {addingToEntry && provider && (
+        <AddendumForm
+          parentEntry={sorted.find((e) => e.id === addingToEntry) ?? null}
+          defaultSignedBy={provider.name}
+          defaultSignedUnit={provider.unit}
+          onSubmit={async (draft) => {
+            await onAddAddendum(addingToEntry, draft);
+            setAddingToEntry(null);
+          }}
+          onCancel={() => setAddingToEntry(null)}
+        />
       )}
     </>
   );

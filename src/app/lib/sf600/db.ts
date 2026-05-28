@@ -36,23 +36,26 @@ class SF600Database extends Dexie {
       entries:  "id, patientId, date, updatedAt",
     });
 
-    // ─── version 2: migration scaffold ────────────────────────────────────────
-    // Uncomment and fill in when adding new indexed fields. Pattern:
+    // ─── version 2: addenda on entries ────────────────────────────────────────
+    // Adds optional Entry.addenda field for the supervisor-review feature.
     //
-    //   this.version(2).stores({
-    //     patients: "id, lastName, updatedAt, idNumber",  // added idNumber index
-    //     entries:  "id, patientId, date, updatedAt, signedBy",
-    //     attachments: "id, entryId, createdAt",          // new table
-    //   }).upgrade(async (tx) => {
-    //     // Backfill / transform existing rows here. Runs once per device the
-    //     // first time the user opens the app on this version.
-    //     // Example: backfill a missing field with a default.
-    //     // await tx.table("patients").toCollection().modify((p) => {
-    //     //   if (p.someNewField === undefined) p.someNewField = "default";
-    //     // });
-    //   });
+    // No index changes: addenda are read with their parent entry, not queried
+    // independently. No backfill needed: the field is optional, so existing
+    // rows are valid as-is and code reads `entry.addenda ?? []` everywhere.
     //
-    // RULES:
+    // We still bump the version and provide an upgrade callback so Dexie
+    // records the schema change in the version chain. Without an explicit
+    // version(2) bump, a future v3 migration would have a harder time
+    // detecting which clients have addendum-aware code.
+    this.version(2).stores({
+      patients: "id, lastName, updatedAt",
+      entries:  "id, patientId, date, updatedAt",
+    }).upgrade(async () => {
+      // Intentionally empty. Addenda field is optional and undefined-safe.
+    });
+
+    // ─── future versions ──────────────────────────────────────────────────────
+    // Rules for adding migrations:
     // 1. Never delete or edit a previous version() call - it must remain in
     //    the chain forever so devices upgrading from older versions migrate
     //    correctly.
