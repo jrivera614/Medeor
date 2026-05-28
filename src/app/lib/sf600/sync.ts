@@ -68,12 +68,30 @@ function isValidBundle(obj: unknown): obj is Bundle {
 
 // Parse a JSON string into a Bundle. Throws Error with a human-readable
 // message on failure - caller catches and shows a toast.
+//
+// Forgiving on input: strips a UTF-8 BOM (some Mail/share-sheet transports
+// inject one) and trims surrounding whitespace before parsing. Without this,
+// JSON.parse fails with a confusing "Unexpected token" pointing at column 1
+// when the actual problem is an invisible \uFEFF prefix the medic can't see.
+//
+// On parse failure, the error includes the first ~40 characters of what was
+// loaded so the medic can tell at a glance whether they imported the real
+// bundle (starts with "{") vs an AppleDouble sidecar (binary garbage) vs an
+// empty/wrong file.
 export function parseBundle(json: string): Bundle {
+  const cleaned = (json || "").replace(/^\uFEFF/, "").trim();
+  if (!cleaned) {
+    throw new Error("Bundle file is empty.");
+  }
   let parsed: unknown;
   try {
-    parsed = JSON.parse(json);
+    parsed = JSON.parse(cleaned);
   } catch (e) {
-    throw new Error(`Bundle is not valid JSON: ${(e as Error).message}`);
+    const preview = cleaned.slice(0, 40).replace(/\s+/g, " ");
+    throw new Error(
+      `Bundle is not valid JSON: ${(e as Error).message}. ` +
+      `File starts with: "${preview}${cleaned.length > 40 ? "..." : ""}"`,
+    );
   }
   if (!isValidBundle(parsed)) {
     throw new Error("Bundle is missing required fields or has the wrong schema version.");
