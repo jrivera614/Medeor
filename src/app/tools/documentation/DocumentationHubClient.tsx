@@ -5,8 +5,8 @@ import { Tile, ScreenHeader, styles, tokens } from "@/app/ui";
 
 // Documentation Hub
 // Mirrors PccHubClient's tile pattern (Tile + ScreenHeader). SF 600 is the
-// first form to land here. Other forms (DD 1380 TCCC card, AF 3899, etc.)
-// go in as new entries in the TOPICS array as they're built.
+// first form to land here. DD 1380 and the JTS After-Action template followed.
+// New forms go in as new entries in the TOPICS array as they're built.
 
 interface DocTopic {
   id: string;
@@ -20,9 +20,8 @@ interface DocTopic {
 
 const TOPICS: DocTopic[] = [
   { id: "sf600",   icon: "\u{1F4DD}", title: "SF 600",          sub: "Chronological Record of Medical Care", color: tokens.brand,  ready: true, route: "/tools/documentation/sf600" },
-  { id: "dd1380",  icon: "\u{1F525}", title: "DD 1380 TCCC",    sub: "Tactical Combat Casualty Care card",   color: tokens.red,    ready: false },
-  { id: "af3899",  icon: "\u{1F694}", title: "AF 3899",         sub: "Patient movement record",              color: tokens.cyan,   ready: false },
-  { id: "afterax", icon: "\u{1F9EA}", title: "After-Action",    sub: "Mission medical AAR template",         color: tokens.indigo, ready: false },
+  { id: "dd1380",  icon: "\u{1F525}", title: "DD 1380 TCCC",    sub: "Tactical Combat Casualty Care card",   color: tokens.red,    ready: true, route: "/tools/documentation/dd1380" },
+  { id: "afterax", icon: "\u{1F9EA}", title: "After-Action",    sub: "JTS medical AAR template",             color: tokens.indigo, ready: true, route: "/tools/documentation/aar" },
 ];
 
 export default function DocumentationHubClient() {

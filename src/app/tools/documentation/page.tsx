@@ -11,9 +11,11 @@ export default function DocumentationPage() {
     <>
       <div style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden" }} aria-hidden="true">
         <h1>Medical Documentation Forms</h1>
-        <p>Offline-first medical documentation tools for field use. Forms include SF 600 Chronological Record of Medical Care, DD 1380 TCCC card, AF 3899 patient movement, and after-action templates. Stores patient data locally on device, exports JSON for device-to-device sync, exports PDF for upload to medical record systems.</p>
+        <p>Offline-first medical documentation tools for field use. Forms include SF 600 Chronological Record of Medical Care, the DD 1380 TCCC Card, and a JTS-style medical after-action report template. Stores patient data locally on device, exports JSON for device-to-device sync, exports PDF for upload to medical record systems.</p>
         <ul>
           <li><a href="/tools/documentation/sf600">SF 600 Chronological Record of Medical Care</a></li>
+          <li><a href="/tools/documentation/dd1380">DD 1380 Tactical Combat Casualty Care Card</a></li>
+          <li><a href="/tools/documentation/aar">JTS Medical After-Action Report Template</a></li>
         </ul>
       </div>
       <DocumentationHubClient />
