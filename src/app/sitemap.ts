@@ -1,54 +1,92 @@
 import type { MetadataRoute } from "next";
+import { TOPICS } from "./data/topics";
+import { BLOG_POSTS } from "./blog/posts";
+
+// Sitemap is GENERATED, not hand-maintained.
+//
+// Dynamic route sets (training modules under /[module], blog posts under
+// /blog/[slug]) are derived from their source data files, so adding a topic
+// or a post automatically appears here. Static routes are listed explicitly
+// below; when you add a new static page, add it to STATIC_ROUTES so it can't
+// silently drift out of the sitemap the way the old hand-maintained list did.
+
+const BASE = "https://medeor.app";
+
+// Content date floor. Bump when meaningful content changes ship.
+const UPDATED = "2026-06-03";
+
+type Freq = "weekly" | "monthly";
+
+interface StaticRoute {
+  path: string;
+  changeFrequency: Freq;
+  priority: number;
+}
+
+// Every static (non-dynamic) route with a page.tsx, minus:
+//   /[module] and /blog/[slug]  - dynamic, generated below
+//   /pfc                        - 308 redirect to /pcc/card, not indexable
+const STATIC_ROUTES: StaticRoute[] = [
+  { path: "", changeFrequency: "weekly", priority: 1 },
+
+  // Reference
+  { path: "/meds", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/cpgs", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/videos", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/rmh", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/reference", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/table8", changeFrequency: "monthly", priority: 0.8 },
+
+  // PCC
+  { path: "/pcc", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/pcc/meds", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/pcc/skills", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/pcc/wound", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/pcc/cpgs", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/pcc/card", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/pcc/nursing", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/pcc/vent", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/pcc/trouble", changeFrequency: "monthly", priority: 0.9 },
+
+  // Tools
+  { path: "/tools", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/tools/documentation", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/tools/documentation/sf600", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/tools/documentation/dd1380", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/tools/documentation/aar", changeFrequency: "monthly", priority: 0.8 },
+
+  // Blog index + utility
+  { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/contact", changeFrequency: "monthly", priority: 0.5 },
+  { path: "/privacy", changeFrequency: "monthly", priority: 0.3 },
+  { path: "/terms", changeFrequency: "monthly", priority: 0.3 },
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://medeor.app';
-  // Use actual content modification dates, not build time.
-  // Update these when content actually changes.
-  const launched = '2026-03-23';
-  const updated = '2026-05-04';
+  const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((r) => ({
+    url: `${BASE}${r.path}`,
+    lastModified: UPDATED,
+    changeFrequency: r.changeFrequency,
+    priority: r.priority,
+  }));
 
-  return [
-    // Core
-    { url: base, lastModified: updated, changeFrequency: 'weekly', priority: 1 },
+  // Training modules: /[module] resolves by topic id.
+  const moduleEntries: MetadataRoute.Sitemap = TOPICS.map((t) => ({
+    url: `${BASE}/${t.id}`,
+    lastModified: UPDATED,
+    changeFrequency: "monthly" as const,
+    priority: 0.9,
+  }));
 
-    // Training modules
-    { url: `${base}/march`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/epaws`, lastModified: launched, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/ravines`, lastModified: launched, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/hemorrhage`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/airway`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/wbb`, lastModified: launched, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/pfc-scenarios`, lastModified: launched, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${base}/pfc-meds`, lastModified: launched, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/shock`, lastModified: launched, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/longitudinal`, lastModified: launched, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/pfc-procedures`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
+  // Blog posts: /blog/[slug].
+  const blogEntries: MetadataRoute.Sitemap = BLOG_POSTS.map(
+    (p: { slug: string }) => ({
+      url: `${BASE}/blog/${p.slug}`,
+      lastModified: UPDATED,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }),
+  );
 
-    // Reference content
-    { url: `${base}/meds`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/cpgs`, lastModified: launched, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${base}/videos`, lastModified: launched, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${base}/rmh`, lastModified: updated, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${base}/reference`, lastModified: updated, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${base}/table8`, lastModified: launched, changeFrequency: 'monthly', priority: 0.8 },
-
-    // PCC
-    { url: `${base}/pcc`, lastModified: updated, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${base}/pcc/meds`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/pcc/skills`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/pcc/wound`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/pcc/cpgs`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/pcc/card`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
-
-    // Blog
-    { url: `${base}/blog`, lastModified: launched, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${base}/blog/free-tccc-practice-quiz`, lastModified: launched, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${base}/blog/march-protocol-steps`, lastModified: launched, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${base}/blog/how-to-apply-tourniquet-cat-gen7`, lastModified: launched, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${base}/blog/needle-chest-decompression-guide`, lastModified: launched, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${base}/blog/prolonged-field-care-guide`, lastModified: launched, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${base}/blog/tccc-changes-2024-2025-airway-antibiotics`, lastModified: updated, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${base}/blog/tccc-practice-test-2026`, lastModified: updated, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${base}/blog/tccc-2026-guidelines-update`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
-  ];
+  return [...staticEntries, ...moduleEntries, ...blogEntries];
 }

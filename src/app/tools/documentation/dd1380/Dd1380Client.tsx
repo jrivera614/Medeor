@@ -38,14 +38,20 @@ export default function Dd1380Client() {
   const [cards, setCards] = useState<DdCard[]>([]);
   const [draft, setDraft] = useState<Record<string, DdValue>>({});
   const [loaded, setLoaded] = useState(false);
+  const [status, setStatus] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
+
+  const flash = useCallback((kind: "ok" | "err", text: string) => {
+    setStatus({ kind, text });
+    window.setTimeout(() => setStatus(null), 3200);
+  }, []);
 
   useEffect(() => {
     let alive = true;
     loadCards()
       .then((c) => { if (alive) { setCards(c); setLoaded(true); } })
-      .catch((e) => { console.warn("DD1380 load failed:", e); setLoaded(true); });
+      .catch((e) => { console.warn("DD1380 load failed:", e); setLoaded(true); flash("err", "Could not load saved cards on this device."); });
     return () => { alive = false; };
-  }, []);
+  }, [flash]);
 
   const refresh = useCallback(async () => {
     try { setCards(await loadCards()); }
@@ -65,8 +71,8 @@ export default function Dd1380Client() {
     });
   };
 
-  const persist = useCallback(async () => {
-    if (view.kind !== "edit") return;
+  const persist = useCallback(async (): Promise<boolean> => {
+    if (view.kind !== "edit") return false;
     const existing = cards.find((c) => c.id === view.id);
     const now = Date.now();
     const createdAt = existing?.createdAt ?? now;
@@ -77,20 +83,32 @@ export default function Dd1380Client() {
       createdAt,
       updatedAt: now,
     };
-    try { await saveCard(c); await refresh(); }
-    catch (e) { console.warn("DD1380 save failed:", e); }
-  }, [view, draft, cards, refresh]);
+    try { await saveCard(c); await refresh(); return true; }
+    catch (e) { console.warn("DD1380 save failed:", e); flash("err", "Save failed. This device may be out of storage or in private mode."); return false; }
+  }, [view, draft, cards, refresh, flash]);
 
-  const saveAndClose = async () => { await persist(); setView({ kind: "list" }); };
+  const saveAndClose = async () => {
+    const ok = await persist();
+    if (ok) { flash("ok", "Card saved."); setView({ kind: "list" }); }
+  };
 
   const removeCard = async (id: string) => {
-    try { await deleteCard(id); await refresh(); }
-    catch (e) { console.warn("DD1380 delete failed:", e); }
+    try { await deleteCard(id); await refresh(); flash("ok", "Card deleted."); }
+    catch (e) { console.warn("DD1380 delete failed:", e); flash("err", "Could not delete the card."); }
   };
 
   const exportCurrent = async () => {
     if (view.kind !== "edit") return;
-    await persist();
+    // Minimum data: the real card requires a casualty identifier. Block export
+    // with no name and no battle roster - that is an unusable record.
+    const name = typeof draft.name === "string" ? draft.name.trim() : "";
+    const br = typeof draft.battleRoster === "string" ? draft.battleRoster.trim() : "";
+    if (!name && !br) {
+      flash("err", "Add a casualty name or battle roster # before exporting.");
+      return;
+    }
+    const ok = await persist();
+    if (!ok) return;
     const existing = cards.find((c) => c.id === view.id);
     const c: DdCard = {
       id: view.id,
@@ -99,8 +117,8 @@ export default function Dd1380Client() {
       createdAt: existing?.createdAt ?? Date.now(),
       updatedAt: Date.now(),
     };
-    try { await exportDd1380Pdf(c); }
-    catch (e) { console.warn("DD1380 PDF export failed:", e); }
+    try { await exportDd1380Pdf(c); flash("ok", "PDF exported."); }
+    catch (e) { console.warn("DD1380 PDF export failed:", e); flash("err", "PDF export failed."); }
   };
 
   const renderField = (f: DdField) => {
@@ -135,24 +153,26 @@ export default function Dd1380Client() {
     const val = typeof raw === "string" ? raw : "";
     return (
       <div key={f.id} style={{ marginBottom: 12 }}>
-        <label style={{ display: "block", fontSize: 11, color: tokens.textMuted, marginBottom: 4 }}>
+        <label htmlFor={f.id} style={{ display: "block", fontSize: 11, color: tokens.textMuted, marginBottom: 4 }}>
           {f.label}
           {f.hint && <span style={{ color: tokens.amber, marginLeft: 6 }}>{f.hint}</span>}
         </label>
         {f.kind === "textarea" ? (
           <textarea
+            id={f.id}
             style={{ ...inputStyle, minHeight: 64, resize: "vertical", lineHeight: 1.5 }}
             placeholder={f.placeholder}
             value={val}
             onChange={(e) => setField(f.id, e.target.value)}
           />
         ) : f.kind === "select" ? (
-          <select style={inputStyle} value={val} onChange={(e) => setField(f.id, e.target.value)}>
+          <select id={f.id} style={inputStyle} value={val} onChange={(e) => setField(f.id, e.target.value)}>
             <option value="">—</option>
             {f.options?.map((o) => <option key={o} value={o}>{o}</option>)}
           </select>
         ) : (
           <input
+            id={f.id}
             type={f.kind === "date" ? "date" : "text"}
             style={inputStyle}
             placeholder={f.placeholder}
@@ -176,6 +196,11 @@ export default function Dd1380Client() {
           onBack={saveAndClose}
         />
         <div style={styles.body}>
+        {status && (
+          <div style={{ position: "sticky", top: 0, zIndex: 5, background: status.kind === "ok" ? `${tokens.green}1a` : `${tokens.red}1a`, border: `1px solid ${status.kind === "ok" ? tokens.green : tokens.red}`, borderRadius: 8, padding: "8px 12px", margin: "10px 0 0" }} role="status" aria-live="polite">
+            <span style={{ fontSize: 12, fontWeight: 600, color: status.kind === "ok" ? tokens.green : tokens.red }}>{status.text}</span>
+          </div>
+        )}
           <div style={{ padding: "12px 0" }}>
             {DD1380_SECTIONS.map((section) => (
               <div key={section.id} style={{ marginBottom: 18 }}>
@@ -223,6 +248,11 @@ export default function Dd1380Client() {
         onBack={() => router.push("/tools/documentation")}
       />
       <div style={styles.body}>
+        {status && (
+          <div style={{ position: "sticky", top: 0, zIndex: 5, background: status.kind === "ok" ? `${tokens.green}1a` : `${tokens.red}1a`, border: `1px solid ${status.kind === "ok" ? tokens.green : tokens.red}`, borderRadius: 8, padding: "8px 12px", margin: "10px 0 0" }} role="status" aria-live="polite">
+            <span style={{ fontSize: 12, fontWeight: 600, color: status.kind === "ok" ? tokens.green : tokens.red }}>{status.text}</span>
+          </div>
+        )}
         <div style={{ padding: "14px 0 4px" }}>
           <p style={{ fontSize: 12, color: tokens.textDim, lineHeight: 1.6, margin: 0 }}>
             Fill a TCCC casualty card offline, then export a PDF to transcribe onto the official DD 1380. Cards are stored on this device only.
