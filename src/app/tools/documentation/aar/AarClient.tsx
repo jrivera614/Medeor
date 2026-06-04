@@ -38,14 +38,20 @@ export default function AarClient() {
   const [reports, setReports] = useState<AarReport[]>([]);
   const [draft, setDraft] = useState<Record<string, string>>({});
   const [loaded, setLoaded] = useState(false);
+  const [status, setStatus] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
+
+  const flash = useCallback((kind: "ok" | "err", text: string) => {
+    setStatus({ kind, text });
+    window.setTimeout(() => setStatus(null), 3200);
+  }, []);
 
   useEffect(() => {
     let alive = true;
     loadReports()
       .then((r) => { if (alive) { setReports(r); setLoaded(true); } })
-      .catch((e) => { console.warn("AAR load failed:", e); setLoaded(true); });
+      .catch((e) => { console.warn("AAR load failed:", e); setLoaded(true); flash("err", "Could not load saved reports on this device."); });
     return () => { alive = false; };
-  }, []);
+  }, [flash]);
 
   const refresh = useCallback(async () => {
     try { setReports(await loadReports()); }
@@ -65,8 +71,8 @@ export default function AarClient() {
   const setField = (fid: string, val: string) =>
     setDraft((d) => ({ ...d, [fid]: val }));
 
-  const persist = useCallback(async () => {
-    if (view.kind !== "edit") return;
+  const persist = useCallback(async (): Promise<boolean> => {
+    if (view.kind !== "edit") return false;
     const existing = reports.find((r) => r.id === view.id);
     const now = Date.now();
     const createdAt = existing?.createdAt ?? now;
@@ -80,24 +86,40 @@ export default function AarClient() {
     try {
       await saveReport(r);
       await refresh();
+      return true;
     } catch (e) {
       console.warn("AAR save failed:", e);
+      flash("err", "Save failed. This device may be out of storage or in private mode.");
+      return false;
     }
-  }, [view, draft, reports, refresh]);
+  }, [view, draft, reports, refresh, flash]);
 
   const saveAndClose = async () => {
-    await persist();
-    setView({ kind: "list" });
+    const ok = await persist();
+    if (ok) {
+      flash("ok", "Report saved.");
+      setView({ kind: "list" });
+    }
   };
 
   const removeReport = async (id: string) => {
-    try { await deleteReport(id); await refresh(); }
-    catch (e) { console.warn("AAR delete failed:", e); }
+    try { await deleteReport(id); await refresh(); flash("ok", "Report deleted."); }
+    catch (e) { console.warn("AAR delete failed:", e); flash("err", "Could not delete the report."); }
   };
 
   const exportCurrent = async () => {
     if (view.kind !== "edit") return;
-    await persist();
+    // Minimum data check: a casualty AAR with no identifier is a documentation
+    // hazard. Block export and tell the user which fields are missing.
+    const missing: string[] = [];
+    if (!(draft.lastName || "").trim()) missing.push("casualty last name");
+    if (!(draft.last4 || "").trim()) missing.push("last 4 (SSN/DoD ID)");
+    if (missing.length > 0) {
+      flash("err", `Add ${missing.join(" and ")} before exporting.`);
+      return;
+    }
+    const ok = await persist();
+    if (!ok) return;
     const existing = reports.find((r) => r.id === view.id);
     const r: AarReport = {
       id: view.id,
@@ -106,32 +128,34 @@ export default function AarClient() {
       createdAt: existing?.createdAt ?? Date.now(),
       updatedAt: Date.now(),
     };
-    try { await exportAarPdf(r); }
-    catch (e) { console.warn("AAR PDF export failed:", e); }
+    try { await exportAarPdf(r); flash("ok", "PDF exported."); }
+    catch (e) { console.warn("AAR PDF export failed:", e); flash("err", "PDF export failed."); }
   };
 
   const renderField = (f: AarField) => {
     const val = draft[f.id] ?? "";
     return (
       <div key={f.id} style={{ marginBottom: 12 }}>
-        <label style={{ display: "block", fontSize: 11, color: tokens.textMuted, marginBottom: 4 }}>
+        <label htmlFor={f.id} style={{ display: "block", fontSize: 11, color: tokens.textMuted, marginBottom: 4 }}>
           {f.label}
           {f.hint && <span style={{ color: tokens.amber, marginLeft: 6 }}>{f.hint}</span>}
         </label>
         {f.kind === "textarea" ? (
           <textarea
+            id={f.id}
             style={{ ...inputStyle, minHeight: 64, resize: "vertical", lineHeight: 1.5 }}
             placeholder={f.placeholder}
             value={val}
             onChange={(e) => setField(f.id, e.target.value)}
           />
         ) : f.kind === "select" ? (
-          <select style={inputStyle} value={val} onChange={(e) => setField(f.id, e.target.value)}>
+          <select id={f.id} style={inputStyle} value={val} onChange={(e) => setField(f.id, e.target.value)}>
             <option value="">—</option>
             {f.options?.map((o) => <option key={o} value={o}>{o}</option>)}
           </select>
         ) : (
           <input
+            id={f.id}
             type={f.kind === "date" ? "date" : f.kind === "time" ? "time" : "text"}
             style={inputStyle}
             placeholder={f.placeholder}
@@ -155,6 +179,11 @@ export default function AarClient() {
           onBack={saveAndClose}
         />
         <div style={styles.body}>
+        {status && (
+          <div style={{ position: "sticky", top: 0, zIndex: 5, background: status.kind === "ok" ? `${tokens.green}1a` : `${tokens.red}1a`, border: `1px solid ${status.kind === "ok" ? tokens.green : tokens.red}`, borderRadius: 8, padding: "8px 12px", margin: "10px 0 0" }} role="status" aria-live="polite">
+            <span style={{ fontSize: 12, fontWeight: 600, color: status.kind === "ok" ? tokens.green : tokens.red }}>{status.text}</span>
+          </div>
+        )}
           <div style={{ padding: "12px 0" }}>
             {AAR_SECTIONS.map((section) => (
               <div key={section.id} style={{ marginBottom: 18 }}>
@@ -202,6 +231,11 @@ export default function AarClient() {
         onBack={() => router.push("/tools/documentation")}
       />
       <div style={styles.body}>
+        {status && (
+          <div style={{ position: "sticky", top: 0, zIndex: 5, background: status.kind === "ok" ? `${tokens.green}1a` : `${tokens.red}1a`, border: `1px solid ${status.kind === "ok" ? tokens.green : tokens.red}`, borderRadius: 8, padding: "8px 12px", margin: "10px 0 0" }} role="status" aria-live="polite">
+            <span style={{ fontSize: 12, fontWeight: 600, color: status.kind === "ok" ? tokens.green : tokens.red }}>{status.text}</span>
+          </div>
+        )}
         <div style={{ padding: "14px 0 4px" }}>
           <p style={{ fontSize: 12, color: tokens.textDim, lineHeight: 1.6, margin: 0 }}>
             Draft a TCCC after-action report offline, then export a PDF to transcribe into the official JTS submission. Reports are stored on this device only.
