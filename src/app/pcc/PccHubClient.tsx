@@ -22,6 +22,7 @@ interface PccTopic {
 }
 
 const TOPICS: PccTopic[] = [
+  { id: "card",    icon: <ClipboardPlus size={22} strokeWidth={1.75} color={tokens.red} />, title: "PCC Casualty Card",   sub: "Fillable card, PDF export",                     color: tokens.red,    ready: true,  route: "/pcc/card" },
   { id: "meds",    icon: <Pill size={22} strokeWidth={1.75} color={tokens.brand} />,  title: "Medications",        sub: "Analgesia, vasoactives, abx, paralytics, blood", color: tokens.brand,  ready: true,  route: "/pcc/meds" },
   { id: "skills",  icon: <Scissors size={22} strokeWidth={1.75} color={tokens.indigo} />, title: "Skills & Procedures", sub: "Foley, NG/OG, whole blood, lines, cric care",      color: tokens.indigo, ready: true,  route: "/pcc/skills" },
   { id: "wound",   icon: <Cross size={22} strokeWidth={1.75} color={tokens.pink} />,   title: "Wound Care",           sub: "Debridement, infection, burns, dressings, closure", color: tokens.pink,   ready: true,  route: "/pcc/wound" },
@@ -29,7 +30,6 @@ const TOPICS: PccTopic[] = [
   { id: "vent",    icon: <AirVent size={22} strokeWidth={1.75} color={tokens.cyan} />, title: "Vent Management",     sub: "SAVe II, EMV+ 731, ARDS strategies",            color: tokens.cyan,   ready: true,  route: "/pcc/vent" },
   { id: "trouble", icon: <AlertTriangle size={22} strokeWidth={1.75} color={tokens.amber} />, title: "Troubleshooting",     sub: "Alarms, deterioration, equipment failure",      color: tokens.amber,  ready: true,  route: "/pcc/trouble" },
   { id: "cpgs",    icon: <Files size={22} strokeWidth={1.75} color={tokens.blue} />,   title: "JTS CPGs",            sub: "Curated PCC-relevant clinical practice guidelines", color: tokens.blue,   ready: true,  route: "/pcc/cpgs" },
-  { id: "card",    icon: <ClipboardPlus size={22} strokeWidth={1.75} color={tokens.red} />, title: "PCC Casualty Card",   sub: "Fillable card, PDF export",                     color: tokens.red,    ready: true,  route: "/pcc/card" },
 ];
 
 export default function PccHubClient() {
